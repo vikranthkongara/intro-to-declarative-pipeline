@@ -47,11 +47,11 @@ In **Exercise 1.2** we will update the pipeline we created in 1.1 to execute in 
 
 ```
    agent {
-      docker { image 'maven:3.3-jdk-8' }
+      docker { image 'maven:3.5.2-jdk-9' }
    }
 ```
 
-4. Execute your job by clicking on **Build Now** and check the Console Log to see how Jenkins pulls the appropriate docker image and runs your build insde the container created from that image.
+4. Execute your job by clicking on **Build Now** and check the Console Log to see how Jenkins pulls the appropriate docker image and runs your build insde the container created from that image. Also note that you are able to compile against JDK 9 regardless what JDK the Jenkins agent is using.
 
 Before going on to the next exercise let's revert our pipeline to using:
 
