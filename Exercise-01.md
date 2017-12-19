@@ -35,7 +35,15 @@ pipeline {
 
 In **Exercise 1.2** we will update the pipeline we created in 1.1 to execute in a docker container. To update the pipeline:
 
-1. Click on configure and update the ```agent``` portion of the pipeline to read:
+1. In the `steps` block add the following after the `echo` step:
+
+```
+  sh 'mvn -v'
+```
+
+2. Execute your job by clicking on **Build Now** and check the Console Log. The build will fail with `mvn: not found`
+
+3. Click on configure and update the ```agent``` portion of the pipeline to read:
 
 ```
    agent {
@@ -43,7 +51,7 @@ In **Exercise 1.2** we will update the pipeline we created in 1.1 to execute in 
    }
 ```
 
-2. Execute your job by clicking on **Build Now** and check the Console Log to see how Jenkins pulls the appropriate docker image and runs your build insde the container created from that image.
+4. Execute your job by clicking on **Build Now** and check the Console Log to see how Jenkins pulls the appropriate docker image and runs your build insde the container created from that image.
 
 Before going on to the next exercise let's revert our pipeline to using:
 
