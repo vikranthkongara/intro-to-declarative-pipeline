@@ -59,6 +59,7 @@ Before going on to the next exercise let's revert our pipeline to using:
    agent any
 ```
 
+And remove the `sh 'mvn -v'` step
 
 # Exercise 1.3
 
