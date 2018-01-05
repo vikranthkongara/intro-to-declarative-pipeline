@@ -41,12 +41,11 @@ When the job has completed running you will see a **Resume** icon in the build's
 
 In the following exercise we are going to demonstrate how you can use the Custom Marker feature of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
 
-In order to complete the following exercise you will need to fork the following repositories into your Github organization:
+In order to complete the following exercise you will need to fork the following repository into the Github organization you created in **Exercise 2.1**:
 
 * https://github.com/PipelineHandsOn/maven-project
-* https://github.com/PipelineHandsOn/custom-marker-files
 
-Once those repositories are forked:
+Once that repository is forked:
 
 1. Click on the Github organization project you created in **Exercise 2.2**.
 2. Click on **Configure**
