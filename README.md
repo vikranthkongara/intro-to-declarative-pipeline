@@ -1,13 +1,13 @@
 # Introduction to Declarative Pipelines
 
-This is repository contains the instructions and learning materials associated with a hands on training workshop called **Introduction to Declarative Pipelines** that is designed to teach the following key concepts:
+This repository contains the instructions and learning materials associated with a hands on training workshop called **Introduction to Declarative Pipelines** that is designed to teach the following key concepts:
 
   * What are Jenkins Pipelines and why should you use them?
-  * Why should you use Declarative vs Scripted pipelines?
+  * Why should you use [Declarative](https://jenkins.io/doc/book/pipeline/syntax/#declarative-pipeline) vs [Scripted](https://jenkins.io/doc/book/pipeline/syntax/#scripted-pipeline) pipelines?
   * What tools are available for creating pipelines?
   * How can you create a simple pipeline via Jenkins?
   * What are the key features of Declarative pipelines?
-  * How do you create multibranch pipelines using the Github Organization project?
+  * How do you create multibranch pipelinest?
   * How do you  create a pipeline using Blue Ocean's pipeline editor?
   * What Pipeline features are available only to CloudBees Enterprise Jenkins customers?
   
