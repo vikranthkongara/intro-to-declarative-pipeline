@@ -106,24 +106,35 @@ Then update the ```echo "Hello ${MY_NAME}!'``` line to read ```echo "Hello ${par
 
 # Exercise 1.5
 
-For **Exercise 1.5** we are going to add a new stage after the **Say Hello** stage that will demonstrate how to ask interactively for user input.
+For **Exercise 1.5** we are going to add a new stage after the **Say Hello** stage that will demonstrate how to ask interactively for user input. The declarative `input` directive blocks the `stage` from executing and acquiring an agent. If the `input` is approved, the stage will then continue.
 
 Insert the following ```stage``` block into your pipeline:
 
 ```
       stage('Deploy') {
+      	 input {
+      	     message "Should we continue?"
+      	  }
          steps {
-            input 'Should I deploy?'
+            echo "Continuing with deployment"
          }
       }
 ```
 
-**Note**: To keep Jenkins from waiting indefinitely for a user response your should wrap you input steps in a ```timeout``` like shown below:
+**Note**: To keep Jenkins from waiting indefinitely for a user response your should set a ```timeout``` for the `stage` like shown below:
 
 ```
-            timeout(time: 1, unit: 'MINUTES') {
-               input 'Should I deploy?'
-            }
+        stage('Deploy') {
+           options {
+                timeout(time: 1, unit: 'MINUTES') 
+           }
+      	    input {
+      	        message "Should we continue?"
+      	    }
+           steps {
+               echo "Continuing with deployment"
+           }
+        }
 ```
 
 # Exercise 1.6
@@ -134,16 +145,20 @@ In this example we will add a Post Action to our **Deploy** stage to handle a ti
 
 ```
       stage('Deploy') {
-         steps {
-            timeout(time: 1, unit: 'MINUTES') {
-               input 'Should I deploy?'
-            }
-         }
-         post {
-            aborted {
-               echo 'Why didn\'t you push my button?'
-            }
-         }
+        options {
+          timeout(time: 1, unit: 'MINUTES')
+        }
+        input {
+          message "Should we continue?"
+        }
+        steps {
+          echo "Continuing with deployment"
+        }
+        post {
+          aborted {
+            echo 'Why didn\'t you push my button?'
+          }
+        }
       }
 ```
 
