@@ -25,7 +25,11 @@ The following instructions can be used to provision a customized CJE Master on j
 2. Click on the **Create an account** link 
 3. Complete the **Sign up** form (all fields are required) and click the **Sign up** button;
 4. You should see a **Success** page - click on **the top page** link;
-5. 
+5. Clock on the link for the **workshop** folder;
+6. In the left menu, click on the **New dev-folder** link;
+7. For **Enter an item name** enter your workshop **Username**, select **dev-folder** and click the **OK** button;
+8. On the next screen, click the **Save** button;
+9. You will now be in your very own **dev-folder** where you will be able to create and edit Pipelines for this workshop.
 
 ### Setup Shared Library
 
@@ -57,11 +61,6 @@ In exercise 1.3 participants will use the ```test-user``` credential in a pipeli
 2. Click on **Add Credentials**;
 3. In the **Add Credentials** form select **Username with password**, enter ```test-user``` for **Username**, **Password**, and the **ID** field;
 4. Click on **OK** to save the new credential;
-5. Clock on the link for the **workshop** folder;
-6. In the left menu, click on the **New dev-folder** link;
-7. For **Enter an item name** enter your workshop **Username**, select **dev-folder** and click the **OK** button;
-8. On the next screen, click the **Save** button;
-9. You will now be in your very own **dev-folder** where you will be able to create and edit Pipelines for this workshop.
 
 ### Send a Pre-Worshop Email to Participants
 
