@@ -19,6 +19,10 @@ The following instructions can be used to provision a customized CJE Master on j
   3. Uncheck the **Enable** checkbox for **Analytics Reporting**
   4. VERY IMPORTANT - check the **Opt-out** checkboc for **Security Setting Enforcement**
 6. Once the workshop Managed Master is up and running login with the **User** **admin** and provided **Password**
+7. Ensure that you see the following items on the first page:
+  - **dev-folder** a CloudBees Folder Template
+  - **Operations Center Shared Templates** shared Docker Agent Templates from CJOC
+  - **workshop** Folder - folder in which participants will be able to create individual folders
 
 ### Participant Instructions
 1. Goto to the Workshop URL provided by the instructor;
