@@ -38,6 +38,49 @@ When the job has completed running you will see a **Resume** icon in the build's
 **Note**: Deleting a checkpoint doesn't make the **Resume** icon vanish.
 
 # Exercise 3.2
+In this exercise we are going to set-up two Pipeline jobs that demonstrate CloudBee's Cross Team Collaboration feature. We will need two separate Pipelines - one that publishes an event - and two - another that is triggered by an event.
+
+### Publish Event
+
+```
+pipeline {
+    agent none
+    stages {
+        stage('Publish Event') {
+            steps {
+                publishEvent(generic('beeEvent'))
+            }
+        }
+    }
+}
+```
+
+### Event Trigger
+
+```
+pipeline {
+    agent none
+    triggers {
+        eventTrigger(event(generic('beeEvent')))
+    }
+    stages {
+        stage('Event Trigger') {
+            when {
+                expression { 
+                    return currentBuild.rawBuild.getCause(com.cloudbees.jenkins.plugins.pipeline.events.EventTriggerCause)
+                }
+            }
+            steps {
+                echo 'triggered by published event'
+            }
+        }
+    }
+}
+```
+
+After creating both of these Pipeline jobs you will need to run the **Event Trigger** job once so that the trigger is registered. Once that is complete, click on **Build Now** to run the **Publish Event** job. Once that job has completed, the **Event Trigger** job will be triggered after a few seconds. The logs will show that the job was triggered by an `Event Trigger` and the `when` expression will be true.
+
+# Exercise 3.3
 
 In the following exercise we are going to demonstrate how you can use the Custom Marker feature of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
 

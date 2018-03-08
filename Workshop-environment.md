@@ -17,7 +17,7 @@ The following instructions can be used to provision a customized CJE Master on j
     3. Increase the **Jenkins Master CPUs** from **0.2** to **0.8**
   2. Uncheck the **Enabled** checkbox for **Health Reporting**
   3. Uncheck the **Enable** checkbox for **Analytics Reporting**
-  4. VERY IMPORTANT - check the **Opt-out** checkboc for **Security Setting Enforcement**
+  4. VERY IMPORTANT - check the **Opt-out** checkbox for **Security Setting Enforcement**
 6. Once the workshop Managed Master is up and running login with the **User** **admin** and provided **Password**
 7. Ensure that you see the following items on the first page:
   - **dev-folder** a CloudBees Folder Template
@@ -29,7 +29,7 @@ The following instructions can be used to provision a customized CJE Master on j
 2. Click on the **Create an account** link 
 3. Complete the **Sign up** form (all fields are required) and click the **Sign up** button;
 4. You should see a **Success** page - click on **the top page** link;
-5. Clock on the link for the **workshop** folder;
+5. Click on the link for the **workshop** folder;
 6. In the left menu, click on the **New dev-folder** link;
 7. For **Enter an item name** enter your workshop **Username**, select **dev-folder** and click the **OK** button;
 8. On the next screen, click the **Save** button;
