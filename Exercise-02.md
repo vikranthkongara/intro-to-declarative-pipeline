@@ -52,6 +52,10 @@ When the project was created it also should have created webhooks in Github. Ver
 
 In this exercise we are going to edit the Jenkinsfile file in the **development** branch of our project to add a branch specific stage.
 
+**Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2.6:
+
+  - Add beforeAgent option for when - if true, when conditions will be evaluated before entering the agent.
+
 1. Within your **sample-rest-server** project select the **development** branch from the **Branch** drop down menu
 2. Click on the **Jenkinsfile** in the file list
 3. Click on the **Edit this file** button (pencil)
@@ -60,6 +64,7 @@ In this exercise we are going to edit the Jenkinsfile file in the **development*
 ```
       stage('Development Tests') {
          when {
+            beforeAgent true
             branch 'development'
          }
          steps {
