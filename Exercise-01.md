@@ -1,19 +1,26 @@
+# Exercise 1.0
+In this exercise you will setup a work environment for the lessons provided
+in this workshop.  Ask the instructor for the URL of the server you will be using during the workshop.
+
+1. Goto to the Workshop URL provided by the instructor;
+2. Click on the **Create an account** link in the middle of the page under the **Login** button.
+3. Complete the **Sign up** form (all fields are required) and click the **Sign up** button;
+4. You should see a **Success** page - click on **the top page** link;
+5. Click on the link for the **workshop** folder;
+6. In the left menu, click on the **New dev-folder** link;
+7. For **Enter an item name** enter your workshop **Username**, select **dev-folder** and click the **OK** button;
+8. On the next screen, click the **Save** button;
+9. You will now be in your very own **dev-folder** where you will be able to create and edit Pipelines for this workshop.
+
 # Exercise 1.1
 
 In **Exercise 1.1** we will create a simple declarative pipeline directly within the Jenkins interface.
 
-First create a personal folder in Jenkins to hold the pipelines you create in this workshop:
+Using the personal folder created for you in Exercise 1.0, do the following:
 
-1. Log into Jenkins
-2. Click on **New Item**
-3. Type you name into the **Enter an item name** text box, click on **Folder**, and then click on the **OK** button.
-4. Click on **Save** in the folder configuration screen to accept the default options.
-
-Now create a new pipeline inside of your personal folder:
-
-1. Click on the **create new jobs** link.
-2. Type **SimplePipeline** into the **Enter an item name** (example: MyFirstPipeline) text box, click on **Pipeline**, and then click on the **OK** button.
-3. Copy and paste the following code into the **Pipeline Script** text box:
+1. Click on the **create new jobs** link.  Alternatively you can create a job by selecting **New Item** from the left menu and then step 2 below.
+2. Type **SimplePipeline** into the **Enter an item name** text box, click on **Pipeline**, and then click on the **OK** button.
+3. Copy and paste the following code into the **Pipeline Script** text box near the bottom of the page:
 
 ```
 pipeline {
@@ -29,29 +36,34 @@ pipeline {
 }
 ```
 
-4. Click on **Save** and then click on **Build Now** to run your pipeline.
+4. Click on **Save** and then click on **Build Now** in the left menu to run your pipeline.
 
 # Exercise 1.2
 
-In **Exercise 1.2** we will update the pipeline we created in 1.1 to execute in a docker container. To update the pipeline:
+In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to execute in a docker container. To update the pipeline:
 
 1. In the `steps` block add the following after the `echo` step:
 
 ```
-  sh 'mvn -v'
+  sh 'make --version'
 ```
 
-2. Execute your job by clicking on **Build Now** and check the Console Log. The build will fail with `mvn: not found`
+2. Execute your job by clicking on **Build Now** and check the Console Log. The build will fail with `make: not found`
 
 3. Click on configure and update the ```agent``` portion of the pipeline to read:
 
 ```
    agent {
-      docker { image 'maven:3.5.2-jdk-9' }
+      docker { 
+        image 'gcc:latest'
+        label 'docker-cloud' 
+      }
    }
 ```
 
-4. Execute your job by clicking on **Build Now** and check the Console Log to see how Jenkins pulls the appropriate docker image and runs your build insde the container created from that image. Also note that you are able to compile against JDK 9 regardless what JDK the Jenkins agent is using.
+4. Execute your job by clicking on **Build Now** and check the Console Log to see how Jenkins pulls the appropriate docker image and runs your build inside the container created from that image. 
+
+5. Remove the `label 'docker-cloud'` line from your pipeline job and build the job again by clicking on **Build Now**.  The job should still work... but why?? Pipeline Model Definition is why.  The Pipeline Model Definition allows an administrator to define the default label a job should use if one is not specified with docker.  In this case the Pipeline Model Definition is already set to `docker-cloud`.  This means that you will get an agent running dockerd everytime you use the docker {} block so using label parameter is redundant unless you need a specific docker agent.
 
 Before going on to the next exercise let's revert our pipeline to using:
 
@@ -59,7 +71,7 @@ Before going on to the next exercise let's revert our pipeline to using:
    agent any
 ```
 
-And remove the `sh 'mvn -v'` step
+And remove the `sh 'make --version'` step
 
 # Exercise 1.3
 
@@ -73,7 +85,7 @@ At the top of the pipeline insert the following code between the ```agent``` and
    }
 ```
 
-Then update the ```echo 'Hello World!'``` line to read ```echo "Hello ${MY_NAME}!"``` and run your build again to view the results.
+Then update the ```echo 'Hello World!'``` line to read ```echo "Hello ${MY_NAME}!"``` and run your build again to view the results.  Notice the change from '' to "".  Using double quotes will trigger extrapolation of environment variables.
 
 We can also use environmental variables to import credentials. To demonstrate we will add the following line to our ```environment``` block:
 
@@ -110,38 +122,38 @@ For **Exercise 1.5** we are going to add a new stage after the **Say Hello** sta
 
 **Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2.6:
 
-  - Add options for stage - supports block-scoped "wrappers" like timeout and Declarative options like skipDefaultCheckout
-  - Add input directive for stage - runs the input step with the supplied configuration before entering the when or agent for a stage, and makes any parameters provided as part of the input step available as environment variables.
+  - Add options {} for stage - supports block-scoped "wrappers" like timeout and Declarative options like skipDefaultCheckout
+  - Add input {} directive for stage - runs the input step with the supplied configuration before entering the when or agent for a stage, and makes any parameters provided as part of the input step available as environment variables.
 
 The declarative `input` directive blocks the `stage` from executing and acquiring an agent - this is an important enhancement as previously a more complicated work-around was required to not tie up an agent with an input step. If the `input` is approved, the stage will then continue.
 
-Insert the following ```stage``` block into your pipeline:
+Insert the following `stage` block into your pipeline after `stage('Say Hello') {} block:
 
 ```
-      stage('Deploy') {
-      	 input {
-      	     message "Should we continue?"
-      	  }
-         steps {
-            echo "Continuing with deployment"
-         }
+    stage('Deploy') {
+      input {
+        message "Should we continue?"
       }
+      steps {
+        echo "Continuing with deployment"
+      }
+    }
 ```
 
 **Note**: To keep Jenkins from waiting indefinitely for a user response your should set a ```timeout``` for the `stage` like shown below:
 
 ```
-        stage('Deploy') {
-           options {
-                timeout(time: 1, unit: 'MINUTES') 
-           }
-      	    input {
-      	        message "Should we continue?"
-      	    }
-           steps {
-               echo "Continuing with deployment"
-           }
-        }
+    stage('Deploy') {
+      options {
+        timeout(time: 1, unit: 'MINUTES') 
+      }
+      input {
+        message "Should we continue?"
+      }
+      steps {
+        echo "Continuing with deployment"
+      }
+    }
 ```
 
 # Exercise 1.6
@@ -171,7 +183,7 @@ In this example we will add a Post Action to our **Deploy** stage to handle a ti
 
 On the next build wait for the input time and you will see the following line in your console output: ```Why didn't you push my button?```.
 
-**Note**: After you have executed this pipeline several times you might want to remove the ```Deploy``` stage from your pipeline so that you will not have to manually approve it each time it runs.
+**Note**: After completing this exercise remove the ```Deploy``` stage from your pipeline so that you will not have to manually approve it each time it runs.
 
 # Exercise 1.7
 
