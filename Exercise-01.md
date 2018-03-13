@@ -82,7 +82,7 @@ At the top of the pipeline insert the following code between the ```agent``` and
    }
 ```
 
-Then update the ```echo 'Hello World!'``` line to read ```echo "Hello ${MY_NAME}!"``` and run your build again to view the results.
+Then update the ```echo 'Hello World!'``` line to read ```echo "Hello ${MY_NAME}!"``` and run your build again to view the results. (Note the change from single to double quotes).
 
 We can also use environmental variables to import credentials. To demonstrate we will add the following line to our ```environment``` block:
 
