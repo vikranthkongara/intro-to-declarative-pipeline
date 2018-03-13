@@ -41,7 +41,16 @@ In **Exercise 1.2** we will update the pipeline we created in 1.1 to execute in 
   sh 'mvn -v'
 ```
 
-2. Execute your job by clicking on **Build Now** and check the Console Log. The build will fail with `mvn: not found`
+2. Execute your job by clicking on **Build Now** and check the Console Log.
+Depending of the type of agent provisioned (since we are targeting *any* type of agent), the build can either fail with `mvn: not found` or display the current maven version (if maven is installed on the randomly chosen agent type):
+```
+Apache Maven 3.5.2 (138edd61fd100ec658bfa2d307c43b76940a5d7d; 2017-10-18T07:58:13Z)
+Maven home: /usr/share/java/maven-3
+Java version: 1.8.0_151, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-1.8-openjdk/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.13.0-135-generic", arch: "amd64", family: "unix"
+```
 
 3. Click on configure and update the ```agent``` portion of the pipeline to read:
 
