@@ -1,4 +1,6 @@
-# Exercise 1.0
+# 1 - Declarative Syntac Basics
+
+# Exercise 1.0 - Set-up
 In this exercise you will setup a work environment for the lessons provided
 in this workshop.  Ask the instructor for the URL of the server you will be using during the workshop.
 
@@ -12,9 +14,11 @@ in this workshop.  Ask the instructor for the URL of the server you will be usin
 8. On the next screen, click the **Save** button;
 9. You will now be in your very own **dev-folder** where you will be able to create and edit Pipelines for this workshop.
 
-# Exercise 1.1
+# Exercise 1.1 - Basic Declarative Syntax Structure
 
 In **Exercise 1.1** we will create a simple declarative pipeline directly within the Jenkins interface.
+
+Declarative Pipelines must be enclosed within a `pipeline` block that in turn contains exactly one `stages` block. The `stages` block must have at least one `stage` block but can have an unlimited number of additional stages. Each `stage` block must have exactly one `steps` block.
 
 Using the personal folder created for you in Exercise 1.0, do the following:
 
@@ -30,6 +34,7 @@ pipeline {
       stage('Say Hello') {
          steps {
             echo 'Hello World!'   
+            sh 'jave -version'
          }
       }
    }
@@ -38,9 +43,27 @@ pipeline {
 
 4. Click on **Save** and then click on **Build Now** in the left menu to run your pipeline.
 
-# Exercise 1.2
+# Exercise 1.2 - Agents
 
-In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to execute in a docker container. To update the pipeline:
+In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was less than 9. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` parameter:
+
+1. Replace the `agent any` declaration with the following `agent` declaration:
+
+```
+  agent {
+    label 'jdk9'
+  }
+```
+
+2. Execute your job by clicking on **Build Now** and check the Console Log. You should see something similar to the following:
+
+```
+
+```
+
+# Exercise 1.3 - Agents with Docker
+
+In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to execute steps in a Docker container. To update the pipeline:
 
 1. In the `steps` block add the following after the `echo` step:
 
@@ -73,9 +96,9 @@ Before going on to the next exercise let's revert our pipeline to using:
 
 And remove the `sh 'make --version'` step
 
-# Exercise 1.3
+# Exercise 1.4 - Environment Directive
 
-For **Exercise 1.3** we are going to update our **SimplePipeline** job to demonstrate how to use environmental variables.
+For **Exercise 1.4** we are going to update our **SimplePipeline** job to demonstrate how to use the `environment` directive to set and use environment variables. We will also see how this directive supports a special helper method `credentials()`. access pre-defined Credentials by their identifier in the Jenkins environment.
 
 At the top of the pipeline insert the following code between the ```agent``` and ```stages``` blocks:  
 
@@ -100,9 +123,9 @@ We will also add the following ```echo``` steps within the ```steps``` of the Sa
 
 **Note**: After executing the build look at the console output and make note of the fact that the credential user name and password are masked when output via the echo command.
 
-# Exercise 1.4
+# Exercise 1.5 - Parameters
 
-In **Exercise 1.4** we will alter our pipeline to accept external input in the form of a Parameter.
+In **Exercise 1.5** we will alter our pipeline to accept external input in the form of a Parameter.
 
 At the top of your pipeline insert the following block of code between the ```environment``` and ```stages``` blocks:
 
@@ -115,211 +138,3 @@ At the top of your pipeline insert the following block of code between the ```en
 Then update the ```echo "Hello ${MY_NAME}!'``` line to read ```echo "Hello ${params.Name}!"``` and run your build again to view the results.
 
 **Note**: Jenkins UI won't update properly when you save the pipeline to show the ```Build with parameters``` option so you need to run a build, view the results, and then return to the project to see the updated option.
-
-# Exercise 1.5
-
-For **Exercise 1.5** we are going to add a new stage after the **Say Hello** stage that will demonstrate how to ask interactively for user input. 
-
-**Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2.6:
-
-  - Add options {} for stage - supports block-scoped "wrappers" like timeout and Declarative options like skipDefaultCheckout
-  - Add input {} directive for stage - runs the input step with the supplied configuration before entering the when or agent for a stage, and makes any parameters provided as part of the input step available as environment variables.
-
-The declarative `input` directive blocks the `stage` from executing and acquiring an agent - this is an important enhancement as previously a more complicated work-around was required to not tie up an agent with an input step. If the `input` is approved, the stage will then continue.
-
-Insert the following `stage` block into your pipeline after `stage('Say Hello') {} block:
-
-```
-    stage('Deploy') {
-      input {
-        message "Should we continue?"
-      }
-      steps {
-        echo "Continuing with deployment"
-      }
-    }
-```
-
-**Note**: To keep Jenkins from waiting indefinitely for a user response your should set a ```timeout``` for the `stage` like shown below:
-
-```
-    stage('Deploy') {
-      options {
-        timeout(time: 1, unit: 'MINUTES') 
-      }
-      input {
-        message "Should we continue?"
-      }
-      steps {
-        echo "Continuing with deployment"
-      }
-    }
-```
-
-# Exercise 1.6
-
-In this example we will replace the **Deploy** stage with an input that returns data to the pipeline for use later in a subsequent step or stage.  This form of input is useful when needing to query users for additional data before continuing pipeline processing.
-
-Replace the **Deploy** stage with the following and rerun the job:
-```
-    stage('Deploy') {
-      input {
-        message "Which Version?"
-        ok "Deploy"
-        parameters {
-            choice(name: 'APP_VERSION', choices: "v1.1\nv1.2\nv1.3", description: 'What to deploy?')
-        }
-      }
-      steps {
-        echo "Deploying ${APP_VERSION}."
-      }
-    }
-```
-
-
-# Exercise 1.7
-
-What happens if your input step times out? **Post Actions** are designed to handle a variety of conditions (not only failures) that could occur outside the standard pipeline flow.
-
-In this example we will add a Post Action to our **Deploy** stage to handle a time out (aborted run). Modify your **Deploy** stage to look like:
-
-```
-    stage('Deploy') {
-      options {
-        timeout(time: 1, unit: 'MINUTES') 
-      }
-      input {
-        message "Which Version?"
-        ok "Deploy"
-        parameters {
-            choice(name: 'APP_VERSION', choices: "v1.1\nv1.2\nv1.3", description: 'What to deploy?')
-        }
-      }
-      steps {
-        echo "Deploying ${APP_VERSION}."
-      }
-      post {
-        aborted {
-          echo 'Why didn\'t you push my button?'
-        }
-      }
-    }
-      
-```
-
-On the next build wait for the input time and you will see the following line in your console output: ```Why didn't you push my button?```.
-
-**Note**: After completing this exercise remove the ```Deploy``` stage from your pipeline so that you will not have to manually approve it each time it runs.
-
-# Exercise 1.8
-
-In this exercise we will combine the simplicity of declarative pipeline with
-more advanced features of pipeline available via the `script {}` block.  
-
-Scripted Pipelines can be very advanced and contain advanced flow control and variable assignment that are not available in declarative pipelines without using a `script` block.  A `script` block allows you to insert the more advanced scripted version of pipeline into a declarative pipeline.
-
-After removing the ```stage('Deploy')``` block from the previous example add two new stages called ```stage('Get Kernel')``` and ```stage('Say Kernel')``` to your pipeline after the **Say Hello** stage:
-
-```
-    stage('Get Kernel') {
-      steps {
-        script {
-          try {
-            KERNEL_VERSION = sh (script: "uname -r", returnStdout: true)
-          } catch(err) {
-            echo "CAUGHT ERROR: ${err}"
-            throw err
-          }
-        }
-      }
-    }
-    stage('Say Kernel') {
-      steps {
-        echo "${KERNEL_VERSION}"
-      }
-    }
-
-```
-**Note:** Notice the use of the `script` block in the above example.  This allows you to use more advanced scripting options in your declarative pipelines.
-
-**Note**: After completing this exercise remove the ```Get Kernel``` and ```Say Kernel` stages from your pipeline.
-
-
-# Exercise 1.9
-
-In this exercise we are going to add another stage to our pipeline that runs two steps in parallel on two different docker based agents (one running Java 7 and one running Java 8). The following code also includes ```sleep``` steps to demonstrate what happens when parallel steps complete execution at different times:
-
-**Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2 (parallel stages) and 1.2.1 (failFast inside of a parallel stage).
-
-Add the following stage after ```stage('Say Hello')```:
-
-```
-      stage('Testing') {
-        parallel {
-          stage('Java 7') {
-            agent { docker 'openjdk:7-jdk-alpine' }
-            failFast true
-            steps {
-              sh 'java -version'
-              sleep time: 1, unit: 'MINUTES'
-            }
-          }
-          stage('Java 8') {
-            agent { docker 'openjdk:8-jdk-alpine' }
-            steps {
-              sh 'java -version'
-              sleep time: 2, unit: 'MINUTES'
-            }
-          }
-        }
-      }
-```
-
-**Note**: If your build breaks double check your pipeline script to make sure that the agent at the top of of the pipeline was reverted back to ```agent any``` as described in exercise 1.2.
-
-# Exercise 1.10
-
-In **Exercise 1.10** we are going to add a stage to our pipeline that uses a **Shared Library** to import functionality that allows us to say hi.
-
-More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
-
-Add the following line at the top of your pipeline **above** the ```pipeline``` line:
-
-```library 'SharedLibs'```
-
-Then add the following stage after the **Deploy** stage:
-
-```
-      stage('Shared Lib') {
-         steps {
-             helloWorld("Jenkins")
-         }
-      }
-```
-
-The ```helloWorld``` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
-
-# Exercise 1.11
-
-Finally we will use the Blue Ocean Pipeline Editor to create a simple declarative pipeline using the following steps:
-
-1. Click on the **Open Blue Ocean** button in the left side navigation bar
-2. Click on the **New Pipeline** button
-3. Click on one of the options in the **Where do you store your code?** section (Github for this course)
-4. Enter your **Github token**
-5. Select the **Organization** in which the repository that you want to create the Jenkinsfile in exists
-6. Select **New Pipeline**
-7. Choose the **Repository**
-8. Click on **Create Pipeline**
-
-Once the pipeline has created Blue Ocean will open the editor screen. We will create a few simple steps using the following instructions (feel free to veer of course and try all of the options available):
-
-1. Click on the **+** icon next to the pipeline's **Start** node
-2. Click into **Name your stage** and enter a name
-3. Click on **+ Add step**
-4. Click on **Shell script**
-5. Type ```mvn -v``` into the text box
-6. Click on **Save** to save the pipeline and execute it
-7. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**
-
-After your pipeline executes you can click on the **pencil** icon to continue editing your pipeline.
