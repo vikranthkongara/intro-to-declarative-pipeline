@@ -1,4 +1,4 @@
-# 1 - Declarative Syntac Basics
+# 1 - Declarative Syntax Basics
 
 # Exercise 1.0 - Set-up
 In this exercise you will setup a work environment for the lessons provided
@@ -55,10 +55,12 @@ In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to us
   }
 ```
 
-2. Execute your job by clicking on **Build Now** and check the Console Log. You should see something similar to the following:
+2. Execute your job by clicking on **Build Now** and check the Console Log. You should see the following output after the `sh` step:
 
 ```
-
+openjdk version "9.0.4"
+OpenJDK Runtime Environment (build 9.0.4+12-Debian-4)
+OpenJDK 64-Bit Server VM (build 9.0.4+12-Debian-4, mixed mode)
 ```
 
 # Exercise 1.3 - Agents with Docker

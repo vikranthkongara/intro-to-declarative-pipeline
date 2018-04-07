@@ -1,4 +1,6 @@
-# Exercise 2.1
+# 1 - Declarative Syntax Continued
+
+# Exercise 2.1 - Interactive Input
 
 For **Exercise 2.1** we are going to add a new stage after the **Say Hello** stage that will demonstrate how to ask interactively for user input. 
 
@@ -38,7 +40,7 @@ Insert the following `stage` block into your pipeline after `stage('Say Hello') 
     }
 ```
 
-# Exercise 2.2
+# Exercise 2.2 - Input Parameters
 
 In this example we will replace the **Deploy** stage with an input that returns data to the pipeline for use later in a subsequent step or stage.  This form of input is useful when needing to query users for additional data before continuing pipeline processing.
 
@@ -59,7 +61,7 @@ Replace the **Deploy** stage with the following and rerun the job:
 ```
 
 
-# Exercise 2.3
+# Exercise 2.3 - Post Actions
 
 What happens if your input step times out? **Post Actions** are designed to handle a variety of conditions (not only failures) that could occur outside the standard pipeline flow.
 
@@ -93,10 +95,9 @@ On the next build wait for the input time and you will see the following line in
 
 **Note**: After completing this exercise remove the ```Deploy``` stage from your pipeline so that you will not have to manually approve it each time it runs.
 
-# Exercise 2.4
+# Exercise 2.4 - Script Block
 
-In this exercise we will combine the simplicity of declarative pipeline with
-more advanced features of pipeline available via the `script {}` block.  
+In this exercise we will combine the simplicity of declarative pipeline with more advanced features of pipeline available via the `script {}` block.  
 
 Scripted Pipelines can be very advanced and contain advanced flow control and variable assignment that are not available in declarative pipelines without using a `script` block.  A `script` block allows you to insert the more advanced scripted version of pipeline into a declarative pipeline.
 
@@ -127,7 +128,7 @@ After removing the ```stage('Deploy')``` block from the previous example add two
 **Note**: After completing this exercise remove the ```Get Kernel``` and ```Say Kernel` stages from your pipeline.
 
 
-# Exercise 2.5
+# Exercise 2.5 - Parallelization
 
 In this exercise we are going to add another stage to our pipeline that runs two steps in parallel on two different docker based agents (one running Java 7 and one running Java 8). The following code also includes ```sleep``` steps to demonstrate what happens when parallel steps complete execution at different times:
 
@@ -159,24 +160,3 @@ Add the following stage after ```stage('Say Hello')```:
 
 **Note**: If your build breaks double check your pipeline script to make sure that the agent at the top of of the pipeline was reverted back to ```agent any``` as described in [exercise 1.2](./Exercise-01.md).
 
-# Exercise 2.6
-
-In **Exercise 1.10** we are going to add a stage to our pipeline that uses a **Shared Library** to import functionality that allows us to say hi.
-
-More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
-
-Add the following line at the top of your pipeline **above** the ```pipeline``` line:
-
-```library 'SharedLibs'```
-
-Then add the following stage after the **Deploy** stage:
-
-```
-      stage('Shared Lib') {
-         steps {
-             helloWorld("Jenkins")
-         }
-      }
-```
-
-The ```helloWorld``` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy

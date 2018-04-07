@@ -1,6 +1,28 @@
 # 3 - Pipeline As Code
 
-# Exercise 3.1
+# Exercise 3.1 - Shared Libraries
+
+In **Exercise 1.10** we are going to add a stage to our pipeline that uses a **Shared Library** to import functionality that allows us to say hi.
+
+More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
+
+Add the following line at the top of your pipeline **above** the ```pipeline``` line:
+
+```library 'SharedLibs'```
+
+Then add the following stage after the **Deploy** stage:
+
+```
+      stage('Shared Lib') {
+         steps {
+             helloWorld("Jenkins")
+         }
+      }
+```
+
+The ```helloWorld``` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
+
+# Exercise 3.2 - Blue Ocean Editor
 
 Finally we will use the Blue Ocean Pipeline Editor to create a simple declarative pipeline using the following steps:
 
@@ -25,7 +47,7 @@ Once the pipeline has created Blue Ocean will open the editor screen. We will cr
 
 After your pipeline executes you can click on the **pencil** icon to continue editing your pipeline.
 
-# Exercise 3.2
+# Exercise 3.2 - Create GitHub Org and Fork Repos
 
 In **Exercise 3.2** we are going to start by forking an existing Github project that has multiple branches and Jenkinsfiles in each branch.
 
@@ -41,9 +63,9 @@ Now lets fork the repo into the new organization:
 2. Click on **Fork**
 3. Select the **Organization** you want to fork into
 
-# Exercise 3.3
+# Exercise 3.3 - GitHub Organization Project
 
-In this exercise we are going to create a Github Organization project from our newly forked repository.
+In this exercise we are going to create a GitHub Organization project from our newly forked repository.
 
 **Note**: You need to have a Github personal access token ([Github-Personal-Access-Token.md](Github-Personal-Access-Token.md)) before proceeding.
 
@@ -75,7 +97,7 @@ Once you click on save Jenkins will search your organization for any projects wi
 
 When the project was created it also should have created webhooks in Github. Verify that the webhooks were created in Github by checking **Webhooks** within your organization's Github **Settings**.
 
-# Exercise 3.4
+# Exercise 3.4 - Conditional Execution
 
 In this exercise we are going to edit the Jenkinsfile file in the **development** branch of our project to add a branch specific stage.
 
@@ -104,7 +126,7 @@ In this exercise we are going to edit the Jenkinsfile file in the **development*
 
 Notice how after you commit your changes the Github web hooks trigger a build of the development branch in Jenkins.
 
-# Exercise 3.5
+# Exercise 3.5 - PRs and Merging
 
 In this exercise we are going to edit the development branch's Jenkinsfile again but make our commit against a feature branch and user a pull request to merge the edits into our development branch.
 
