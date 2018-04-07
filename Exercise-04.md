@@ -1,6 +1,6 @@
 # 4 - Distributed Pipelines with CloudBees
 
-# Exercise 4.1 - Checkpoints
+## Exercise 4.1 - Checkpoints
 
 In this exercise we are going to quickly create a new pipeline to demonstrate how **Checkpoints** work and how end users can interact with Checkpoints once a job as been built. To test this create a new pipeline job in your personal folder copying and pasting the following code into the Pipeline Script textbox:
 
@@ -39,7 +39,7 @@ When the job has completed running you will see a **Resume** icon in the build's
 
 **Note**: Deleting a checkpoint doesn't make the **Resume** icon vanish.
 
-# Exercise 4.2 - Kubernetes Agents
+## Exercise 4.2 - Kubernetes Agents
 
 In this exercise you explore the Kubernetes Plugin and will update a Jenkinsfile to use the `podTemplate` and `container` directives. In exercise 1.3 we saw how to use the Docker directive, allowing you to run steps inside an arbitray Docker image. Behind the scenes, there had to be a Jenkins agent that was able to execute against a Docker daemon to run containers. Here we will be using the [Jenkins Kubernetes plugin](https://github.com/jenkinsci/kubernetes-plugin). The plugin creates a [Kubernetes Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for each agent requested by a Jenkins job, with at least one Docker container running as the a JNLP agent, and stops the pod and all containers after the build is complete.
 
@@ -68,7 +68,7 @@ pipeline {
 }
 ```
 
-# Exercise 4.3 - Cross Team Collaboration
+## Exercise 4.3 - Cross Team Collaboration
 In this exercise we are going to set-up two Pipeline jobs that demonstrate CloudBee's Cross Team Collaboration feature. We will need two separate Pipelines - one that publishes an event - and two - another that is triggered by an event.
 
 ### Publish Event
@@ -111,7 +111,7 @@ pipeline {
 
 After creating both of these Pipeline jobs you will need to run the **Event Trigger** job once so that the trigger is registered. Once that is complete, click on **Build Now** to run the **Publish Event** job. Once that job has completed, the **Event Trigger** job will be triggered after a few seconds. The logs will show that the job was triggered by an `Event Trigger` and the `when` expression will be true.
 
-# Exercise 4.4
+## Exercise 4.4
 
 In the following exercise we are going to demonstrate how you can use the Custom Marker feature of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
 
