@@ -1,4 +1,4 @@
-# 1 - Declarative Syntax Continued
+# 2 - Declarative Syntax Continued
 
 ## Exercise 2.1 - Interactive Input
 

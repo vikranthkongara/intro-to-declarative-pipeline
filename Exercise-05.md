@@ -2,7 +2,11 @@
 
 # Exercise 5.1 - Speed/Durability Settings
 
-In this exercise we won't actually we will review Speed/Durabiltiy settings for Pipeline.
+In this exercise we won't actually we will review Speed/Durabiltiy settings for Pipeline. 
+
+```
+properties([durabilityHint('MAX_SURVIVABILITY')])
+```
 
 # Exercise 5.2 - Shared Library Best Practices
 
