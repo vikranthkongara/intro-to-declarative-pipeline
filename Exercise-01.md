@@ -43,7 +43,7 @@ pipeline {
 
 4. Click on **Save** and then click on **Build Now** in the left menu to run your pipeline.
 
-## Exercise 1.2 - Agents
+## Exercise 1.2 - Agent Parameters
 
 In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was less than 9. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` parameter:
 
@@ -61,6 +61,14 @@ In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to us
 openjdk version "9.0.4"
 OpenJDK Runtime Environment (build 9.0.4+12-Debian-4)
 OpenJDK 64-Bit Server VM (build 9.0.4+12-Debian-4, mixed mode)
+```
+
+In addition to `any` and `label` you may also specify `none` and no global agent will be allocated for the entire Pipeline run and each `stage` section will need to contain its own `agent` section.
+
+Before going on to the next exercise let's revert our pipeline to using:
+
+```
+   agent any
 ```
 
 ## Exercise 1.3 - Agents with Docker
