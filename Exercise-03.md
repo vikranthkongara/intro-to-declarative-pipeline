@@ -1,28 +1,12 @@
-# 3 - Pipeline As Code
+# 3 - Distributed Pipelines with Pipeline As Code
 
-## Exercise 3.1 - Shared Libraries
+## Exercise 3.0 - Create a Team Master
 
-In **Exercise 3.1** we are going to add a stage to our pipeline that uses a **Shared Library** to import functionality that allows us to say 'hi'.
+For the remaining exercises everyone will get their own Jenkins masters referred to as a Team Master and we will create, edit and interact with our Pipelines in Blue Ocean.
 
-More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
+1. 
 
-Add the following line at the top of your pipeline **above** the ```pipeline``` line:
-
-```library 'SharedLibs'```
-
-Then add the following stage after the **Deploy** stage:
-
-```
-      stage('Shared Lib') {
-         steps {
-             helloWorld("Jenkins")
-         }
-      }
-```
-
-The ```helloWorld``` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
-
-## Exercise 3.2 - Blue Ocean Editor
+## Exercise 3.1 - Blue Ocean Editor
 
 Finally we will use the Blue Ocean Pipeline Editor to create a simple declarative pipeline using the following steps:
 
@@ -46,6 +30,28 @@ Once the pipeline has created Blue Ocean will open the editor screen. We will cr
 7. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**
 
 After your pipeline executes you can click on the **pencil** icon to continue editing your pipeline.
+
+## Exercise 3.2 - Shared Libraries
+
+In **Exercise 3.2** we are going to add a stage to our pipeline that uses a **Shared Library** to import functionality that allows us to say 'hi'.
+
+More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
+
+Add the following line at the top of your pipeline **above** the ```pipeline``` line:
+
+```library 'SharedLibs'```
+
+Then add the following stage after the stage you created in **Exercise 3.1**:
+
+```
+      stage('Shared Lib') {
+         steps {
+             helloWorld("Jenkins")
+         }
+      }
+```
+
+The ```helloWorld``` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
 
 ## Exercise 3.2 - Create GitHub Org and Fork Repos
 
