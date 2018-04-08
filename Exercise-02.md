@@ -1,119 +1,162 @@
-# Exercise 2.1
+# 2 - Declarative Syntax Continued
 
-In **Exercise 2.1** we are going to start by forking an existing Github project that has multiple branches and Jenkinsfiles in each branch.
+## Exercise 2.1 - Interactive Input
 
-But first let's create a Github organization to fork the repo into:
-
-1. On Github navigate to **Organizations**: https://github.com/settings/organizations (after logging in)
-2. Click on **New Organization**
-3. Fill in the **Organization Name**, **Billing Email**, and click on **Create Organization**
-
-Now lets fork the repo into the new organization:
-
-1. Navigate to the rest server application we are going to work with: https://github.com/PipelineHandsOn/sample-rest-server
-2. Click on **Fork**
-3. Select the **Organization** you want to fork into
-
-# Exercise 2.2
-
-In this exercise we are going to create a Github Organization project from our newly forked repository.
-
-**Note**: You need to have a Github personal access token ([Github-Personal-Access-Token.md](Github-Personal-Access-Token.md)) before proceeding.
-
-First let's add your Github credentials to the Jenkins' Credentials manager:
-
-1. Navigate back to your personal folder in Jenkins
-2. Click on **Credentials**
-3. Click on **[YourFolderName]** under **Stores Scoped to [YourFolderName]**
-4. Click on **Global Credentials (Unrestricted)**
-5. Click on **Add Credentials**
-6. Fill out the form (**Username with password**)
-  - **Username**: The Github organization name
-  - **Password**: Your Github personal access token
-  - **ID**: Create an ID for your credentials (something like **yourorg-id**)
-  - **Description**: Can be left blank if you want
-7. Click on **OK**
-
-Now let's create the Github Organization project:
-
-1. Click on **New Item**
-2. Enter your organization name as the **Item Name**
-3. Select **GitHub Organization**
-4. Click **Ok**
-5. Select the credentials you created above from the **Credentials** drop down
-6. Select **All** from the **Strategy** drop down under **Discover Branches**
-7. Click **Save**
-
-Once you click on save Jenkins will search your organization for any projects with Jenkinsfiles in them, import those projects as Multibranch projects, and begin building each branch with a Jenkinsfile in it.
-
-When the project was created it also should have created webhooks in Github. Verify that the webhooks were created in Github by checking **Webhooks** within your organization's Github **Settings**.
-
-# Exercise 2.3
-
-In this exercise we are going to edit the Jenkinsfile file in the **development** branch of our project to add a branch specific stage.
+For **Exercise 2.1** we are going to add a new stage after the **Say Hello** stage that will demonstrate how to ask interactively for user input. 
 
 **Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2.6:
 
-  - Add beforeAgent option for when - if true, when conditions will be evaluated before entering the agent.
+  - Add options {} for stage - supports block-scoped "wrappers" like timeout and Declarative options like skipDefaultCheckout
+  - Add input {} directive for stage - runs the input step with the supplied configuration before entering the when or agent for a stage, and makes any parameters provided as part of the input step available as environment variables.
 
-1. Within your **sample-rest-server** project select the **development** branch from the **Branch** drop down menu
-2. Click on the **Jenkinsfile** in the file list
-3. Click on the **Edit this file** button (pencil)
-4. Insert the following stage after the existing **build** stage:
+The declarative `input` directive blocks the `stage` from executing and acquiring an agent - this is an important enhancement as previously a more complicated work-around was required to not tie up an agent with an input step. If the `input` is approved, the stage will then continue.
+
+Insert the following `stage` block into your pipeline after `stage('Say Hello') {} block:
 
 ```
-      stage('Development Tests') {
-         when {
-            beforeAgent true
-            branch 'development'
-         }
-         steps {
-            echo "Run the development tests!"
-         }
+    stage('Deploy') {
+      input {
+        message "Should we continue?"
+      }
+      steps {
+        echo "Continuing with deployment"
+      }
+    }
+```
+
+**Note**: To keep Jenkins from waiting indefinitely for a user response your should set a ```timeout``` for the `stage` like shown below:
+
+```
+    stage('Deploy') {
+      options {
+        timeout(time: 1, unit: 'MINUTES') 
+      }
+      input {
+        message "Should we continue?"
+      }
+      steps {
+        echo "Continuing with deployment"
+      }
+    }
+```
+
+## Exercise 2.2 - Input Parameters
+
+In this example we will replace the **Deploy** stage with an input that returns data to the pipeline for use later in a subsequent step or stage.  This form of input is useful when needing to query users for additional data before continuing pipeline processing.
+
+Replace the **Deploy** stage with the following and rerun the job:
+```
+    stage('Deploy') {
+      input {
+        message "Which Version?"
+        ok "Deploy"
+        parameters {
+            choice(name: 'APP_VERSION', choices: "v1.1\nv1.2\nv1.3", description: 'What to deploy?')
+        }
+      }
+      steps {
+        echo "Deploying ${APP_VERSION}."
+      }
+    }
+```
+
+
+## Exercise 2.3 - Post Actions
+
+What happens if your input step times out? **Post Actions** are designed to handle a variety of conditions (not only failures) that could occur outside the standard pipeline flow.
+
+In this example we will add a Post Action to our **Deploy** stage to handle a time out (aborted run). Modify your **Deploy** stage to look like:
+
+```
+    stage('Deploy') {
+      options {
+        timeout(time: 1, unit: 'MINUTES') 
+      }
+      input {
+        message "Which Version?"
+        ok "Deploy"
+        parameters {
+            choice(name: 'APP_VERSION', choices: "v1.1\nv1.2\nv1.3", description: 'What to deploy?')
+        }
+      }
+      steps {
+        echo "Deploying ${APP_VERSION}."
+      }
+      post {
+        aborted {
+          echo 'Why didn\'t you push my button?'
+        }
+      }
+    }
+      
+```
+
+On the next build wait for the input time and you will see the following line in your console output: ```Why didn't you push my button?```.
+
+**Note**: After completing this exercise remove the ```Deploy``` stage from your pipeline so that you will not have to manually approve it each time it runs.
+
+## Exercise 2.4 - Script Block
+
+In this exercise we will combine the simplicity of declarative pipeline with more advanced features of pipeline available via the `script {}` block.  
+
+Scripted Pipelines can be very advanced and contain advanced flow control and variable assignment that are not available in declarative pipelines without using a `script` block.  A `script` block allows you to insert the more advanced scripted version of pipeline into a declarative pipeline.
+
+After removing the ```stage('Deploy')``` block from the previous example add two new stages called ```stage('Get Kernel')``` and ```stage('Say Kernel')``` to your pipeline after the **Say Hello** stage:
+
+```
+    stage('Get Kernel') {
+      steps {
+        script {
+          try {
+            KERNEL_VERSION = sh (script: "uname -r", returnStdout: true)
+          } catch(err) {
+            echo "CAUGHT ERROR: ${err}"
+            throw err
+          }
+        }
+      }
+    }
+    stage('Say Kernel') {
+      steps {
+        echo "${KERNEL_VERSION}"
+      }
+    }
+
+```
+**Note:** Notice the use of the `script` block in the above example.  This allows you to use more advanced scripting options in your declarative pipelines.
+
+**Note**: After completing this exercise remove the ```Get Kernel``` and ```Say Kernel` stages from your pipeline.
+
+
+## Exercise 2.5 - Parallelization
+
+In this exercise we are going to add another stage to our pipeline that runs two steps in parallel on two different docker based agents (one running Java 7 and one running Java 8). The following code also includes ```sleep``` steps to demonstrate what happens when parallel steps complete execution at different times:
+
+**Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2 (parallel stages) and 1.2.1 (failFast inside of a parallel stage).
+
+Add the following stage after ```stage('Say Hello')```:
+
+```
+      stage('Testing') {
+        parallel {
+          stage('Java 7') {
+            agent { docker 'openjdk:7-jdk-alpine' }
+            failFast true
+            steps {
+              sh 'java -version'
+              sleep time: 1, unit: 'MINUTES'
+            }
+          }
+          stage('Java 8') {
+            agent { docker 'openjdk:8-jdk-alpine' }
+            steps {
+              sh 'java -version'
+              sleep time: 2, unit: 'MINUTES'
+            }
+          }
+        }
       }
 ```
 
-5. Fill out the commit information, select 'Commit directly to the development branch.', and click on **Commit Changes**
-
-Notice how after you commit your changes the Github web hooks trigger a build of the development branch in Jenkins.
-
-# Exercise 2.4
-
-In this exercise we are going to edit the development branch's Jenkinsfile again but make our commit against a feature branch and user a pull request to merge the edits into our development branch.
-
-1. Click on the **Edit this file** button (pencil)
-2. Insert the following stage after the existing **build** stage:
-
-```
-      stage('Masters Tests') {
-         when {
-            branch 'master'
-         }
-         steps {
-            echo "Run the master tests!"
-         }
-      }
-```
-
-3. Fill out the commit information, select 'Create a new branch for this commit and start a pull request.' and click on **Propose file change**
-4. Flip back to your Jenkins job and notice that the new feature branch appears in your projects
-5. Return back to the Github **Open a pull request** page
-6. Click on the **Create pull request** button
-7. Go to your Jenkins job and notice that that the PR has been added to the Pull Requests tab
-8. In Github click on **Merge pull request** and then **Confirm** to close the PR and merge the results into the development branch
-9. Optionally you can also delete the feature branch you created
-
-Finally, we should merge our work into our master branch to verify that our changes work there:
-
-1. Return back to your repository's main page where you will be on the master branch by default
-2. Click on **New pull request**
-3. Select your base fork (not the project we forked from)
-4. Compare **master** to **development**
-5. Click **View pull request**
-6. Click **Merge pull request**
-7. Click **Confirm merge**
-
-Notice how after you merge your changes into master the Github web hooks trigger a build of the master branch in Jenkins.
-
-
+**Note**: If your build breaks double check your pipeline script to make sure that the agent at the top of of the pipeline was reverted back to ```agent any``` as described in [exercise 1.2](./Exercise-01.md).
 

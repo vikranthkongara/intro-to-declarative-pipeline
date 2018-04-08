@@ -1,105 +1,168 @@
-# Exercise 3.1
+# 3 - Pipeline As Code
 
-In this exercise we are going to quickly create a new pipeline to demonstrate how Checkpoints work and how end users can interact with Checkpoints once a job as been built. To test this create a new pipeline job in your personal folder copying and pasting the following code into the Pipeline Script textbox:
+## Exercise 3.1 - Shared Libraries
+
+In **Exercise 3.1** we are going to add a stage to our pipeline that uses a **Shared Library** to import functionality that allows us to say 'hi'.
+
+More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
+
+Add the following line at the top of your pipeline **above** the ```pipeline``` line:
+
+```library 'SharedLibs'```
+
+Then add the following stage after the **Deploy** stage:
 
 ```
-pipeline {
-   agent none
-   stages {
-      stage('One') {
-         agent any
+      stage('Shared Lib') {
          steps {
-            echo 'Stage One - Step 1'
+             helloWorld("Jenkins")
          }
       }
-      stage('Checkpoint') {
-         agent none
+```
+
+The ```helloWorld``` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
+
+## Exercise 3.2 - Blue Ocean Editor
+
+Finally we will use the Blue Ocean Pipeline Editor to create a simple declarative pipeline using the following steps:
+
+1. Click on the **Open Blue Ocean** button in the left side navigation bar
+2. Click on the **New Pipeline** button
+3. Click on one of the options in the **Where do you store your code?** section (Github for this course)
+4. Enter your **Github token**
+5. Select the **Organization** in which the repository that you want to create the Jenkinsfile in exists
+6. Select **New Pipeline**
+7. Choose the **Repository**
+8. Click on **Create Pipeline**
+
+Once the pipeline has created Blue Ocean will open the editor screen. We will create a few simple steps using the following instructions (feel free to veer of course and try all of the options available):
+
+1. Click on the **+** icon next to the pipeline's **Start** node
+2. Click into **Name your stage** and enter a name
+3. Click on **+ Add step**
+4. Click on **Shell script**
+5. Type ```mvn -v``` into the text box
+6. Click on **Save** to save the pipeline and execute it
+7. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**
+
+After your pipeline executes you can click on the **pencil** icon to continue editing your pipeline.
+
+## Exercise 3.2 - Create GitHub Org and Fork Repos
+
+In **Exercise 3.2** we are going to start by forking an existing Github project that has multiple branches and Jenkinsfiles in each branch.
+
+But first let's create a Github organization to fork the repo into:
+
+1. On Github navigate to **Organizations**: https://github.com/settings/organizations (after logging in)
+2. Click on **New Organization**
+3. Fill in the **Organization Name**, **Billing Email**, and click on **Create Organization**
+
+Now lets fork the repo into the new organization:
+
+1. Navigate to the rest server application we are going to work with: https://github.com/PipelineHandsOn/sample-rest-server
+2. Click on **Fork**
+3. Select the **Organization** you want to fork into
+
+## Exercise 3.3 - GitHub Organization Project
+
+In this exercise we are going to create a GitHub Organization project from our newly forked repository.
+
+**Note**: You need to have a Github personal access token ([Github-Personal-Access-Token.md](Github-Personal-Access-Token.md)) before proceeding.
+
+First let's add your Github credentials to the Jenkins' Credentials manager:
+
+1. Navigate back to your personal folder in Jenkins
+2. Click on **Credentials**
+3. Click on **[YourFolderName]** under **Stores Scoped to [YourFolderName]**
+4. Click on **Global Credentials (Unrestricted)**
+5. Click on **Add Credentials**
+6. Fill out the form (**Username with password**)
+  - **Username**: The Github organization name
+  - **Password**: Your Github personal access token
+  - **ID**: Create an ID for your credentials (something like **yourorg-id**)
+  - **Description**: Can be left blank if you want
+7. Click on **OK**
+
+Now let's create the Github Organization project:
+
+1. Click on **New Item**
+2. Enter your organization name as the **Item Name**
+3. Select **GitHub Organization**
+4. Click **Ok**
+5. Select the credentials you created above from the **Credentials** drop down
+6. Select **All** from the **Strategy** drop down under **Discover Branches**
+7. Click **Save**
+
+Once you click on save Jenkins will search your organization for any projects with Jenkinsfiles in them, import those projects as Multibranch projects, and begin building each branch with a Jenkinsfile in it.
+
+When the project was created it also should have created webhooks in Github. Verify that the webhooks were created in Github by checking **Webhooks** within your organization's Github **Settings**.
+
+## Exercise 3.4 - Conditional Execution
+
+In this exercise we are going to edit the Jenkinsfile file in the **development** branch of our project to add a branch specific stage.
+
+**Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2.6:
+
+  - Add beforeAgent option for when - if true, when conditions will be evaluated before entering the agent.
+
+1. Within your **sample-rest-server** project select the **development** branch from the **Branch** drop down menu
+2. Click on the **Jenkinsfile** in the file list
+3. Click on the **Edit this file** button (pencil)
+4. Insert the following stage after the existing **build** stage:
+
+```
+      stage('Development Tests') {
+         when {
+            beforeAgent true
+            branch 'development'
+         }
          steps {
-            checkpoint 'Checkpoint'
+            echo "Run the development tests!"
          }
       }
-      stage('Two') {
-         agent any
+```
+
+5. Fill out the commit information, select 'Commit directly to the development branch.', and click on **Commit Changes**
+
+Notice how after you commit your changes the Github web hooks trigger a build of the development branch in Jenkins.
+
+## Exercise 3.5 - PRs and Merging
+
+In this exercise we are going to edit the development branch's Jenkinsfile again but make our commit against a feature branch and user a pull request to merge the edits into our development branch.
+
+1. Click on the **Edit this file** button (pencil)
+2. Insert the following stage after the existing **build** stage:
+
+```
+      stage('Masters Tests') {
+         when {
+            branch 'master'
+         }
          steps {
-            echo 'Stage Two - Step 1'
+            echo "Run the master tests!"
          }
       }
-   }
-}
 ```
 
-After saving the job click on **Build Now** to run it.
+3. Fill out the commit information, select 'Create a new branch for this commit and start a pull request.' and click on **Propose file change**
+4. Flip back to your Jenkins job and notice that the new feature branch appears in your projects
+5. Return back to the Github **Open a pull request** page
+6. Click on the **Create pull request** button
+7. Go to your Jenkins job and notice that that the PR has been added to the Pull Requests tab
+8. In Github click on **Merge pull request** and then **Confirm** to close the PR and merge the results into the development branch
+9. Optionally you can also delete the feature branch you created
 
-When the job has completed running you will see a **Resume** icon in the build's **Stage View**. Clicking on the **Resume** icon gives you the ability to:
+Finally, we should merge our work into our master branch to verify that our changes work there:
 
-* **Delete** - Delete the cached artifacts and configuration for that build;
-* **Restart** - Restart the build from the checkpoint.
+1. Return back to your repository's main page where you will be on the master branch by default
+2. Click on **New pull request**
+3. Select your base fork (not the project we forked from)
+4. Compare **master** to **development**
+5. Click **View pull request**
+6. Click **Merge pull request**
+7. Click **Confirm merge**
 
-**Note**: Deleting a checkpoint doesn't make the **Resume** icon vanish.
+Notice how after you merge your changes into master the Github web hooks trigger a build of the master branch in Jenkins.
 
-# Exercise 3.2
-In this exercise we are going to set-up two Pipeline jobs that demonstrate CloudBee's Cross Team Collaboration feature. We will need two separate Pipelines - one that publishes an event - and two - another that is triggered by an event.
 
-### Publish Event
 
-```
-pipeline {
-    agent none
-    stages {
-        stage('Publish Event') {
-            steps {
-                publishEvent(generic('beeEvent'))
-            }
-        }
-    }
-}
-```
-
-### Event Trigger
-
-```
-pipeline {
-    agent none
-    triggers {
-        eventTrigger(event(generic('beeEvent')))
-    }
-    stages {
-        stage('Event Trigger') {
-            when {
-                expression { 
-                    return currentBuild.rawBuild.getCause(com.cloudbees.jenkins.plugins.pipeline.events.EventTriggerCause)
-                }
-            }
-            steps {
-                echo 'triggered by published event'
-            }
-        }
-    }
-}
-```
-
-After creating both of these Pipeline jobs you will need to run the **Event Trigger** job once so that the trigger is registered. Once that is complete, click on **Build Now** to run the **Publish Event** job. Once that job has completed, the **Event Trigger** job will be triggered after a few seconds. The logs will show that the job was triggered by an `Event Trigger` and the `when` expression will be true.
-
-# Exercise 3.3
-
-In the following exercise we are going to demonstrate how you can use the Custom Marker feature of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
-
-In order to complete the following exercise you will need to fork the following repository into the Github organization you created in **Exercise 2.1**:
-
-* https://github.com/PipelineHandsOn/maven-project
-
-Once that repository is forked:
-
-1. Click on the Github organization project you created in **Exercise 2.2**.
-2. Click on **Configure**
-3. Under **Project Recognizers** select **Custom Script**
-4. In **Marker file** type ```pom.xml```
-5. Under **Pipeline** - **Definition** select **Pipeline script from SCM**
-6. Select **Git** from **SCM**
-7. In **Repository URL** enter: ```https://github.com/PipelineHandsOn/custom-marker-files```
-8. Select your credentials from the **Credentials** menu
-9. In **Script path** enter: ```Jenkins-pom```
-10. Click on **Save**
-11. Click on **Scan Organization Now**
-
-When the scan is complete your **Github Organization** project should now have both the **sample-rest-server** project and the **maven-project**.
