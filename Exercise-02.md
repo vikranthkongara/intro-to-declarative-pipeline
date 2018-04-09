@@ -24,7 +24,7 @@ Insert the following `stage` block into your pipeline after `stage('Say Hello') 
     }
 ```
 
-**Note**: To keep Jenkins from waiting indefinitely for a user response your should set a ```timeout``` for the `stage` like shown below:
+**Note**: To keep Jenkins from waiting indefinitely for a user response you should set a ```timeout``` for the `stage` like shown below:
 
 ```
     stage('Deploy') {
