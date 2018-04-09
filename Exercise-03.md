@@ -57,7 +57,7 @@ The ```helloWorld``` function we are calling can be seen at: https://github.com/
 
 ## Exercise 3.3- Create GitHub Org and Fork Repos
 
-In **Exercise 3.2** we are going to start by forking an existing Github project that has multiple branches and Jenkinsfiles in each branch.
+In **Exercise 3.3** we are going to start by forking an existing Github project that has multiple branches and Jenkinsfiles in each branch.
 
 But first let's create a Github organization to fork the repo into:
 
