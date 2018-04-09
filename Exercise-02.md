@@ -126,7 +126,7 @@ After removing the ```stage('Deploy')``` block from the previous example add two
 ```
 **Note:** Notice the use of the `script` block in the above example.  This allows you to use more advanced scripting options in your declarative pipelines.
 
-**Note**: After completing this exercise remove the ```Get Kernel``` and ```Say Kernel` stages from your pipeline.
+**Note**: After completing this exercise remove the `Get Kernel` and `Say Kernel` stages from your pipeline.
 
 
 ## Exercise 2.5 - Parallelization
