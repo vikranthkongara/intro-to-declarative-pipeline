@@ -6,8 +6,11 @@ For the remaining exercises everyone will get their own Jenkins masters referred
 
 1. Goto to the Workshop URL provided by the instructor;
 2. Click on the **Create team** button on the right side of the screen;
-3. Enter a name for your team - perhaps your first initial with your last name and then click **Next**;
-4. Select an icon and color for your team and then click **Next**;
+3. **Name this team** - enter a name for your team - perhaps your first initial with your last name and then click **Next**;
+4. **Choose an icon for this team** - select an icon and color for your team and then click **Next**;
+5. **Add people to this team** - your user will show up as a **Team Admin** and we won't be adding any additional users, but feel free to look around and then click **Next**;
+6. **Select team master creation recipe** - click on the drop-down and select the **API Development** recipe;
+7. Finally, click the **Create team** button.
 
 ## Exercise 3.1 - Blue Ocean Editor
 
