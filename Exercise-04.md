@@ -111,7 +111,7 @@ pipeline {
 
 After creating both of these Pipeline jobs you will need to run the **Event Trigger** job once so that the trigger is registered. Once that is complete, click on **Build Now** to run the **Publish Event** job. Once that job has completed, the **Event Trigger** job will be triggered after a few seconds. The logs will show that the job was triggered by an `Event Trigger` and the `when` expression will be true.
 
-## Exercise 4.4
+## Exercise 4.4 - Custom Marker Files
 
 In the following exercise we are going to demonstrate how you can use the Custom Marker feature of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
 
