@@ -42,7 +42,7 @@ pipeline {
 ```
 
 4. Click on **Save** and then click on **Build Now** in the left menu to run your pipeline.
-5. Click on the flashing blue dot in **Build History** to view the console output from the job.  You should see Finished:  SUCCESS at the bottom of the output.
+5. Click on the blue dot for the job in **Build History** to view the console output from the job.  You should see Finished:  SUCCESS at the bottom of the output.
 
 ## Exercise 1.2 - Agent Parameters
 
