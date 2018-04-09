@@ -94,7 +94,7 @@ In this example we will add a Post Action to our **Deploy** stage to handle a ti
 
 On the next build wait for the input time and you will see the following line in your console output: ```Why didn't you push my button?```.
 
-**Note**: After completing this exercise remove the ```Deploy``` stage from your pipeline so that you will not have to manually approve it each time it runs.
+**Note**: After completing this exercise remove the ```Deploy``` stage from your pipeline so that you will not have to manually approve the job each time it runs.
 
 ## Exercise 2.4 - Script Block
 
