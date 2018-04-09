@@ -43,6 +43,8 @@ When the job has completed running you will see a **Resume** icon in the build's
 
 In this exercise you explore the Kubernetes Plugin and will update a Jenkinsfile to use the `podTemplate` and `container` directives. In exercise 1.3 we saw how to use the Docker directive, allowing you to run steps inside an arbitray Docker image. Behind the scenes, there had to be a Jenkins agent that was able to execute against a Docker daemon to run containers. Here we will be using the [Jenkins Kubernetes plugin](https://github.com/jenkinsci/kubernetes-plugin). The plugin creates a [Kubernetes Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for each agent requested by a Jenkins job, with at least one Docker container running as the a JNLP agent, and stops the pod and all containers after the build is complete.
 
+1. Copy and paste the following code into the **Pipeline Script** text box near the bottom of the page:
+
 ```
 pipeline {
   agent {
