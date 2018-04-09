@@ -44,7 +44,7 @@ pipeline {
 4. Click on **Save** and then click on **Build Now** in the left menu to run your pipeline.
 5. Click on the blue dot for the job in **Build History** to view the console output from the job.  You should see Finished:  SUCCESS at the bottom of the output.
 
-## Exercise 1.2 - Agent Parameters
+## Exercise 1.2 - Agent Labels
 
 In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was less than 9. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` parameter:
 
