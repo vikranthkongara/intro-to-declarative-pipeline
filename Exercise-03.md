@@ -6,7 +6,9 @@ For the remaining exercises everyone will get their own Jenkins masters referred
 
 1. Goto to the Workshop URL provided by the instructor;
 2. Click on the **Create team** button on the right side of the screen;
-3. 
+3. Enter a name for your team - perhaps your first initial with your last name and then click **Next**;
+4. Select an icon and color for your team and then click **Next**;
+5. 
 
 ## Exercise 3.1 - Blue Ocean Editor
 

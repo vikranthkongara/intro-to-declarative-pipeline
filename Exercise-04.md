@@ -115,13 +115,13 @@ After creating both of these Pipeline jobs you will need to run the **Event Trig
 
 In the following exercise we are going to demonstrate how you can use the Custom Marker feature of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
 
-In order to complete the following exercise you will need to fork the following repository into the Github organization you created in **Exercise 2.1**:
+In order to complete the following exercise you will need to fork the following repository into the Github organization you created in **Exercise 3.4**:
 
 * https://github.com/PipelineHandsOn/maven-project
 
 Once that repository is forked:
 
-1. Click on the Github organization project you created in **Exercise 2.2**.
+1. Click on the Github organization project you created in **Exercise 3.4**.
 2. Click on **Configure**
 3. Under **Project Recognizers** select **Custom Script**
 4. In **Marker file** type ```pom.xml```
