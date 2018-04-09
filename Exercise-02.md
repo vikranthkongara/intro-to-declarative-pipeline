@@ -23,6 +23,7 @@ Insert the following `stage` block into your pipeline after `stage('Say Hello') 
       }
     }
 ```
+Execute the job and note the input prompt during the ```Deploy``` stage.  This input prompt is available in the Console log as well as in Stage View and Blue Ocean.
 
 **Note**: To keep Jenkins from waiting indefinitely for a user response you should set a ```timeout``` for the `stage` like shown below:
 
