@@ -139,10 +139,10 @@ Add the following stage after ```stage('Say Hello')```:
 
 ```
       stage('Testing') {
+        failFast true
         parallel {
           stage('Java 7') {
             agent { docker 'openjdk:7-jdk-alpine' }
-            failFast true
             steps {
               sh 'java -version'
               sleep time: 1, unit: 'MINUTES'
