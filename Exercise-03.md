@@ -55,7 +55,7 @@ Then add the following stage after the stage you created in **Exercise 3.1**:
 
 The ```helloWorld``` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
 
-## Exercise 3.2 - Create GitHub Org and Fork Repos
+## Exercise 3.3- Create GitHub Org and Fork Repos
 
 In **Exercise 3.2** we are going to start by forking an existing Github project that has multiple branches and Jenkinsfiles in each branch.
 
@@ -71,7 +71,7 @@ Now lets fork the repo into the new organization:
 2. Click on **Fork**
 3. Select the **Organization** you want to fork into
 
-## Exercise 3.3 - GitHub Organization Project
+## Exercise 3.4 - GitHub Organization Project
 
 In this exercise we are going to create a GitHub Organization project from our newly forked repository.
 
@@ -105,7 +105,7 @@ Once you click on save Jenkins will search your organization for any projects wi
 
 When the project was created it also should have created webhooks in Github. Verify that the webhooks were created in Github by checking **Webhooks** within your organization's Github **Settings**.
 
-## Exercise 3.4 - Conditional Execution
+## Exercise 3.5 - Conditional Execution
 
 In this exercise we are going to edit the Jenkinsfile file in the **development** branch of our project to add a branch specific stage.
 
@@ -134,7 +134,7 @@ In this exercise we are going to edit the Jenkinsfile file in the **development*
 
 Notice how after you commit your changes the Github web hooks trigger a build of the development branch in Jenkins.
 
-## Exercise 3.5 - PRs and Merging
+## Exercise 3.6 - PRs and Merging
 
 In this exercise we are going to edit the development branch's Jenkinsfile again but make our commit against a feature branch and user a pull request to merge the edits into our development branch.
 
