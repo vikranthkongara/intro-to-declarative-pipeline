@@ -100,7 +100,7 @@ On the next build wait for the input time and you will see the following line in
 
 In this exercise we will combine the simplicity of declarative pipeline with more advanced features of pipeline available via the `script {}` block.  
 
-Scripted Pipelines can be very advanced and contain advanced flow control and variable assignment that are not available in declarative pipelines without using a `script` block.  A `script` block allows you to insert the more advanced scripted version of pipeline into a declarative pipeline.
+Scripted Pipelines can be very advanced and contain advanced flow control and variable assignment that are not available in declarative pipelines without using a `script` block.  A `script` block allows you to insert the more advanced scripted syntax of pipeline into a declarative pipeline.
 
 After removing the ```stage('Deploy')``` block from the previous example add two new stages called ```stage('Get Kernel')``` and ```stage('Say Kernel')``` to your pipeline after the **Say Hello** stage:
 
