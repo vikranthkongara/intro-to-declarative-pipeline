@@ -11,7 +11,7 @@ For **Exercise 2.1** we are going to add a new stage after the **Say Hello** sta
 
 The declarative `input` directive blocks the `stage` from executing and acquiring an agent - this is an important enhancement as previously a more complicated work-around was required to not tie up an agent with an input step. If the `input` is approved, the stage will then continue.
 
-Insert the following `stage` block into your pipeline after `stage('Say Hello') {} block:
+Insert the following `stage` block into your pipeline after `stage('Say Hello') {}` block:
 
 ```
     stage('Deploy') {
