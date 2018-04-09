@@ -69,6 +69,36 @@ pipeline {
   }
 }
 ```
+**Note:** Notice the use of the **container** directive.  This tells Jenkins which container in a Pod to use for the steps in the stage.  In this exercise a single container (gcc) was explicitly defined in the pipeline, however a second container is implicitly created to handle the JNLP communiction between Jenkins and the Pod.
+
+```
+pipeline {
+  agent {
+    kubernetes {
+      label 'kubernetes'
+      containerTemplate {
+        name 'gcc'
+        image 'gcc:latest'
+        ttyEnabled true
+        command 'cat'
+      }
+    }
+  }
+  stages {
+    stage('gcc make in k8s') {
+        steps {
+            container('gcc') {
+                sh 'make --version'
+            }
+            container('jnlp') {
+                sh 'java -version'
+            }
+        }
+     }
+  }
+}
+```
+**Note:** In the above example you were able to execute a java command in the implicitly defined **jnlp** container in the Pod.  The JNLP container is a part of every Pod created by the Jenkins Kubernetes plugin.
 
 ## Exercise 4.3 - Cross Team Collaboration
 In this exercise we are going to set-up two Pipeline jobs that demonstrate CloudBee's Cross Team Collaboration feature. We will need two separate Pipelines - one that publishes an event - and two - another that is triggered by an event.

@@ -11,7 +11,7 @@ For **Exercise 2.1** we are going to add a new stage after the **Say Hello** sta
 
 The declarative `input` directive blocks the `stage` from executing and acquiring an agent - this is an important enhancement as previously a more complicated work-around was required to not tie up an agent with an input step. If the `input` is approved, the stage will then continue.
 
-Insert the following `stage` block into your pipeline after `stage('Say Hello') {} block:
+Insert the following `stage` block into your pipeline after `stage('Say Hello') {}` block:
 
 ```
     stage('Deploy') {
@@ -23,8 +23,9 @@ Insert the following `stage` block into your pipeline after `stage('Say Hello') 
       }
     }
 ```
+Execute the job and note the input prompt during the ```Deploy``` stage.  This input prompt is available in the Console log as well as in Stage View and Blue Ocean.
 
-**Note**: To keep Jenkins from waiting indefinitely for a user response your should set a ```timeout``` for the `stage` like shown below:
+**Note**: To keep Jenkins from waiting indefinitely for a user response you should set a ```timeout``` for the `stage` like shown below:
 
 ```
     stage('Deploy') {
@@ -93,13 +94,13 @@ In this example we will add a Post Action to our **Deploy** stage to handle a ti
 
 On the next build wait for the input time and you will see the following line in your console output: ```Why didn't you push my button?```.
 
-**Note**: After completing this exercise remove the ```Deploy``` stage from your pipeline so that you will not have to manually approve it each time it runs.
+**Note**: After completing this exercise remove the ```Deploy``` stage from your pipeline so that you will not have to manually approve the job each time it runs.
 
 ## Exercise 2.4 - Script Block
 
 In this exercise we will combine the simplicity of declarative pipeline with more advanced features of pipeline available via the `script {}` block.  
 
-Scripted Pipelines can be very advanced and contain advanced flow control and variable assignment that are not available in declarative pipelines without using a `script` block.  A `script` block allows you to insert the more advanced scripted version of pipeline into a declarative pipeline.
+Scripted Pipelines can be very advanced and contain advanced flow control and variable assignment that are not available in declarative pipelines without using a `script` block.  A `script` block allows you to insert the more advanced scripted syntax of pipeline into a declarative pipeline.
 
 After removing the ```stage('Deploy')``` block from the previous example add two new stages called ```stage('Get Kernel')``` and ```stage('Say Kernel')``` to your pipeline after the **Say Hello** stage:
 
@@ -125,23 +126,23 @@ After removing the ```stage('Deploy')``` block from the previous example add two
 ```
 **Note:** Notice the use of the `script` block in the above example.  This allows you to use more advanced scripting options in your declarative pipelines.
 
-**Note**: After completing this exercise remove the ```Get Kernel``` and ```Say Kernel` stages from your pipeline.
+**Note**: After completing this exercise remove the `Get Kernel` and `Say Kernel` stages from your pipeline.
 
 
 ## Exercise 2.5 - Parallelization
 
 In this exercise we are going to add another stage to our pipeline that runs two steps in parallel on two different docker based agents (one running Java 7 and one running Java 8). The following code also includes ```sleep``` steps to demonstrate what happens when parallel steps complete execution at different times:
 
-**Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2 (parallel stages) and 1.2.1 (failFast inside of a parallel stage).
+**Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2 (parallel stages) and 1.2.1 (failFast for a parallel stage).
 
 Add the following stage after ```stage('Say Hello')```:
 
 ```
       stage('Testing') {
+        failFast true
         parallel {
           stage('Java 7') {
             agent { docker 'openjdk:7-jdk-alpine' }
-            failFast true
             steps {
               sh 'java -version'
               sleep time: 1, unit: 'MINUTES'
