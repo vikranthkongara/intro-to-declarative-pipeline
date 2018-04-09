@@ -1,4 +1,4 @@
-# 1 - Declarative Syntax Basics
+# Declarative Syntax Basics
 
 ## Exercise 1.0 - Set-up
 In this exercise you will setup a work environment for the lessons provided

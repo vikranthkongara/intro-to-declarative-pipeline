@@ -1,4 +1,4 @@
-# 4 - Distributed Pipelines with CloudBees
+# Distributed Pipelines with CloudBees
 
 ## Exercise 4.1 - Checkpoints
 

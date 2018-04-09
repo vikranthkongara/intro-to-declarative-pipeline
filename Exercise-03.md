@@ -1,10 +1,12 @@
-# 3 - Distributed Pipelines with Pipeline As Code
+# Distributed Pipelines with Pipeline As Code
 
 ## Exercise 3.0 - Create a Team Master
 
 For the remaining exercises everyone will get their own Jenkins masters referred to as a Team Master and we will create, edit and interact with our Pipelines in Blue Ocean.
 
-1. 
+1. Goto to the Workshop URL provided by the instructor;
+2. Click on the **Create team** button on the right side of the screen;
+3. 
 
 ## Exercise 3.1 - Blue Ocean Editor
 

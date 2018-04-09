@@ -1,4 +1,4 @@
-# 2 - Declarative Advanced Syntax
+# Declarative Advanced Syntax
 
 ## Exercise 2.1 - Interactive Input
 
