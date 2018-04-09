@@ -76,7 +76,7 @@ Before going on to the next exercise let's revert our pipeline to using:
 
 In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to execute steps in a Docker container. To update the pipeline:
 
-1. In the `steps` block replace the `sh 'java-version'` step with the following step:
+1. In the `steps` block replace the `sh 'java -version'` step with the following step:
 
 ```
   sh 'make --version'
