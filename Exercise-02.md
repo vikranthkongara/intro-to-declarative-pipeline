@@ -145,14 +145,14 @@ Add the following stage after ```stage('Say Hello')```:
             agent { docker 'openjdk:7-jdk-alpine' }
             steps {
               sh 'java -version'
-              sleep time: 1, unit: 'MINUTES'
+              sleep time: 10, unit: 'SECONDS'
             }
           }
           stage('Java 8') {
             agent { docker 'openjdk:8-jdk-alpine' }
             steps {
               sh 'java -version'
-              sleep time: 2, unit: 'MINUTES'
+              sleep time: 20, unit: 'SECONDS'
             }
           }
         }
