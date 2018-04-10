@@ -2,13 +2,15 @@
 
 ## Exercise 3.1 - Blue Ocean Editor
 
+**Note**: You need to have a Github personal access token ([Github-Personal-Access-Token.md](Github-Personal-Access-Token.md)) before proceeding.
+
 Finally we will use the Blue Ocean Pipeline Editor to create a simple declarative pipeline using the following steps:
 
 1. Click on the **Open Blue Ocean** button in the left side navigation bar
 2. Click on the **New Pipeline** button
 3. Click on one of the options in the **Where do you store your code?** section (Github for this course)
 4. Enter your **Github token**
-5. Select the **Organization** in which the repository that you want to create the Jenkinsfile in exists
+5. Select the **Organization** in which the repository that you want to create the Jenkinsfile in exists - NOTE: The repository should not have an existing Jenkinsfile.
 6. Select **New Pipeline**
 7. Choose the **Repository**
 8. Click on **Create Pipeline**
@@ -66,8 +68,6 @@ Now lets fork the repo into the new organization:
 ## Exercise 3.4 - GitHub Organization Project
 
 In this exercise we are going to create a GitHub Organization project from our newly forked repository.
-
-**Note**: You need to have a Github personal access token ([Github-Personal-Access-Token.md](Github-Personal-Access-Token.md)) before proceeding.
 
 First let's add your Github credentials to the Jenkins' Credentials manager:
 
