@@ -166,7 +166,7 @@ pipeline {
   stages {
     stage('golang in k8s') {
         steps {
-            container('gcc') {
+            container('go') {
                 sh 'go version'
             }
             container('jnlp') {
