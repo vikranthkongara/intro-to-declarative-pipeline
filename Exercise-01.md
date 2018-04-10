@@ -79,7 +79,7 @@ In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to ex
 1. In the `steps` block replace the `sh 'java -version'` step with the following step:
 
 ```
-  sh 'make --version'
+  sh 'go version'
 ```
 
 2. Execute your job by clicking on **Build Now** and check the Console Log. The build will fail with `make: not found`
@@ -89,7 +89,7 @@ In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to ex
 ```
    agent {
       docker { 
-        image 'gcc:latest'
+        image 'golang:1.10.1-alpine'
         label 'docker-cloud' 
       }
    }
@@ -105,7 +105,7 @@ Before going on to the next exercise let's revert our pipeline to using:
    agent any
 ```
 
-And remove the `sh 'make --version'` step
+And remove the `sh 'go version'` step
 
 ## Exercise 1.4 - Environment Directive
 
