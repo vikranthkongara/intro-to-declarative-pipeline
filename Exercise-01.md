@@ -4,6 +4,8 @@
 In this exercise you will setup a work environment for the lessons provided
 in this workshop.  Ask the instructor for the URL of the server you will be using during the workshop.
 
+Todays URL for the CloudBees Jenkins environment is https://cje.workshop.beedemo.net 
+
 ### Create a Jenkins Account
 
 1. Goto to the Workshop URL provided by the instructor;
