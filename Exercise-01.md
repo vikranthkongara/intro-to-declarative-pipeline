@@ -179,9 +179,26 @@ pipeline {
 ```
 **Note:** In the above example you were able to execute a java command in the implicitly defined **jnlp** container in the Pod.  The JNLP container is a part of every Pod created by the Jenkins Kubernetes plugin.
 
+Finally, revert your Pipeline to the one from exercise 1.1:
+
+```
+pipeline {
+   agent any
+    
+   stages {
+      stage('Say Hello') {
+         steps {
+            echo 'Hello World!'   
+            sh 'java -version'
+         }
+      }
+   }
+}
+```
+
 ## Exercise 1.5 - Environment Directive
 
-For **Exercise 1.4** we are going to update our **SimplePipeline** job to demonstrate how to use the `environment` directive to set and use environment variables. We will also see how this directive supports a special helper method `credentials()`. access pre-defined Credentials by their identifier in the Jenkins environment.
+For **Exercise 1.5** we are going to update our **SimplePipeline** job to demonstrate how to use the `environment` directive to set and use environment variables. We will also see how this directive supports a special helper method `credentials()`. access pre-defined Credentials by their identifier in the Jenkins environment.
 
 At the top of the pipeline insert the following code between the ```agent``` and ```stages``` blocks:  
 
@@ -208,7 +225,7 @@ We will also add the following ```echo``` steps within the ```steps``` of the Sa
 
 ## Exercise 1.6 - Parameters
 
-In **Exercise 1.5** we will alter our pipeline to accept external input in the form of a Parameter.
+In **Exercise 1.6** we will alter our pipeline to accept external input in the form of a Parameter.
 
 At the top of your pipeline insert the following block of code between the ```environment``` and ```stages``` blocks:
 
