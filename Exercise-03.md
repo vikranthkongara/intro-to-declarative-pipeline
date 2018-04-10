@@ -17,13 +17,15 @@ Finally we will use the Blue Ocean Pipeline Editor to create a simple declarativ
 
 Once the pipeline has created Blue Ocean will open the editor screen. We will create a few simple steps using the following instructions (feel free to veer of course and try all of the options available):
 
-1. Click on the **+** icon next to the pipeline's **Start** node
-2. Click into **Name your stage** and enter a name
-3. Click on **+ Add step**
-4. Click on **Shell script**
-5. Type ```mvn -v``` into the text box
-6. Click on **Save** to save the pipeline and execute it
-7. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**
+1. On the right side of the editor select **docker** from the **agent** drop down
+2. For the **Image** input enter `maven:alpine`
+3. Click on the **+** icon next to the pipeline's **Start** node
+4. Click into **Name your stage** and enter a name
+5. Click on **+ Add step**
+6. Click on **Shell script**
+7. Type ```mvn -v``` into the text box
+8. Click on **Save** to save the pipeline and execute it
+9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**
 
 After your pipeline executes you can click on the **pencil** icon to continue editing your pipeline.
 
