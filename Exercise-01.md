@@ -4,15 +4,24 @@
 In this exercise you will setup a work environment for the lessons provided
 in this workshop.  Ask the instructor for the URL of the server you will be using during the workshop.
 
+### Create a Jenkins Account
+
 1. Goto to the Workshop URL provided by the instructor;
 2. Click on the **Create an account** link in the middle of the page under the **Login** button.
 3. Complete the **Sign up** form (all fields are required) and click the **Sign up** button;
 4. You should see a **Success** page - click on **the top page** link;
-5. Click on the link for the **workshop** folder;
-6. In the left menu, click on the **New dev-folder** link;
-7. For **Enter an item name** enter your workshop **Username**, select **dev-folder** and click the **OK** button;
-8. On the next screen, click the **Save** button;
-9. You will now be in your very own **dev-folder** where you will be able to create and edit Pipelines for this workshop.
+
+### Create a Team Master
+
+Next, everyone will get their own Jenkins masters referred to as a Team Master and we will create, edit and interact with our Pipelines in Blue Ocean.
+
+1. If not in Blue  Ocean, click on the **Blue Ocean** link in the left menu;
+2. Click on the **Create team** button on the right side of the screen;
+3. **Name this team** - enter a name for your team - perhaps your first initial with your last name and then click **Next**;
+4. **Choose an icon for this team** - select an icon and color for your team and then click **Next**;
+5. **Add people to this team** - your user will show up as a **Team Admin** and we won't be adding any additional users, but feel free to look around and then click **Next**;
+6. **Select team master creation recipe** - click on the drop-down and select the **API Development** recipe;
+7. Finally, click the **Create team** button.
 
 ## Exercise 1.1 - Basic Declarative Syntax Structure
 
@@ -107,7 +116,68 @@ Before going on to the next exercise let's revert our pipeline to using:
 
 And remove the `sh 'go version'` step
 
-## Exercise 1.4 - Environment Directive
+## Exercise 1.4 - Kubernetes Agents
+
+In this exercise you explore the Kubernetes Plugin and will update a Jenkinsfile to use the `podTemplate` and `container` directives. In exercise 1.3 we saw how to use the Docker directive, allowing you to run steps inside an arbitray Docker image. Behind the scenes, there had to be a Jenkins agent that was able to execute against a Docker daemon to run containers. Here we will be using the [Jenkins Kubernetes plugin](https://github.com/jenkinsci/kubernetes-plugin). The plugin creates a [Kubernetes Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for each agent requested by a Jenkins job, with at least one Docker container running as the a JNLP agent, and stops the pod and all containers after the build is complete.
+
+1. Copy and paste the following code into the **Pipeline Script** text box near the bottom of the page:
+
+```
+pipeline {
+  agent {
+    kubernetes {
+      label 'kubernetes'
+      containerTemplate {
+        name 'go'
+        image 'golang:1.10.1-alpine'
+        ttyEnabled true
+        command 'cat'
+      }
+    }
+  }
+  stages {
+    stage('golang in k8s') {
+        steps {
+            container('go') {
+                sh 'go version'
+            }
+        }
+    }
+  }
+}
+```
+**Note:** Notice the use of the **container** directive.  This tells Jenkins which container in a Pod to use for the steps in the stage.  In this exercise a single container (golang) was explicitly defined in the pipeline, however a second container is implicitly created to handle the JNLP communiction between Jenkins and the Pod.
+
+```
+pipeline {
+  agent {
+    kubernetes {
+      label 'kubernetes'
+      containerTemplate {
+        name 'go'
+        image 'golang:1.10.1-alpine'
+        ttyEnabled true
+        command 'cat'
+      }
+    }
+  }
+  stages {
+    stage('golang in k8s') {
+        steps {
+            container('gcc') {
+                sh 'go version'
+            }
+            container('jnlp') {
+                sh 'java -version'
+            }
+        }
+     }
+  }
+}
+```
+**Note:** In the above example you were able to execute a java command in the implicitly defined **jnlp** container in the Pod.  The JNLP container is a part of every Pod created by the Jenkins Kubernetes plugin.
+
+## Exercise 1.5 - Environment Directive
 
 For **Exercise 1.4** we are going to update our **SimplePipeline** job to demonstrate how to use the `environment` directive to set and use environment variables. We will also see how this directive supports a special helper method `credentials()`. access pre-defined Credentials by their identifier in the Jenkins environment.
 
@@ -134,7 +204,7 @@ We will also add the following ```echo``` steps within the ```steps``` of the Sa
 
 **Note**: After executing the build look at the console output and make note of the fact that the credential user name and password are masked when output via the echo command.
 
-## Exercise 1.5 - Parameters
+## Exercise 1.6 - Parameters
 
 In **Exercise 1.5** we will alter our pipeline to accept external input in the form of a Parameter.
 
