@@ -42,7 +42,13 @@ When the job has completed running you will see a **Resume** icon in the build's
 ## Exercise 4.2 - Cross Team Collaboration
 In this exercise we are going to set-up two Pipeline jobs that demonstrate CloudBee's Cross Team Collaboration feature. We will need two separate Pipelines - one that publishes an event - and two - another that is triggered by an event.
 
-### Publish Event
+### Master Events
+
+For the first part of **Cross Team Collaboration** we will create an event that is only publishe on your master.
+
+#### Publish Event
+
+First you have to publish an event from a Pipeline - any other Pipeline may set a trigger to listen for this event. Create a Pipeline job named `notify-event` with the following content:
 
 ```
 pipeline {
@@ -57,7 +63,11 @@ pipeline {
 }
 ```
 
-### Event Trigger
+Replace `beeEvent` with your `{username}Event` so my event would be `kmadelEvent`.
+
+#### Event Trigger
+
+Next, create a Pipeline job name `notify-trigger` and set a `trigger` to listen for the event you created above with the following content:
 
 ```
 pipeline {
@@ -81,6 +91,17 @@ pipeline {
 ```
 
 After creating both of these Pipeline jobs you will need to run the **Event Trigger** job once so that the trigger is registered. Once that is complete, click on **Build Now** to run the **Publish Event** job. Once that job has completed, the **Event Trigger** job will be triggered after a few seconds. The logs will show that the job was triggered by an `Event Trigger` and the `when` expression will be true.
+
+### Cross-Master Events
+
+For the second part of **Cross Team Collaboration** we will create an event that will be published **across Team Masters** via CloudBees Operations Center. The Cross Team Collaboration feature has a configurable router for routing events and we will change the router used for this exercise. You will need to select a partner to work with - one person will be the notifier and the other person will update their **event-trigger** job to be triggered when the notifier's job is run.
+
+1. First you need to update the **Notification Router Implementation** to use the **Operations Center Messaging** router by clicking on the **Manage Jenkins** link - on the left side at the root of your Team Master (classic ui).
+2. Next, scroll down and click on **Configure Notification** link.
+3. Under **Notification Router Implementation** select the **Operations Center Messaging** option as opposed to the currently selected **Local only** option.
+4. Now, the trigger job of the second partner needs to be updated to listen for the notifier's `event` string - ask your partner what their event string is - and then run the job once to register the trigger.
+5. Next, the notifier will run their `notify-event` job and you will see the `notify-trigger` job get triggered.
+
 
 ## Exercise 4.3 - Custom Marker Files
 
