@@ -14,7 +14,9 @@ This repository contains the instructions and learning materials associated with
   
 A PDF version of the presentation that accompanies this workshop can be found here: [Introduction%20to%20Declarative%20Pipeline%20-%20Hands%20On.pdf](Introduction%20to%20Declarative%20Pipeline%20-%20Hands%20On.pdf)
 
-The exercises covered in the workshop are available at the following links:
+[**Set-up Instructions**](Setup.md)
+
+**The exercises covered in the workshop are available at the following links:**
 
   * **Declarative Syntax Basics**: [Exercise-01.md](Exercise-01.md)
   * **Declarative Advanced Syntax**: [Exercise-02.md](Exercise-02.md)
@@ -38,7 +40,7 @@ In order to follow along with the hands on portion of the workshop students shou
     - user: all
   * Access to a Jenkins server
   
-Detailed set-up instructions are available at **[Setup](Setup.md)
+Detailed set-up instructions are available at **[Setup](Setup.md)**
 
 # Revision History
 
