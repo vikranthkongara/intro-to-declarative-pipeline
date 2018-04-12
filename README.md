@@ -9,15 +9,17 @@ This repository contains the instructions and learning materials associated with
   * What are the key features of Declarative pipelines?
   * How do you create multibranch pipelinest?
   * How do you  create a pipeline using Blue Ocean's pipeline editor?
-  * What Pipeline features are available only to CloudBees Enterprise Jenkins customers?
+  * What are Distributed Pipelines - an architecture that distributes your Pipelines by providing per team Jenkins Masters
+  * CloudBees Pipeline features that enable and enhance **Distributed Pipelines**
   
 A PDF version of the presentation that accompanies this workshop can be found here: [Introduction%20to%20Declarative%20Pipeline%20-%20Hands%20On.pdf](Introduction%20to%20Declarative%20Pipeline%20-%20Hands%20On.pdf)
 
 The exercises covered in the workshop are available at the following links:
 
-  * Exercises 1.X: [Exercise-01.md](Exercise-01.md)
-  * Exercises 2.X: [Exercise-02.md](Exercise-02.md)
-  * Exercises 3.X: [Exercise-03.md](Exercise-03.md)
+  * Declarative Syntax Basics: [Exercise-01.md](Exercise-01.md)
+  * Declarative Advanced Syntax: [Exercise-02.md](Exercise-02.md)
+  * Distributed Pipelines with Pipeline As Code: [Exercise-03.md](Exercise-03.md)
+  * Distributed Pipelines with CloudBees: [Exercise-04.md](Exercise-04.md)
 
 **Important Note**: The training content contained in this workshop is kept up to date with the latest releases of pipeline plugins and not all features will be available in Jenkins environments that are not updated regulary or within CAP (the CloudBees Assurance Program). The following are the currently required Pipeline plugin versions:
 
@@ -35,10 +37,8 @@ In order to follow along with the hands on portion of the workshop students shou
     - admin:org_hook
     - user: all
   * Access to a Jenkins server
-
-# Workshop Environment
-
-For instructions on setting up a CloudBees Jenkins Enterprise environment on AWS for the workshop see the following documentation: [Workshop-environment.md](Workshop-environment.md)
+  
+Detailed set-up instructions are available at **[Setup](Setup.md)
 
 # Revision History
 
@@ -57,8 +57,7 @@ Although the code in this repository was originally created by employees of Clou
 # Contributors 
 
 * Contributor: [Kurt Madel](https://github.com/kmadel)
-* Contributor: [Craig Vitter](https://github.com/cvitter)
-* Contributor: [Eric Long](https://github.com/ericlong)
+* Contributor: [Brent McConnell](https://github.com/brentmcconnell)
  
 # Questions, Feedback, Pull Requests Etc.
 
