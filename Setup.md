@@ -1,8 +1,7 @@
-# Workshop Setup Exercises
+# Workshop Setup
 
-## Exercise 1.0 - Jenkins Set-up
-In this exercise you will setup a work environment for the lessons provided
-in this workshop.  Ask the instructor for the URL of the server you will be using during the workshop.
+## Jenkins Set-up
+Setup a work environment for the lessons provided in this workshop.  Ask the instructor for the URL of the server you will be using during the workshop.
 
 Todays URL for the CloudBees Jenkins environment is https://cje.workshop.beedemo.net 
 
@@ -25,21 +24,21 @@ Next, everyone will get their own Jenkins masters referred to as a Team Master a
 6. **Select team master creation recipe** - click on the drop-down and select the **API Development** recipe;
 7. Finally, click the **Create team** button.
 
-## Exercise 2.0 - Create a GitHub.com user account
-In this exercise you will setup a GitHub.com user account that will be used later in this workshop. If you have an existing GitHub.com account you will be able to use it if you are comfortable using that account to create a GitHub Organization later in the workshop.
+## Create a GitHub.com user account
+Setup a GitHub.com user account that will be used later in this workshop. If you have an existing GitHub.com account you will be able to use it if you are comfortable using that account to create a GitHub Organization later in the workshop.
 
 1. Visit https://github.com/join and fill in the required fills to create a user account.
 2. Select "Unlimited public repositories for free" when choosing your plan.
 3. Verify your email account to ensure you account is activated.  An activated account will be **required** in the next few exercises.
 
-## Exercise 3.0 - Creat a GitHub.com Organization
-We will create a GitHub Organization during this exercise.  This Organization will be used to demonstrate the integrations between Jenkins and Git.  **Please do NOT use an existing organization during this workshop.**  This workshop does not provide enough build resources for existing Github organizations to be scanned and built in a resonable amount of time.  
+## Create a GitHub.com Organization
+Create a GitHub Organization that will be used to demonstrate the integrations between Jenkins and Git.  **Please do NOT use an existing organization during this workshop.**  This workshop does not provide enough build resources for existing Github organizations to be scanned and built in a resonable amount of time.  
 
 1.  Once you have created a GitHub.com user account we will create a new organization to link to Jenkins later in the workshop.
 2.  To create a free organization choose the **+** sign in the upper right hand corner of your **Profile** page on GitHub.com <p><img src= "img/github_org.png" width=300/>
 3.  On the Organization screen provide a name and your email address (Billing Address) and choose the "Free" organization.<p><img src= "img/new_org.png" width=300/>
 
-## Exercise 4.0 - Create a GitHub Personal Access Token
+## Create a GitHub Personal Access Token
 The following instructions cover how to create a Github Personal Access Token that you will use within Jenkins to connect Pipelines, Multibranch Pipelines, and Github Organization Projects to your Github repositories.
 
 1. Log into Github.com

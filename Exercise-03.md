@@ -35,11 +35,11 @@ In **Exercise 3.2** we are going to add a stage to our pipeline that uses a **Sh
 
 More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
 
-Add the following line at the top of your pipeline **above** the ```pipeline``` line:
+1. Add the following line at the top of your pipeline **above** the ```pipeline``` line:
 
 ```library 'SharedLibs'```
 
-Then add the following stage after the stage you created in **Exercise 3.1**:
+2. Then add the following stage after the stage you created in **Exercise 3.1**:
 
 ```
       stage('Shared Lib') {

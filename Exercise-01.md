@@ -1,30 +1,5 @@
 # Declarative Syntax Basics
 
-## Exercise 1.0 - Set-up
-In this exercise you will setup a work environment for the lessons provided
-in this workshop.  Ask the instructor for the URL of the server you will be using during the workshop.
-
-Todays URL for the CloudBees Jenkins environment is https://cje.workshop.beedemo.net 
-
-### Create a Jenkins Account
-
-1. Goto to the Workshop URL provided by the instructor;
-2. Click on the **Create an account** link in the middle of the page under the **Login** button.
-3. Complete the **Sign up** form (all fields are required) and click the **Sign up** button;
-4. You should see a **Success** page - click on **the top page** link;
-
-### Create a Team Master
-
-Next, everyone will get their own Jenkins masters referred to as a Team Master and we will create, edit and interact with our Pipelines in Blue Ocean.
-
-1. If not in Blue  Ocean, click on the **Blue Ocean** link in the left menu;
-2. Click on the **Create team** button on the right side of the screen;
-3. **Name this team** - enter a name for your team - perhaps your first initial with your last name and then click **Next**;
-4. **Choose an icon for this team** - select an icon and color for your team and then click **Next**;
-5. **Add people to this team** - your user will show up as a **Team Admin** and we won't be adding any additional users, but feel free to look around and then click **Next**;
-6. **Select team master creation recipe** - click on the drop-down and select the **API Development** recipe;
-7. Finally, click the **Create team** button.
-
 ## Exercise 1.1 - Basic Declarative Syntax Structure
 
 In **Exercise 1.1** we will create a simple declarative pipeline directly within the Jenkins interface.
