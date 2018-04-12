@@ -86,14 +86,14 @@ In this example we will add a Post Action to our **Deploy** stage to handle a ti
     }  
 ```
 
-Next, add the following to the bottom of your `pipeline` - righ before the close curly brace for the entir `pipeline`:
+Next, add the following to the bottom of your `pipeline` - right before the close curly brace for the entire `pipeline`:
 
 ```
-      post {
-        aborted {
-          echo 'Why didn\'t you push my button?'
-        }
-      }
+  post {
+    aborted {
+      echo 'Why didn\'t you push my button?'
+    }
+  }
 ```
 
 On the next build wait for the input time and you will see the following line in your console output: ```Why didn't you push my button?```.
