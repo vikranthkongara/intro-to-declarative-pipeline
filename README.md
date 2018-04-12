@@ -16,10 +16,10 @@ A PDF version of the presentation that accompanies this workshop can be found he
 
 The exercises covered in the workshop are available at the following links:
 
-  * Declarative Syntax Basics: [Exercise-01.md](Exercise-01.md)
-  * Declarative Advanced Syntax: [Exercise-02.md](Exercise-02.md)
-  * Distributed Pipelines with Pipeline As Code: [Exercise-03.md](Exercise-03.md)
-  * Distributed Pipelines with CloudBees: [Exercise-04.md](Exercise-04.md)
+  * **Declarative Syntax Basics**: [Exercise-01.md](Exercise-01.md)
+  * **Declarative Advanced Syntax**: [Exercise-02.md](Exercise-02.md)
+  * **Distributed Pipelines with Pipeline As Code**: [Exercise-03.md](Exercise-03.md)
+  * **Distributed Pipelines with CloudBees**: [Exercise-04.md](Exercise-04.md)
 
 **Important Note**: The training content contained in this workshop is kept up to date with the latest releases of pipeline plugins and not all features will be available in Jenkins environments that are not updated regulary or within CAP (the CloudBees Assurance Program). The following are the currently required Pipeline plugin versions:
 
