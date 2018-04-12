@@ -163,5 +163,5 @@ Add the following stage after ```stage('Say Hello')```:
       }
 ```
 
-**Note**: If your build breaks double check your pipeline script to make sure that the agent at the top of of the pipeline was reverted back to ```agent any``` as described in [exercise 1.2](./Exercise-01.md).
+**Note**: If your build breaks double check your pipeline script to make sure that the agent at the top of of the pipeline was reverted back to ```agent any``` as described in [exercise 1.2](./Exercise-01.md#exercise-12---agent-labels).
 
