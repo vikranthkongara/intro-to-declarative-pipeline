@@ -7,7 +7,7 @@
 We will setup the Blue Ocean Pipeline Editor so we can use the visual editor for many of following exercises:
 
 1. If not already in Blue Ocean, click on the **Teams** or **Open Blue Ocean** link in the left side navigation bar
-2. Click on the **New Pipeline** button <p><img src="img/1-0-create-a-new-pipeline.png" width=300/>
+2. Click on the **Create a new Pipeline** button <p><img src="img/1-0-create-a-new-pipeline.png" width=300/>
 3. Click on one of the options in the **Where do you store your code?** section (**GitHub** for this course) <p><img src="img/1-0-select-scm.png" width=300/>
 4. Enter your **Github token** (your GitHub Personal Access Token)
 5. Next, select your GitHub user account (note, be sure to select your user account or the GitHub Organization where you created the empty repository for this workshop - NOTE: The repository should not have an existing Jenkinsfile. <p><img src="img/1-0-select-github-org.png" width=300/>
