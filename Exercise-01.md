@@ -61,7 +61,7 @@ In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to us
 
 1. Click on the **pencil** icon in the top right to edit your Pipeline <p><img src="img/1-2-click-pencil.png" width=420/>
 2. Use the key combination `CTRL + S` to open up the free-form editor
-3. Replace the `agent any` declaration with the following `agent` declaration ():
+3. Replace the `agent any` declaration with the following `agent` declaration *NOTE: Don't worry about formatting too much as the Blue Ocean editor will reformat evertying before it is committed to your repository):
 
 ```
   agent {
