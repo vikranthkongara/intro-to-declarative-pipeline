@@ -47,20 +47,21 @@ pipeline {
 }
 ```
 
-8. Click the **Save** button <p><img src="img/1-1-shell-step-save.png" width=400/>
-9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/" width=420/>
+8. Click the **Save** button <p><img src="img/1-1-shell-step-save.png" width=300/>
+9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/1-1-shell-step-save.png" width=300/>
 
-Your Pipeline is actually being committed and pushed to your GitHub repository, and will run right away.
+>Your Pipeline is actually being committed and pushed to your GitHub repository, and will run right away.
 
-10. Click on your Pipeline to see the `steps` execute. <p><img src="img/1-1-click-to-see-pipeline-run.png" width=300/>
-11. Expand the **'java -version — Shell Script' `step` and you should see the following: <p><img src="img/1-1-java-version-step-expanded.png" width=300/>
+10. Click on your Pipeline to see the `steps` execute. <p><img src="img/1-1-click-to-see-pipeline-run.png" width=400/>
+11. Expand the **'java -version — Shell Script' `step` and you should see the following: <p><img src="img/1-1-java-version-step-expanded.png" width=420/>
 
 ## Exercise 1.2 - Agent Labels
 
 In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was less than 9. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` declaration:
 
-1. Click on the **pencil** icon in the top right to edit your Pipeline.
-2. Replace the `agent any` declaration with the following `agent` declaration (use the key combination `CTRL + S` to open up the free-form editor):
+1. Click on the **pencil** icon in the top right to edit your Pipeline <p><img src="img/1-2-click-pencil.png" width=420/>
+2. Use the key combination `CTRL + S` to open up the free-form editor
+3. Replace the `agent any` declaration with the following `agent` declaration ():
 
 ```
   agent {
@@ -72,7 +73,7 @@ In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to us
 3. Click the **Save** button 
 4. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**. 
 
-You should see the following output for the `sh` step:
+You should see the following output for the `sh` step after your Pipeline runs:
 
 ```
 openjdk version "9.0.4"
