@@ -17,12 +17,12 @@ Todays URL for the CloudBees Jenkins environment is **https://cje.workshop.beede
 Next, everyone will get their own Jenkins masters referred to as a Team Master and we will create, edit and interact with our Pipelines in Blue Ocean.
 
 1. If not in Blue  Ocean, click on the **Teams** link in the left menu; <p><img src="img/setup-classic-ui-Teams-link.png" width=400/>
-2. Click on the **Create team** button on the right side of the screen;
-3. **Name this team** - enter a name for your team - perhaps your first initial with your last name and then click **Next**;
+2. Click on the **Create team** button in the center of your screen;<p><img src="img/setup-create-a-team.png" width=300/>
+3. **Name this team** - enter a name for your team - perhaps your first initial with your last name (Team names must be unique) and then click **Next**;
 4. **Choose an icon for this team** - select an icon and color for your team and then click **Next**;
 5. **Add people to this team** - your user will show up as a **Team Admin** and we won't be adding any additional users, but feel free to look around and then click **Next**;
 6. **Select team master creation recipe** - click on the drop-down and but select the **Basic** recipe;
-7. Finally, click the **Create team** button.
+7. Finally, click the **Create team** button. <p><img src="img/setup-create-team-with-basic.png" width=400/>
 
 ## Create a GitHub.com user account
 Setup a GitHub.com user account that will be used later in this workshop. If you have an existing GitHub.com account you will be able to use it if you are comfortable using that account to create a GitHub Organization later in the workshop.
