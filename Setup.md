@@ -3,12 +3,12 @@
 ## Jenkins Set-up
 Setup a work environment for the lessons provided in this workshop.  Ask the instructor for the URL of the server you will be using during the workshop.
 
-Todays URL for the CloudBees Jenkins environment is https://cje.workshop.beedemo.net 
+Todays URL for the CloudBees Jenkins environment is **https://cje.workshop.beedemo.net**
 
 ### Create a Jenkins Account
 
 1. Goto to the Workshop URL provided by the instructor;
-2. Click on the **Create an account** link in the middle of the page under the **Login** button.
+2. Click on the **Create an account** link in the middle of the page under the **Login** button.<p><img src="img/setup-create-an-account.png" width=300/>
 3. Complete the **Sign up** form (all fields are required) and click the **Sign up** button;
 4. You should see a **Success** page - click on **the top page** link;
 
