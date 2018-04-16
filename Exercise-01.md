@@ -54,7 +54,7 @@ pipeline {
 
 In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was less than 9. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` parameter:
 
-1. Replace the `agent any` declaration with the following `agent` declaration:
+1. Replace the `agent any` declaration with the following `agent` declaration (use the key combination `CTRL + S` to open up the free-form editor):
 
 ```
   agent {
@@ -62,7 +62,7 @@ In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to us
   }
 ```
 
-2. Execute your job by clicking on **Build Now** and check the Console Log. You should see the following output after the `sh` step:
+2. Execute your job by clicking on **Build Now** and check the Console Log. You should see the following output for the `sh` step:
 
 ```
 openjdk version "9.0.4"
@@ -113,85 +113,7 @@ Before going on to the next exercise let's revert our pipeline to using:
 
 And remove the `sh 'go version'` step
 
-## Exercise 1.4 - Kubernetes Agents
-
-In this exercise you explore the Kubernetes Plugin and will update a Jenkinsfile to use the `podTemplate` and `container` directives. In exercise 1.3 we saw how to use the Docker directive, allowing you to run steps inside an arbitray Docker image. Behind the scenes, there had to be a Jenkins agent that was able to execute against a Docker daemon to run containers. Here we will be using the [Jenkins Kubernetes plugin](https://github.com/jenkinsci/kubernetes-plugin). The plugin creates a [Kubernetes Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for each agent requested by a Jenkins job, with at least one Docker container running as the a JNLP agent, and stops the pod and all containers after the build is complete.
-
-1. Copy and paste the following code into the **Pipeline Script** text box near the bottom of the page:
-
-```
-pipeline {
-  agent {
-    kubernetes {
-      label 'kubernetes'
-      containerTemplate {
-        name 'go'
-        image 'golang:1.10.1-alpine'
-        ttyEnabled true
-        command 'cat'
-      }
-    }
-  }
-  stages {
-    stage('golang in k8s') {
-        steps {
-            container('go') {
-                sh 'go version'
-            }
-        }
-    }
-  }
-}
-```
-**Note:** Notice the use of the **container** directive.  This tells Jenkins which container in a Pod to use for the steps in the stage.  In this exercise a single container (golang) was explicitly defined in the pipeline, however a second container is implicitly created to handle the JNLP communiction between Jenkins and the Pod.
-
-```
-pipeline {
-  agent {
-    kubernetes {
-      label 'kubernetes'
-      containerTemplate {
-        name 'go'
-        image 'golang:1.10.1-alpine'
-        ttyEnabled true
-        command 'cat'
-      }
-    }
-  }
-  stages {
-    stage('golang in k8s') {
-        steps {
-            container('go') {
-                sh 'go version'
-            }
-            container('jnlp') {
-                sh 'java -version'
-            }
-        }
-     }
-  }
-}
-```
-**Note:** In the above example you were able to execute a java command in the implicitly defined **jnlp** container in the Pod.  The JNLP container is a part of every Pod created by the Jenkins Kubernetes plugin.
-
-Finally, revert your Pipeline to the one from exercise 1.1:
-
-```
-pipeline {
-   agent any
-    
-   stages {
-      stage('Say Hello') {
-         steps {
-            echo 'Hello World!'   
-            sh 'java -version'
-         }
-      }
-   }
-}
-```
-
-## Exercise 1.5 - Environment Directive
+## Exercise 1.4 - Environment Directive
 
 For **Exercise 1.5** we are going to update our **SimplePipeline** job to demonstrate how to use the `environment` directive to set and use environment variables. We will also see how this directive supports a special helper method `credentials()`. access pre-defined Credentials by their identifier in the Jenkins environment.
 
@@ -218,7 +140,7 @@ We will also add the following ```echo``` steps within the ```steps``` of the Sa
 
 **Note**: After executing the build look at the console output and make note of the fact that the credential user name and password are masked when output via the echo command.
 
-## Exercise 1.6 - Parameters
+## Exercise 1.5 - Parameters
 
 In **Exercise 1.6** we will alter our pipeline to accept external input in the form of a Parameter.
 
