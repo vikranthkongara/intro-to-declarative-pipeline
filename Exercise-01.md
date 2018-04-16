@@ -62,7 +62,11 @@ In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to us
   }
 ```
 
-2. Execute your job by clicking on **Build Now** and check the Console Log. You should see the following output for the `sh` step:
+2. Click the **Update** button
+3. Click the **Save** button 
+4. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**. 
+
+You should see the following output for the `sh` step:
 
 ```
 openjdk version "9.0.4"
