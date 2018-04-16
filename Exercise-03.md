@@ -1,37 +1,8 @@
 # Distributed Pipelines with Pipeline As Code
 
-## Exercise 3.1 - Blue Ocean Editor
+## Exercise 3.1 - Shared Libraries
 
-**Note**: You need to have a Github personal access token ([Github-Personal-Access-Token.md](Github-Personal-Access-Token.md)) before proceeding.
-
-Finally we will use the Blue Ocean Pipeline Editor to create a simple declarative pipeline using the following steps:
-
-1. Click on the **Open Blue Ocean** button in the left side navigation bar
-2. Click on the **New Pipeline** button
-3. Click on one of the options in the **Where do you store your code?** section (Github for this course)
-4. Enter your **Github token**
-5. Select the **Organization** in which the repository that you want to create the Jenkinsfile in exists - NOTE: The repository should not have an existing Jenkinsfile.
-6. Select **New Pipeline**
-7. Choose the **Repository**
-8. Click on **Create Pipeline**
-
-Once the pipeline has created Blue Ocean will open the editor screen. We will create a few simple steps using the following instructions (feel free to veer of course and try all of the options available):
-
-1. On the right side of the editor select **docker** from the **agent** drop down
-2. For the **Image** input enter `maven:alpine`
-3. Click on the **+** icon next to the pipeline's **Start** node
-4. Click into **Name your stage** and enter a name
-5. Click on **+ Add step**
-6. Click on **Shell script**
-7. Type ```mvn -v``` into the text box
-8. Click on **Save** to save the pipeline and execute it
-9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**
-
-After your pipeline executes you can click on the **pencil** icon to continue editing your pipeline.
-
-## Exercise 3.2 - Shared Libraries
-
-In **Exercise 3.2** we are going to add a stage to our pipeline that uses a **Shared Library** to import functionality that allows us to say 'hi'.
+In **Exercise 3.1** we are going to add a stage to our pipeline that uses a **Shared Library** to import functionality that allows us to say 'hi'.
 
 More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
 
@@ -51,9 +22,9 @@ More information on using Shared Libraries is available here: https://jenkins.io
 
 The ```helloWorld``` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
 
-## Exercise 3.3- Create GitHub Org and Fork Repos
+## Exercise 3.2 - Create GitHub Org and Fork Repos
 
-In **Exercise 3.3** we are going to start by forking an existing Github project that has multiple branches and Jenkinsfiles in each branch.
+In **Exercise 3.2** we are going to start by forking an existing Github project that has multiple branches and Jenkinsfiles in each branch.
 
 But first let's create a Github organization to fork the repo into:
 
@@ -67,7 +38,7 @@ Now lets fork the repo into the new organization:
 2. Click on **Fork**
 3. Select the **Organization** you want to fork into
 
-## Exercise 3.4 - GitHub Organization Project
+## Exercise 3.3 - GitHub Organization Project
 
 In this exercise we are going to create a GitHub Organization project from our newly forked repository.
 
@@ -99,7 +70,7 @@ Once you click on save Jenkins will search your organization for any projects wi
 
 When the project was created it also should have created webhooks in Github. Verify that the webhooks were created in Github by checking **Webhooks** within your organization's Github **Settings**.
 
-## Exercise 3.5 - Conditional Execution
+## Exercise 3.4 - Conditional Execution
 
 In this exercise we are going to edit the Jenkinsfile file in the **development** branch of our project to add a branch specific stage.
 
@@ -128,7 +99,7 @@ In this exercise we are going to edit the Jenkinsfile file in the **development*
 
 Notice how after you commit your changes the Github web hooks trigger a build of the development branch in Jenkins.
 
-## Exercise 3.6 - PRs and Merging
+## Exercise 3.5 - PRs and Merging
 
 In this exercise we are going to edit the development branch's Jenkinsfile again but make our commit against a feature branch and user a pull request to merge the edits into our development branch.
 

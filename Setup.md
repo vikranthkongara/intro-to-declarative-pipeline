@@ -16,7 +16,7 @@ Todays URL for the CloudBees Jenkins environment is https://cje.workshop.beedemo
 
 Next, everyone will get their own Jenkins masters referred to as a Team Master and we will create, edit and interact with our Pipelines in Blue Ocean.
 
-1. If not in Blue  Ocean, click on the **Teams** link in the left menu;
+1. If not in Blue  Ocean, click on the **Teams** link in the left menu; <p><img src="img/setup-classic-ui-Teams-link.png" width=200/>
 2. Click on the **Create team** button on the right side of the screen;
 3. **Name this team** - enter a name for your team - perhaps your first initial with your last name and then click **Next**;
 4. **Choose an icon for this team** - select an icon and color for your team and then click **Next**;
@@ -30,13 +30,6 @@ Setup a GitHub.com user account that will be used later in this workshop. If you
 1. Visit https://github.com/join and fill in the required fills to create a user account.
 2. Select "Unlimited public repositories for free" when choosing your plan.
 3. Verify your email account to ensure you account is activated.  An activated account will be **required** in the next few exercises.
-
-## Create a GitHub.com Organization
-Create a GitHub Organization that will be used to demonstrate the integrations between Jenkins and Git.  **Please do NOT use an existing organization during this workshop.**  This workshop does not provide enough build resources for existing Github organizations to be scanned and built in a resonable amount of time.  
-
-1.  Once you have created a GitHub.com user account we will create a new organization to link to Jenkins later in the workshop.
-2.  To create a free organization choose the **+** sign in the upper right hand corner of your **Profile** page on GitHub.com <p><img src= "img/github_org.png" width=300/>
-3.  On the Organization screen provide a name and your email address (Billing Address) and choose the "Free" organization.<p><img src= "img/new_org.png" width=300/>
 
 ## Create a GitHub Personal Access Token
 The following instructions cover how to create a Github Personal Access Token that you will use within Jenkins to connect Pipelines, Multibranch Pipelines, and Github Organization Projects to your Github repositories.

@@ -1,5 +1,35 @@
 # Declarative Syntax Basics
 
+## Exercise 1.0 - Blue Ocean Editor
+
+**Note**: You need to have a Github personal access token ([Github-Personal-Access-Token.md](Github-Personal-Access-Token.md)) before proceeding.
+
+We will use the Blue Ocean Pipeline Editor to create a simple declarative pipeline using the following steps:
+
+1. Click on the **Open Blue Ocean** button in the left side navigation bar
+2. Click on the **New Pipeline** button
+3. Click on one of the options in the **Where do you store your code?** section (Github for this course)
+4. Enter your **Github token**
+5. Select the **Organization** in which the repository that you want to create the Jenkinsfile in exists - NOTE: The repository should not have an existing Jenkinsfile.
+6. Select **New Pipeline**
+7. Choose the **Repository**
+8. Click on **Create Pipeline**
+
+Once the pipeline has created Blue Ocean will open the editor screen. We will create a few simple steps using the following instructions (feel free to veer of course and try all of the options available):
+
+1. On the right side of the editor select **docker** from the **agent** drop down
+2. For the **Image** input enter `maven:alpine`
+3. Click on the **+** icon next to the pipeline's **Start** node
+4. Click into **Name your stage** and enter a name
+5. Click on **+ Add step**
+6. Click on **Shell script**
+7. Type ```mvn -v``` into the text box
+8. Click on **Save** to save the pipeline and execute it
+9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**
+
+After your pipeline executes you can click on the **pencil** icon to continue editing your pipeline.
+
+
 ## Exercise 1.1 - Basic Declarative Syntax Structure
 
 In **Exercise 1.1** we will create a simple declarative pipeline directly within the Jenkins interface.
