@@ -19,7 +19,7 @@ Next, the Blue Ocean editor will open - if the editor does not load after a minu
 
 In **Exercise 1.1** we will create a simple declarative pipeline using the Blue Ocen Pipeline editor.
 
-Declarative Pipelines must be enclosed within a `pipeline` block with a preceding `agent` declaration and then contains exactly one `stages` block. The `stages` block must have at least one `stage` block but can have an unlimited number of additional stages. Each `stage` block must have exactly one `steps` block.
+Declarative Pipelines must be enclosed within a `pipeline` block and must contain a top-level `agent` declaration, and then contains exactly one `stages` block. The `stages` block must have at least one `stage` block but can have an unlimited number of additional stages. Each `stage` block must have exactly one `steps` block.
 
 Using the Blue Ocean Pipeline editor we setup in Exercise 1.0, do the following:
 
