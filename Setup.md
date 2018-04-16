@@ -42,3 +42,12 @@ The following instructions cover how to create a Github Personal Access Token th
 6. Click on **Generate Token**
 7. As the success message says: **Make sure to copy your new personal access token now. You won’t be able to see it again!**  
 
+## Create an empty GitHub repository for your first example Pipeline
+The following instructions cover how to create a Github repository under your personal account.
+
+1. Log into Github.com
+2. Click on the **+** dropdown at the top right of the screen to the left of your avatar and select **New repositroy** <p><img src="img/setup-github-new-repo.png" width=200/>
+3. Enter a **Repository name** for your repository - such as **intro-pipeline**
+4. Check the **Initialize this repository with a README** checkbox
+5. Click the **Create repository** button <p><img src="img/setup-github-create-repo-completed-form.png" width=300/>
+
