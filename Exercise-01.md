@@ -1,51 +1,41 @@
 # Declarative Syntax Basics
 
-## Exercise 1.0 - Blue Ocean Editor
+## Exercise 1.0 - Setup to use Blue Ocean Editor
 
 **Note**: You need to have a Github personal access token ([Github-Personal-Access-Token.md](Github-Personal-Access-Token.md)) before proceeding.
 
-We will use the Blue Ocean Pipeline Editor to create a simple declarative pipeline using the following steps:
+We will setup the Blue Ocean Pipeline Editor so we can use the visual editor for many of following exercises:
 
-1. Click on the **Open Blue Ocean** button in the left side navigation bar
-2. Click on the **New Pipeline** button
-3. Click on one of the options in the **Where do you store your code?** section (Github for this course)
-4. Enter your **Github token**
-5. Select the **Organization** in which the repository that you want to create the Jenkinsfile in exists - NOTE: The repository should not have an existing Jenkinsfile.
-6. Select **New Pipeline**
-7. Choose the **Repository**
-8. Click on **Create Pipeline**
+1. If not already in Blue Ocean, click on the **Teams** or **Open Blue Ocean** link in the left side navigation bar
+2. Click on the **New Pipeline** button <p><img src="img/1-0-create-a-new-pipeline.png" width=300/>
+3. Click on one of the options in the **Where do you store your code?** section (**GitHub** for this course) <p><img src="img/1-0-select-scm.png" width=300/>
+4. Enter your **Github token** (your GitHub Personal Access Token)
+5. Next, select your GitHub user account (note, be sure to select your user account or the GitHub Organization where you created the empty repository for this workshop - NOTE: The repository should not have an existing Jenkinsfile. <p><img src="img/1-0-select-github-org.png" width=300/>
+6. Under **Choose a repository** select the repository you created during setup and then click the **Create Pipeline** button <p><img src="img/1-0-choose-repo-create-pipeline.png" width=320/>
 
-Once the pipeline has created Blue Ocean will open the editor screen. We will create a few simple steps using the following instructions (feel free to veer of course and try all of the options available):
-
-1. On the right side of the editor select **docker** from the **agent** drop down
-2. For the **Image** input enter `maven:alpine`
-3. Click on the **+** icon next to the pipeline's **Start** node
-4. Click into **Name your stage** and enter a name
-5. Click on **+ Add step**
-6. Click on **Shell script**
-7. Type ```mvn -v``` into the text box
-8. Click on **Save** to save the pipeline and execute it
-9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**
-
-After your pipeline executes you can click on the **pencil** icon to continue editing your pipeline.
-
+Next, the Blue Ocean editor will open - if the editor does not load after a minute or so, refresh your browser. 
 
 ## Exercise 1.1 - Basic Declarative Syntax Structure
 
-In **Exercise 1.1** we will create a simple declarative pipeline directly within the Jenkins interface.
+In **Exercise 1.1** we will create a simple declarative pipeline using the Blue Ocen Pipeline editor.
 
-Declarative Pipelines must be enclosed within a `pipeline` block that in turn contains exactly one `stages` block. The `stages` block must have at least one `stage` block but can have an unlimited number of additional stages. Each `stage` block must have exactly one `steps` block.
+Declarative Pipelines must be enclosed within a `pipeline` block with a preceding `agent` declaration and then contains exactly one `stages` block. The `stages` block must have at least one `stage` block but can have an unlimited number of additional stages. Each `stage` block must have exactly one `steps` block.
 
-Using the personal folder created for you in Exercise 1.0, do the following:
+Using the Blue Ocean Pipeline editor we setup in Exercise 1.0, do the following:
 
-1. Click on the **create new jobs** link.  Alternatively you can create a job by selecting **New Item** from the left menu and then step 2 below.
-2. Type **SimplePipeline** into the **Enter an item name** text box, click on **Pipeline**, and then click on the **OK** button.
-3. Copy and paste the following code into the **Pipeline Script** text box near the bottom of the page:
+1. You should see the **You don't have any branches that contain a Jenkinsfile** dialog, click on the **Create Pipeline** button (NOTE: If you already had a `Jenkinsfile` in your repository then the editor should open) <p><img src="img/1-1-create-pipeline-no-jenkinsfile.png" width=300/>
+2. Click on the **+** icon next to the pipeline's **Start** node to add a `stage`
+3. Click into **Name your stage** and enter 'Say Hello'
+4. Click on the **+ Add step** button
+5. Click on the **Print Message** step and enter 'Hello World!' as the **Message**
+6. Click on the **<-** (arrow) next to the 'Say Hello / Print Message' text to add another step <p><img src="img/1-1-print-message-then-add-step.png" width=300/>
+7. Click on the **+ Add step** button
+8. Click on the **Shell Script** step and enter `java -version` into the text area
+9. Press the key combination `CTRL + S` to open the Blue Ocean free-form editor and you should see a Pipeline similar to the one below (click anywhere outside the editor to close it):
 
 ```
 pipeline {
    agent any
-    
    stages {
       stage('Say Hello') {
          steps {
@@ -57,8 +47,8 @@ pipeline {
 }
 ```
 
-4. Click on **Save** and then click on **Build Now** in the left menu to run your pipeline.
-5. Click on the blue dot for the job in **Build History** to view the console output from the job.  You should see Finished:  SUCCESS at the bottom of the output.
+8. Click the **Save** button <p><img src="img/1-1-shell-step-save.png" width=300/>
+9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/1-1-save-pipeline.png" width=300/>
 
 ## Exercise 1.2 - Agent Labels
 
