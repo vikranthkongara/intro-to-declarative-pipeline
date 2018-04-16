@@ -10,7 +10,7 @@ We will setup the Blue Ocean Pipeline Editor so we can use the visual editor for
 2. Click on the **Create a new Pipeline** button (if you have already created a Pipeline, you will need to click the **New Pipeline** button in the upper right) <p><img src="img/1-0-create-a-new-pipeline.png" width=300/>
 3. Click on one of the options in the **Where do you store your code?** section (**GitHub** for this course) <p><img src="img/1-0-select-scm.png" width=300/>
 4. Enter your **Github token** (your GitHub Personal Access Token)
-5. Next, select your GitHub user account (note, be sure to select your user account or the GitHub Organization where you created the empty repository for this workshop - NOTE: The repository should not have an existing Jenkinsfile. <p><img src="img/1-0-select-github-org.png" width=300/>
+5. Next, select your GitHub user account (NOTE: Be sure to select your user account or the GitHub Organization where you created the empty repository for this workshop. The repository should not have an existing Jenkinsfile.) <p><img src="img/1-0-select-github-org.png" width=300/>
 6. Under **Choose a repository** select the repository you created during setup and then click the **Create Pipeline** button <p><img src="img/1-0-choose-repo-create-pipeline.png" width=320/>
 
 Next, the Blue Ocean editor will open - if the editor does not load after a minute or so, refresh your browser. 
@@ -19,16 +19,16 @@ Next, the Blue Ocean editor will open - if the editor does not load after a minu
 
 In **Exercise 1.1** we will create a simple declarative pipeline using the Blue Ocen Pipeline editor.
 
-Declarative Pipelines must be enclosed within a `pipeline` block and must contain a top-level `agent` declaration, and then contains exactly one `stages` block. The `stages` block must have at least one `stage` block but can have an unlimited number of additional stages. Each `stage` block must have exactly one `steps` block.
+Declarative Pipelines must be enclosed within a `pipeline` block and must contain a top-level `agent` declaration, and then contains exactly one `stages` block. The `stages` block must have at least one `stage` block but can have an unlimited number of additional stages. Each `stage` block must have exactly one `steps` block. The Blue Ocean editor takes care of much of this for you but we will need to add a `stage` and `steps`.
 
 Using the Blue Ocean Pipeline editor we setup in Exercise 1.0, do the following:
 
-1. You should see the **You don't have any branches that contain a Jenkinsfile** dialog, click on the **Create Pipeline** button (NOTE: If you already had a `Jenkinsfile` in your repository then the editor should open) <p><img src="img/1-1-create-pipeline-no-jenkinsfile.png" width=300/>
+1. You should see the **You don't have any branches that contain a Jenkinsfile** dialog, click on the **Create Pipeline** button (NOTE: If you already had a `Jenkinsfile` in your repository then the editor should open straight-away) <p><img src="img/1-1-create-pipeline-no-jenkinsfile.png" width=300/>
 2. Click on the **+** icon next to the pipeline's **Start** node to add a `stage`
-3. Click into **Name your stage** and enter 'Say Hello'
+3. Click into **Name your stage** and type in the text 'Say Hello'
 4. Click on the **+ Add step** button
-5. Click on the **Print Message** step and enter 'Hello World!' as the **Message**
-6. Click on the **<-** (arrow) next to the 'Say Hello / Print Message' text to add another step <p><img src="img/1-1-print-message-then-add-step.png" width=300/>
+5. Click on the **Print Message** step and type in 'Hello World!' as the **Message**
+6. Click on the **<-** (arrow) next to the **'Say Hello / Print Message'** text to add another step <p><img src="img/1-1-print-message-then-add-step.png" width=300/>
 7. Click on the **+ Add step** button
 8. Click on the **Shell Script** step and enter `java -version` into the text area
 9. Press the key combination `CTRL + S` to open the Blue Ocean free-form editor and you should see a Pipeline similar to the one below (click anywhere outside the editor to close it):
@@ -48,13 +48,19 @@ pipeline {
 ```
 
 8. Click the **Save** button <p><img src="img/1-1-shell-step-save.png" width=300/>
-9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/1-1-save-pipeline.png" width=300/>
+9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/" width=300/>
+
+Your Pipeline is actually being committed and pushed to your GitHub repository, and will run right away.
+
+10. Click on your Pipeline to see the `steps` execute. <p><img src="img/1-1-click-to-see-pipeline-run.png" width=300/>
+11. Expand the **'java -version — Shell Script' `step` and you should see the following: <p><img src="img/1-1-java-version-step-expanded.png" width=300/>
 
 ## Exercise 1.2 - Agent Labels
 
-In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was less than 9. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` parameter:
+In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was less than 9. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` declaration:
 
-1. Replace the `agent any` declaration with the following `agent` declaration (use the key combination `CTRL + S` to open up the free-form editor):
+1. Click on the **pencil** icon in the top right to edit your Pipeline.
+2. Replace the `agent any` declaration with the following `agent` declaration (use the key combination `CTRL + S` to open up the free-form editor):
 
 ```
   agent {
@@ -82,9 +88,25 @@ Before going on to the next exercise let's revert our pipeline to using:
    agent any
 ```
 
+Your Pipeline should look like the following Pipeline:
+
+```
+pipeline {
+   agent any
+   stages {
+      stage('Say Hello') {
+         steps {
+            echo 'Hello World!'   
+            sh 'java -version'
+         }
+      }
+   }
+}
+```
+
 ## Exercise 1.3 - Agents with Docker
 
-In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to execute steps in a Docker container. To update the pipeline:
+In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to execute steps in a Docker container. The `docker` agent directive allows you to use any abritary Docker images to run Pipeline steps inside. To update the pipeline:
 
 1. In the `steps` block replace the `sh 'java -version'` step with the following step:
 
