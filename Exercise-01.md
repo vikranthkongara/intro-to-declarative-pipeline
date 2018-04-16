@@ -47,8 +47,8 @@ pipeline {
 }
 ```
 
-8. Click the **Save** button <p><img src="img/1-1-shell-step-save.png" width=300/>
-9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/" width=300/>
+8. Click the **Save** button <p><img src="img/1-1-shell-step-save.png" width=400/>
+9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/" width=420/>
 
 Your Pipeline is actually being committed and pushed to your GitHub repository, and will run right away.
 
