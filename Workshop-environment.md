@@ -1,5 +1,7 @@
 # Introduction to Declarative Pipelines - Environment
 
+## DEPRECATED - see [Setup](Setup.md)
+
 This document describes how to create a shared CloudBees Jenkins Enterprise Master environment on jenkins.beedemo.net that the participants will use.
 
 ## Create the Managed Master
