@@ -115,7 +115,7 @@ In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to ex
   sh 'go version'
 ```
 
-2. **Save & Run** your pipeline and check the Console Log. The build should fail with the error: `go: not found`
+2. **Save & Run** your pipeline and check the Console Log. Let the run complete in the the [Blue Ocean Activity View](https://jenkins.io/doc/book/blueocean/activity/) and once it has completed click on it. Notice how Blue Ocean opens the [Pipeline Run Details View](https://jenkins.io/doc/book/blueocean/pipeline-run-details/) with the `stage` and `step` where the error occured already expanded. The build should fail with the error: `go: not found` as seen below: <p><img src="img/1-3-expanded-error.png" width=440/>
 
 3. Click on configure and update the `agent` portion of the pipeline to read:
 
