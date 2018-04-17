@@ -154,7 +154,10 @@ For **Exercise 1.4** we are going to update our pipeline to demonstrate how to u
    }
 ```
 
-2. Then update the `echo 'Hello World!'` line to read `echo "Hello ${MY_NAME}!"` and run your build again to view the results.  Notice the change from '' to "".  Using double quotes will trigger extrapolation of environment variables.
+2. Then update the `echo 'Hello World!'` line to read `echo "Hello ${MY_NAME}!"`
+3. **Save & Run** your pipeline and check the Console Log.  
+
+>Notice the change from `''` to `""`.  Using double quotes will trigger extrapolation of environment variables.
 
 ### Credentials
 

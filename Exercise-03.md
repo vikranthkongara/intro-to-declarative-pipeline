@@ -20,7 +20,7 @@ More information on using Shared Libraries is available here: https://jenkins.io
       }
 ```
 
-The ```helloWorld``` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
+>The `helloWorld` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
 
 ## Exercise 3.2 - Create GitHub Org and Fork Repos
 
@@ -32,7 +32,7 @@ But first let's create a Github organization to fork the repo into:
 2. Click on **New Organization**
 3. Fill in the **Organization Name**, **Billing Email**, and click on **Create Organization**
 
-Now lets fork the repo into the new organization:
+Now lets fork the repo into the new organization you just created:
 
 1. Navigate to the rest server application we are going to work with: https://github.com/PipelineHandsOn/sample-rest-server
 2. Click on **Fork**
@@ -66,9 +66,9 @@ Now let's create the Github Organization project:
 6. Select **All** from the **Strategy** drop down under **Discover Branches**
 7. Click **Save**
 
-Once you click on save Jenkins will search your organization for any projects with Jenkinsfiles in them, import those projects as Multibranch projects, and begin building each branch with a Jenkinsfile in it.
+Once you click on save, Jenkins will search your organization for any projects with Jenkinsfiles in them, import those projects as Multibranch projects, and begin building each branch with a Jenkinsfile in it.
 
-When the project was created it also should have created webhooks in Github. Verify that the webhooks were created in Github by checking **Webhooks** within your organization's Github **Settings**.
+When the project was created it also should have created a webhook in Github. Verify that the webhooks were created in Github by checking **Webhooks** within your organization's Github **Settings**.
 
 ## Exercise 3.4 - Conditional Execution
 
@@ -97,7 +97,7 @@ In this exercise we are going to edit the Jenkinsfile file in the **development*
 
 5. Fill out the commit information, select 'Commit directly to the development branch.', and click on **Commit Changes**
 
-Notice how after you commit your changes the Github web hooks trigger a build of the development branch in Jenkins.
+>Notice how after you commit your changes the Github web hooks trigger a build of the development branch in Jenkins.
 
 ## Exercise 3.5 - PRs and Merging
 
