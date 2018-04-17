@@ -115,7 +115,7 @@ In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to ex
   sh 'go version'
 ```
 
-2. **Save & Run** your pipeline and check the Console Log. The build will fail with `golang: not found`
+2. **Save & Run** your pipeline and check the Console Log. The build will fail with `go: not found`
 
 3. Click on configure and update the `agent` portion of the pipeline to read:
 
