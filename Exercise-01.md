@@ -59,7 +59,7 @@ pipeline {
 
 In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was less than 9. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` declaration:
 
-1. Click on the **pencil** icon in the top right to edit your Pipeline <p><img src="img/1-2-click-pencil.png" width=420/>
+1. Click on the **pencil** icon in the top right to edit your Pipeline <p><img src="img/1-2-click-pencil.png" width=520/>
 2. Use the key combination `CTRL + S` to open up the free-form editor
 3. Replace the `agent any` declaration with the following `agent` declaration *NOTE: Don't worry about formatting too much as the Blue Ocean editor will reformat evertying before it is committed to your repository):
 
