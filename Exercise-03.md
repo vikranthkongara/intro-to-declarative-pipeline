@@ -135,7 +135,7 @@ Finally, we should merge our work into our master branch to verify that our chan
 6. Click **Merge pull request**
 7. Click **Confirm merge**
 
-Notice how after you merge your changes into master the Github web hooks trigger a build of the master branch in Jenkins.
+>Notice how after you merge your changes into master the Github web hooks trigger a build of the master branch in Jenkins.
 
 
 

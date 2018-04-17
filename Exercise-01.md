@@ -1,10 +1,10 @@
 # Declarative Syntax Basics
 
-## Exercise 1.0 - Setup to use Blue Ocean Editor
+## Exercise 1.0 - Setup to use Blue Ocean Pipeline Editor
 
 **Note**: You need to have a Github personal access token ([Github-Personal-Access-Token.md](Github-Personal-Access-Token.md)) before proceeding.
 
-We will setup the Blue Ocean Pipeline Editor so we can use the visual editor for many of following exercises:
+We will setup the [Blue Ocean Pipeline Editor](https://jenkins.io/doc/book/blueocean/pipeline-editor/) so we can use the visual editor for many of following exercises:
 
 1. If not already in Blue Ocean, click on the **Teams** or **Open Blue Ocean** link in the left side navigation bar
 2. Click on the **Create a new Pipeline** button (if you have already created a Pipeline, you will need to click the **New Pipeline** button in the upper right) <p><img src="img/1-0-create-a-new-pipeline.png" width=300/>
@@ -107,7 +107,7 @@ pipeline {
 
 ## Exercise 1.3 - Agents with Docker
 
-In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to execute steps in a Docker container. The `docker` agent directive allows you to use any abritary Docker images to run Pipeline steps inside. To update the pipeline:
+In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to execute steps in a Docker container. The `docker` agent directive allows you to use any abritary Docker image to run Pipeline steps inside. To update the pipeline:
 
 1. In the `steps` block replace the `sh 'java -version'` step with the following step:
 
@@ -115,9 +115,9 @@ In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to ex
   sh 'go version'
 ```
 
-2. Execute your job by clicking on **Build Now** and check the Console Log. The build will fail with `make: not found`
+2. **Save & Run** your pipeline and check the Console Log. The build will fail with `golang: not found`
 
-3. Click on configure and update the ```agent``` portion of the pipeline to read:
+3. Click on configure and update the `agent` portion of the pipeline to read:
 
 ```
    agent {
@@ -128,9 +128,9 @@ In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to ex
    }
 ```
 
-4. Execute your job by clicking on **Build Now** and check the Console Log to see how Jenkins pulls the appropriate docker image and runs your build inside the container created from that image. 
+4. **Save & Run** your pipeline and check the Console Log to see how Jenkins pulls the appropriate docker image and runs your build inside the container created from that image. 
 
-5. Remove the `label 'docker-cloud'` line from your pipeline job and build the job again by clicking on **Build Now**.  The job should still work... but why?? Pipeline Model Definition is why.  The Pipeline Model Definition allows an administrator to define the default label a job should use if one is not specified with docker.  In this case the Pipeline Model Definition is already set to `docker-cloud`.  This means that you will get an agent running dockerd everytime you use the docker {} block so using label parameter is redundant unless you need a specific docker agent.
+5. Now, remove the `label 'docker-cloud'` line from your pipeline job and **Save & Run** your pipeline.  The job should still work... but why?? *Pipeline Model Definition* is why.  The *Pipeline Model Definition* allows an administrator to define the default `label` a job should use if one is not specified with for the `docker` directive.  In this case the *Pipeline Model Definition* is already set to `docker-cloud`.  This means that you will get an agent capable of running Docker containers everytime you use the `docker` `agent` directive, so using the `label` parameter is redundant unless you need a specific Docker enabled agent.
 
 Before going on to the next exercise let's revert our pipeline to using:
 
@@ -138,13 +138,15 @@ Before going on to the next exercise let's revert our pipeline to using:
    agent any
 ```
 
-And remove the `sh 'go version'` step
+And remove the `sh 'go version'` step.
 
 ## Exercise 1.4 - Environment Directive
 
-For **Exercise 1.5** we are going to update our **SimplePipeline** job to demonstrate how to use the `environment` directive to set and use environment variables. We will also see how this directive supports a special helper method `credentials()`. access pre-defined Credentials by their identifier in the Jenkins environment.
+For **Exercise 1.4** we are going to update our pipeline to demonstrate how to use the `environment` directive to set and use environment variables. We will also see how this directive supports a special helper method `credentials()` that allows access to pre-defined Jenkins Credentials based on their id.
 
-At the top of the pipeline insert the following code between the ```agent``` and ```stages``` blocks:  
+### Simple Environment Variables
+
+1. At the top of the pipeline insert the following code between the `agent` and `stages` blocks:  
 
 ```
    environment {
@@ -152,13 +154,17 @@ At the top of the pipeline insert the following code between the ```agent``` and
    }
 ```
 
-Then update the ```echo 'Hello World!'``` line to read ```echo "Hello ${MY_NAME}!"``` and run your build again to view the results.  Notice the change from '' to "".  Using double quotes will trigger extrapolation of environment variables.
+2. Then update the `echo 'Hello World!'` line to read `echo "Hello ${MY_NAME}!"` and run your build again to view the results.  Notice the change from '' to "".  Using double quotes will trigger extrapolation of environment variables.
 
-We can also use environmental variables to import credentials. To demonstrate we will add the following line to our ```environment``` block:
+### Credentials
+
+We can also use environmental variables to import credentials.
+
+1. Add the following line to our ```environment``` block:
 
 ```TEST_USER = credentials('test-user')```
 
-We will also add the following ```echo``` steps within the ```steps``` of the Say Hello ```stage```:
+2. Add the following ```echo``` steps within the ```steps``` of the Say Hello ```stage```:
 
 ```
             echo "${TEST_USER_USR}"
@@ -169,9 +175,9 @@ We will also add the following ```echo``` steps within the ```steps``` of the Sa
 
 ## Exercise 1.5 - Parameters
 
-In **Exercise 1.6** we will alter our pipeline to accept external input in the form of a Parameter.
+In **Exercise 1.5** we will alter our pipeline to accept external input in the form of a Parameter.
 
-At the top of your pipeline insert the following block of code between the ```environment``` and ```stages``` blocks:
+1. At the top of your pipeline insert the following block of code between the ```environment``` and ```stages``` blocks:
 
 ```
    parameters {
@@ -179,6 +185,8 @@ At the top of your pipeline insert the following block of code between the ```en
 	     description: 'Who should I say hi to?')
    }
 ```
-Then update the ```echo "Hello ${MY_NAME}!'``` line to read ```echo "Hello ${params.Name}!"``` and run your build again to view the results.
+
+2. Update the ```echo "Hello ${MY_NAME}!'``` line to read ```echo "Hello ${params.Name}!"```
+3. **Save & Run** your pipline and view the results.
 
 **Note**: Jenkins UI won't update properly when you save the pipeline to show the ```Build with parameters``` option so you need to run a build, view the results, and then return to the project to see the updated option.
