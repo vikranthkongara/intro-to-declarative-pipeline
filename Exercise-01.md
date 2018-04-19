@@ -61,7 +61,9 @@ In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to us
 
 1. Click on the **pencil** icon in the top right to edit your Pipeline <p><img src="img/1-2-click-pencil.png" width=520/>
 2. Use the key combination `CTRL + S` to open up the free-form editor
-3. Replace the `agent any` declaration with the following `agent` declaration *NOTE: Don't worry about formatting too much as the Blue Ocean editor will reformat evertying before it is committed to your repository):
+3. Replace the `agent any` declaration with the following `agent` declaration:
+
+>NOTE: Don't worry about formatting too much as the Blue Ocean editor will reformat evertying before it is committed to your repository
 
 ```
   agent {
@@ -69,9 +71,9 @@ In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to us
   }
 ```
 
-2. Click the **Update** button
-3. Click the **Save** button 
-4. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**. 
+4. Click the **Update** button
+5. Click the **Save** button 
+6. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**. 
 
 You should see the following output for the `sh` step after your Pipeline runs:
 
@@ -89,7 +91,7 @@ Before going on to the next exercise let's revert our pipeline to using:
    agent any
 ```
 
-Your Pipeline should look like the following Pipeline:
+Your Pipeline should look like the following Pipeline before you move onto the next exercise:
 
 ```
 pipeline {
