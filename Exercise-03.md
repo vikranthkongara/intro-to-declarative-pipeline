@@ -6,11 +6,15 @@ In **Exercise 3.1** we are going to add a stage to our pipeline that uses a **Sh
 
 More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
 
->Note: The `library` declaration does not currently work with the Blue Ocean Pipeline Editor. So the changes for this exercise will need to be done directly on your file in source control. See https://help.github.com/articles/editing-files-in-your-repository/ 
+>Note: The `libraries ` declaration does not currently work with the Blue Ocean Pipeline Editor. So the changes for this exercise will need to be done directly on your file in source control. See https://help.github.com/articles/editing-files-in-your-repository/ 
 
-1. Add the following line at the top of your pipeline **above** the ```pipeline``` line:
+1. Add the following line after the top level the `agent` directive:
 
-```library 'SharedLibs'```
+```
+  libraries {
+    lib("SharedLibs")
+  }
+```
 
 2. Then add the following stage after the stage you created in **Exercise 3.1**:
 
