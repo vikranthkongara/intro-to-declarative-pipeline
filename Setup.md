@@ -5,6 +5,8 @@ Setup a work environment for the lessons provided in this workshop.  Ask the ins
 
 Todays URL for the CloudBees Jenkins environment is **https://cje.workshop.beedemo.net**
 
+The URL for the GitHub Repository with these instructions and the exercises is **https://github.com/cloudbees/intro-to-declarative-pipeline/**
+
 ### Create a Jenkins Account
 
 1. Goto to the Workshop URL provided by the instructor;
