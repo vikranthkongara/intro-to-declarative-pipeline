@@ -2,7 +2,7 @@
 
 ## Interactive Input
 
-For **Exercise 2.1** we are going to add a new stage after the **Say Hello** stage that will demonstrate how to ask interactively for user input. 
+For this exercise we are going to add a new stage after the **Say Hello** stage that will demonstrate how to ask interactively for user input. 
 
 **Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2.6:
 
