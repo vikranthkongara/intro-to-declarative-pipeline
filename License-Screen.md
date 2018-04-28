@@ -1,7 +1,7 @@
 # License Screen on Team Creation
-After your team has been successfully created, you should see the following **Create a new Pipeline** screen: <p><img src="img/setup-success.png" width=400/>
+After your team has been successfully created, you should see the following **Create a new Pipeline** screen: <p><img src="img/setup-success.png" width=550/>
   
-If you instead see the following screen: <p><img src="img/license-error-1.png" width=400/>
+If you instead see the following screen: <p><img src="img/license-error-1.png" width=500/>
 
 Please follow these instructions:
 
