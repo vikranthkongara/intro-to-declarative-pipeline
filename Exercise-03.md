@@ -185,4 +185,4 @@ Once that repository is forked:
 When the scan is complete your **Github Organization** project should now have both the **sample-rest-server** project and the **maven-project**.
 
 ## Next Exercises
-You should now move onto **[Distributed Pipelines with Pipeline As Code](./Exercise-04.md)**
+You may onto **[Distributed Pipelines with Pipeline As Code](./Exercise-04.md)** once your instructor tells you to.
