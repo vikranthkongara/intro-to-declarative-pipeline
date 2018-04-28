@@ -2,42 +2,29 @@
 
 ## Checkpoints
 
-In this exercise we are going to quickly create a new pipeline to demonstrate how **Checkpoints** work and how end users can interact with Checkpoints once a job as been built. To test this create a new pipeline job in your personal folder copying and pasting the following code into the Pipeline Script textbox:
+In this exercise we are going to update our pipeline to demonstrate how **[Checkpoints](https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/#workflow-sect-checkpoint)** work and how end users can interact with Checkpoints once a job as been built. 
+
+1. Add the following stage after `stage('Testing')` and before `stage('Deploy)`:
 
 ```
-pipeline {
-   agent none
-   stages {
-      stage('One') {
-         agent any
-         steps {
-            echo 'Stage One - Step 1'
-         }
-      }
       stage('Checkpoint') {
          agent none
          steps {
             checkpoint 'Checkpoint'
          }
       }
-      stage('Two') {
-         agent any
-         steps {
-            echo 'Stage Two - Step 1'
-         }
-      }
-   }
-}
 ```
 
-After saving the job click on **Build Now** to run it.
+2. **Save & Run** your pipeline.
+3. When the `input` step from the **Deploy** stage asks to **Deploy** or **Abort** - select **Abort**
+4. The UI to interact with a `checkpoint` is not availbe in Blue Ocean so you will need to exit to the classic Jenkins UI for the next step.
+5. When the job has completed running you will see a **Resume** icon in the build's **Stage View**. Clicking on the **Resume** icon gives you the ability to:
+  - * **Delete** - Delete the cached artifacts and configuration for that build;
+  - * **Restart** - Restart the build from the checkpoint.
+6. Click **Restart** and your pipeline will run from your `checkpoint` forward - skipping over the **Say Hello** and **Testing** stages
+7. When the `input` step from the **Deploy** stage asks to **Deploy** or **Abort** - select **Deploy**
 
-When the job has completed running you will see a **Resume** icon in the build's **Stage View**. Clicking on the **Resume** icon gives you the ability to:
-
-* **Delete** - Delete the cached artifacts and configuration for that build;
-* **Restart** - Restart the build from the checkpoint.
-
-**Note**: Deleting a checkpoint doesn't make the **Resume** icon vanish.
+>**Note**: Deleting a checkpoint doesn't make the **Resume** icon vanish.
 
 ## Cross Team Collaboration
 In this exercise we are going to set-up two Pipeline jobs that demonstrate CloudBee's Cross Team Collaboration feature. We will need two separate Pipelines - one that publishes an event - and two - another that is triggered by an event.
@@ -104,7 +91,35 @@ For the second part of **Cross Team Collaboration** we will create an event that
 
 ## Jenkins Kubernetes Agents
 
-In this exercise we will get an introduction to the [Jenkins Kubernetes plugin](https://github.com/jenkinsci/kubernetes-plugin) and use the `container` block to run a set of steps inside a Docker container set-up in a Jenkins Kubernetes Agent template.
+In this exercise we will get an introduction to the [Jenkins Kubernetes plugin](https://github.com/jenkinsci/kubernetes-plugin) and use the `container` block to run a set of steps inside a Docker container set-up in a Jenkins Kubernetes Agent template. So far we have used different `labels` to specify different JDK versions. But now we want to use Maven and our Jenkins Administrator has confifured a Jenkins Kubernetes plugin template to include access to a maven container.
+
+1. Replace the **Testing** stage with the following stage:
+
+```
+      stage('Testing') {
+        parallel {
+          stage('Java 7') {
+            agent { label 'jdk7' }
+            steps {
+              container('maven') {
+                sh 'mvn -v'
+              }
+            }
+          }
+          stage('Java 8') {
+            agent { label 'jdk8' }
+            steps {
+              container('maven') {
+                sh 'mvn -v'
+              }
+            }
+          }
+        }
+      }
+```
+
+2. **Save & Run** your pipeline.
+3. Compare the logs for the **Java 7** and **Jave 8** stages.
 
 ## GitHub Organization Project
 

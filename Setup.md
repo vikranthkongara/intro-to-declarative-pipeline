@@ -68,7 +68,7 @@ The following instructions cover how to create a Github repository under your pe
 You should see the following **Create a new Pipeline** screen for your Team:
 <p><img src="img/setup-success.png" width=600/>
   
-If you see this screen then move onto **[Declarative Syntax Basics](./Exercise-01.md)**
+You may proceed to the first set of exercises - **[Declarative Syntax Basics](./Exercise-01.md)** - when your instructor tells you.
 
 >NOTE: If you see the following screen then please follow **[these instructions](./License-Screen.md)**.
 <p><img src="img/license-error-1.png" width=400/>

@@ -162,4 +162,4 @@ In this exercise we will alter our pipeline to accept external input in the form
 **Note**: Jenkins UI won't update properly when you save the pipeline to show the ```Build with parameters``` option so you need to run a build, view the results, and then return to the project to see the updated option.
 
 ## Next Exercises
-You should now move onto **[Declarative Advanced Syntax](./Exercise-02.md)**
+You may proceed onto **[Declarative Advanced Syntax](./Exercise-02.md)** once your instructor tells you to.

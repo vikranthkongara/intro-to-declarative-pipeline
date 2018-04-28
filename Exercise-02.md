@@ -31,7 +31,7 @@ The declarative `input` directive blocks the `stage` from executing and acquirin
 ```
     stage('Deploy') {
       options {
-        timeout(time: 1, unit: 'MINUTES') 
+        timeout(time: 30, unit: 'SECONDS') 
       }
       input {
         message "Should we continue?"
@@ -137,7 +137,7 @@ Scripted Pipelines may contain advanced flow control and variable assignment tha
 >**Note:** Notice the use of the `script` block in the above example.  This allows you to use more advanced scripting options in your declarative pipelines.
 
 3. Remove the `Get Kernel` and `Say Kernel` stages from your pipeline.
-
+4. **Save & Run** your pipeline.
 
 ## Parallelization
 
@@ -152,14 +152,14 @@ In this exercise we are going to add another stage to our pipeline that runs two
         failFast true
         parallel {
           stage('Java 7') {
-            agent { docker 'openjdk:7-jdk-alpine' }
+            agent { label 'jdk7' }
             steps {
               sh 'java -version'
               sleep time: 10, unit: 'SECONDS'
             }
           }
           stage('Java 8') {
-            agent { docker 'openjdk:8-jdk-alpine' }
+            agent { label 'jdk8' }
             steps {
               sh 'java -version'
               sleep time: 20, unit: 'SECONDS'
@@ -174,5 +174,5 @@ In this exercise we are going to add another stage to our pipeline that runs two
 **Note**: If your build breaks double check your pipeline script to make sure that the agent at the top of of the pipeline was reverted back to `agent any` as described in [Agent Labels](./Exercise-01.md#agent-labels).
 
 ## Next Exercises
-You should now move onto **[Distributed Pipelines with CloudBees](./Exercise-03.md)**
+You may move onto **[Distributed Pipelines with CloudBees](./Exercise-03.md)** once your instructor tells you to.
 
