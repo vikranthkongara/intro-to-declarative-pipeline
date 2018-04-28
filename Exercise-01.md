@@ -17,11 +17,11 @@ Next, the Blue Ocean editor will open - if the editor does not load after a minu
 
 ## Basic Declarative Syntax Structure
 
-In **Exercise 1.1** we will create a simple declarative pipeline using the Blue Ocen Pipeline editor.
+In this exercise we will create a simple declarative pipeline using the Blue Ocen Pipeline editor.
 
 Declarative Pipelines must be enclosed within a `pipeline` block and must contain a top-level `agent` declaration, and then contains exactly one `stages` block. The `stages` block must have at least one `stage` block but can have an unlimited number of additional stages. Each `stage` block must have exactly one `steps` block. The Blue Ocean editor takes care of much of this for you but we will need to add a `stage` and `steps`.
 
-Using the Blue Ocean Pipeline editor we setup in Exercise 1.0, do the following:
+Using the Blue Ocean Pipeline editor we setup in the previous exercise, do the following:
 
 1. You should see the **You don't have any branches that contain a Jenkinsfile** dialog, click on the **Create Pipeline** button (NOTE: If you already had a `Jenkinsfile` in your repository then the editor should open straight-away) <p><img src="img/1-1-create-pipeline-no-jenkinsfile.png" width=300/>
 2. Click on the **+** icon next to the pipeline's **Start** node to add a `stage`
