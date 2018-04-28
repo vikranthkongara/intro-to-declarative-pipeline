@@ -170,7 +170,7 @@ In order to complete the following exercise you will need to fork the following 
 
 Once that repository is forked:
 
-1. Click on the Github organization project you created in **Exercise 3.4**.
+1. Click on the Github organization project you created in the **[GitHub Organization Project exercise](./Exercise-03.md#github-organization-project)**.
 2. Click on **Configure**
 3. Under **Project Recognizers** select **Custom Script**
 4. In **Marker file** type ```pom.xml```
