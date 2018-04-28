@@ -9,8 +9,8 @@ We will setup the [Blue Ocean Pipeline Editor](https://jenkins.io/doc/book/blueo
 1. If not already in Blue Ocean, click on the **Teams** or **Open Blue Ocean** link in the left side navigation bar
 2. Click on the **Create a new Pipeline** button (if you have already created a Pipeline, you will need to click the **New Pipeline** button in the upper right) <p><img src="img/1-0-create-a-new-pipeline.png" width=300/>
 3. Click on one of the options in the **Where do you store your code?** section (**GitHub** for this course) <p><img src="img/1-0-select-scm.png" width=300/>
-4. Enter your **Github token** (your GitHub Personal Access Token)
-5. Next, select your GitHub user account (NOTE: Be sure to select your user account or the GitHub Organization where you created the empty repository for this workshop. The repository should not have an existing Jenkinsfile.) <p><img src="img/1-0-select-github-org.png" width=300/>
+4. Enter your **GitHub token** (your GitHub Personal Access Token)
+5. Next, select your GitHub user account (NOTE: Be sure to select the GitHub Organization where you created the empty repository for this workshop. The repository should not have an existing Jenkinsfile.) <p><img src="img/1-0-select-github-org.png" width=300/>
 6. Under **Choose a repository** select the repository you created during setup and then click the **Create Pipeline** button <p><img src="img/1-0-choose-repo-create-pipeline.png" width=320/>
 
 Next, the Blue Ocean editor will open - if the editor does not load after a minute or so, refresh your browser. 
@@ -57,7 +57,7 @@ pipeline {
 
 ## Agent Labels
 
-In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was less than 9. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` declaration:
+In this exercise we will update the pipeline we created in the previous exercise to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was 8. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` declaration:
 
 1. Click on the **pencil** icon in the top right to edit your Pipeline <p><img src="img/1-2-click-pencil.png" width=520/>
 2. Use the key combination `CTRL + S` to open up the free-form editor
@@ -109,7 +109,7 @@ pipeline {
 
 ## Environment Directive
 
-For **Exercise 1.4** we are going to update our pipeline to demonstrate how to use the `environment` directive to set and use environment variables. We will also see how this directive supports a special helper method `credentials()` that allows access to pre-defined Jenkins Credentials based on their id.
+For this exercise we are going to update our pipeline to demonstrate how to use the `environment` directive to set and use environment variables. We will also see how this directive supports a special helper method `credentials()` that allows access to pre-defined Jenkins Credentials based on their id.
 
 ### Simple Environment Variables
 
@@ -145,7 +145,7 @@ We can also use environmental variables to import credentials.
 
 ## Parameters
 
-In **Exercise 1.5** we will alter our pipeline to accept external input in the form of a Parameter.
+In this exercise we will alter our pipeline to accept external input in the form of a Parameter.
 
 1. At the top of your pipeline insert the following block of code between the ```environment``` and ```stages``` blocks:
 
