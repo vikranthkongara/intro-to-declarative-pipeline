@@ -147,9 +147,9 @@ When the project was created it also should have created a webhook in Github. Ve
 
 ## Custom Marker Files
 
-In the following exercise we are going to demonstrate how you can use the Custom Marker feature of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
+In the following exercise we are going to demonstrate how you can use the **[Custom Marker feature](https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/#pipeline-custom-factories)** of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
 
-In order to complete the following exercise you will need to fork the following repository into the Github organization you created in **Exercise 3.4**:
+In order to complete the following exercise you will need to fork the following repository into the Github Organization you created in **[Setup - Create a GitHub Organization](.Setup.md#create-a-github-organization)**:
 
 * https://github.com/PipelineHandsOn/maven-project
 
