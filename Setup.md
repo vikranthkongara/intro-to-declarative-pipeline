@@ -66,7 +66,7 @@ The following instructions cover how to create a Github repository under your pe
 
 ## Finished Set-up
 You should see the following **Create a new Pipeline** screen for your Team:
-<p><img src="img/setup-success.png" width=400/>
+<p><img src="img/setup-success.png" width=600/>
   
 If you see this screen then move onto **[Declarative Syntax Basics](./Exercise-01.md)**
 
