@@ -111,7 +111,7 @@ In this exercise we will get an introduction to the [Jenkins Kubernetes plugin](
 In this exercise we are going to create a Jenkins GitHub Organization project from a newly forked repository and the repository you created in the Setup.
 
 
-First, we will fork a repo into the GitHub Organization you created in **[Setup - Create a GitHub Organization](.Setup.md#create-a-github-organization)**:
+First, we will fork a repo into the GitHub Organization you created in **[Setup - Create a GitHub Organization](./Setup.md#create-a-github-organization)**:
 
 1. Navigate to the rest server application we are going to work with: https://github.com/PipelineHandsOn/sample-rest-server
 2. Click on **Fork**
@@ -149,7 +149,7 @@ When the project was created it also should have created a webhook in Github. Ve
 
 In the following exercise we are going to demonstrate how you can use the **[Custom Marker feature](https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/#pipeline-custom-factories)** of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
 
-In order to complete the following exercise you will need to fork the following repository into the Github Organization you created in **[Setup - Create a GitHub Organization](.Setup.md#create-a-github-organization)**:
+In order to complete the following exercise you will need to fork the following repository into the Github Organization you created in **[Setup - Create a GitHub Organization](./Setup.md#create-a-github-organization)**:
 
 * https://github.com/PipelineHandsOn/maven-project
 
