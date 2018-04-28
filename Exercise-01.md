@@ -1,6 +1,6 @@
 # Declarative Syntax Basics
 
-## Exercise 1.0 - Setup to use Blue Ocean Pipeline Editor
+## Setup to use Blue Ocean Pipeline Editor
 
 **Note**: You need to have a Github personal access token ([Github-Personal-Access-Token.md](Github-Personal-Access-Token.md)) before proceeding.
 
@@ -15,7 +15,7 @@ We will setup the [Blue Ocean Pipeline Editor](https://jenkins.io/doc/book/blueo
 
 Next, the Blue Ocean editor will open - if the editor does not load after a minute or so, refresh your browser. 
 
-## Exercise 1.1 - Basic Declarative Syntax Structure
+## Basic Declarative Syntax Structure
 
 In **Exercise 1.1** we will create a simple declarative pipeline using the Blue Ocen Pipeline editor.
 
@@ -47,15 +47,15 @@ pipeline {
 }
 ```
 
-8. Click the **Save** button <p><img src="img/1-1-shell-step-save.png" width=300/>
-9. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/1-1-shell-step-save.png" width=300/>
+10. Click the **Save** button <p><img src="img/1-1-shell-step-save.png" width=300/>
+11. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/1-1-shell-step-save.png" width=300/>
 
 >Your Pipeline is actually being committed and pushed to your GitHub repository, and will run right away.
 
-10. Click on your Pipeline to see the `steps` execute. <p><img src="img/1-1-click-to-see-pipeline-run.png" width=400/>
-11. Expand the **'java -version — Shell Script' `step` and you should see the following: <p><img src="img/1-1-java-version-step-expanded.png" width=420/>
+12. Click on your Pipeline to see the `steps` execute. <p><img src="img/1-1-click-to-see-pipeline-run.png" width=400/>
+13. Expand the **'java -version — Shell Script' `step` and you should see the following: <p><img src="img/1-1-java-version-step-expanded.png" width=420/>
 
-## Exercise 1.2 - Agent Labels
+## Agent Labels
 
 In **Exercise 1.2** we will update the pipeline we created in Exercise 1.1 to use a specific `agent` using the `label` syntax. As you saw from the build logs of the previous exercise, the Java version of the `agent any` was less than 9. We want to update our pipeline to use a version 9 JDK by replacing the `any` parameter with a `label` declaration:
 
@@ -107,42 +107,7 @@ pipeline {
 }
 ```
 
-## Exercise 1.3 - Agents with Docker
-
-In **Exercise 1.3** we will update the pipeline we created in Exercise 1.1 to execute steps in a Docker container. The `docker` agent directive allows you to use any abritary Docker image to run Pipeline steps inside. To update the pipeline:
-
-1. In the `steps` block replace the `sh 'java -version'` step with the following step:
-
-```
-  sh 'go version'
-```
-
-2. **Save & Run** your pipeline and check the Console Log. Let the run complete in the the [Blue Ocean Activity View](https://jenkins.io/doc/book/blueocean/activity/) and once it has completed click on it. Notice how Blue Ocean opens the [Pipeline Run Details View](https://jenkins.io/doc/book/blueocean/pipeline-run-details/) with the `stage` and `step` where the error occured already expanded. The build should fail with the error: `go: not found` as seen below: <p><img src="img/1-3-expanded-error.png" width=440/>
-
-3. Click on configure and update the `agent` portion of the pipeline to read:
-
-```
-   agent {
-      docker { 
-        image 'golang:1.10.1-alpine'
-        label 'docker-cloud' 
-      }
-   }
-```
-
-4. **Save & Run** your pipeline and check the Console Log to see how Jenkins pulls the appropriate docker image and runs your build inside the container created from that image. 
-
-5. Now, remove the `label 'docker-cloud'` line from your pipeline job and **Save & Run** your pipeline.  The job should still work... but why?? *Pipeline Model Definition* is why.  The *Pipeline Model Definition* allows an administrator to define the default `label` a job should use if one is not specified with for the `docker` directive.  In this case the *Pipeline Model Definition* is already set to `docker-cloud`.  This means that you will get an agent capable of running Docker containers everytime you use the `docker` `agent` directive, so using the `label` parameter is redundant unless you need a specific Docker enabled agent.
-
-Before going on to the next exercise let's revert our pipeline to using:
-
-```
-   agent any
-```
-
-And remove the `sh 'go version'` step.
-
-## Exercise 1.4 - Environment Directive
+## Environment Directive
 
 For **Exercise 1.4** we are going to update our pipeline to demonstrate how to use the `environment` directive to set and use environment variables. We will also see how this directive supports a special helper method `credentials()` that allows access to pre-defined Jenkins Credentials based on their id.
 
@@ -165,7 +130,7 @@ For **Exercise 1.4** we are going to update our pipeline to demonstrate how to u
 
 We can also use environmental variables to import credentials.
 
-1. Add the following line to our ```environment``` block:
+1. Add the following line to our `environment` block:
 
 ```TEST_USER = credentials('test-user')```
 
@@ -178,7 +143,7 @@ We can also use environmental variables to import credentials.
 
 **Note**: After executing the build look at the console output and make note of the fact that the credential user name and password are masked when output via the echo command.
 
-## Exercise 1.5 - Parameters
+## Parameters
 
 In **Exercise 1.5** we will alter our pipeline to accept external input in the form of a Parameter.
 
@@ -195,3 +160,6 @@ In **Exercise 1.5** we will alter our pipeline to accept external input in the f
 3. **Save & Run** your pipline and view the results.
 
 **Note**: Jenkins UI won't update properly when you save the pipeline to show the ```Build with parameters``` option so you need to run a build, view the results, and then return to the project to see the updated option.
+
+## Next Exercises
+You should now move onto **[Declarative Advanced Syntax](./Exercise-02.md)**

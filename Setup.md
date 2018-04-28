@@ -25,6 +25,7 @@ Next, everyone will get their own Jenkins masters referred to as a Team Master a
 5. **Add people to this team** - your user will show up as a **Team Admin** and we won't be adding any additional users, but feel free to look around and then click **Next**;
 6. **Select team master creation recipe** - click on the drop-down and but select the **Basic** recipe;
 7. Finally, click the **Create team** button. <p><img src="img/setup-create-team-with-basic.png" width=400/>
+8. While your master is being  created, move onto the next section **Create a GitHub.com user account**
 
 ## Create a GitHub.com user account
 Setup a GitHub.com user account that will be used later in this workshop. If you have an existing GitHub.com account you will be able to use it if you are comfortable using that account to create a GitHub Organization later in the workshop.
@@ -44,6 +45,16 @@ The following instructions cover how to create a Github Personal Access Token th
 6. Click on **Generate Token**
 7. As the success message says: **Make sure to copy your new personal access token now. You won’t be able to see it again!**  
 
+## Create a GitHub Organization
+
+Create a Github organization to use for this workshop:
+
+1. On Github navigate to **Organizations**: https://github.com/settings/organizations (after logging in)
+2. Click on **New Organization**
+3. Fill in the **Organization Name**, **Billing Email**, and click on **Create Organization**
+
+>NOTE: Even though you have to provide an email for billing, you will not be charged anything as long as you choose the free option.
+
 ## Create an empty GitHub repository for your first example Pipeline
 The following instructions cover how to create a Github repository under your personal account.
 
@@ -53,3 +64,11 @@ The following instructions cover how to create a Github repository under your pe
 4. Check the **Initialize this repository with a README** checkbox
 5. Click the **Create repository** button <p><img src="img/setup-github-create-repo-completed-form.png" width=300/>
 
+## Finished Set-up
+You should see the following **Create a new Pipeline** screen for your Team:
+<p><img src="img/setup-success.png" width=400/>
+  
+If you see this screen then move onto **[Declarative Syntax Basics](./Exercise-01.md)**
+
+>NOTE: If you see the following screen then please follow **[these instructions](./License-Screen.md)**.
+<p><img src="img/license-error-1.png" width=400/>

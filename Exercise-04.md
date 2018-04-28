@@ -1,135 +1,105 @@
-# Distributed Pipelines with CloudBees
+# Distributed Pipelines with Pipeline As Code
 
-## Exercise 4.1 - Checkpoints
+## Shared Libraries
 
-In this exercise we are going to quickly create a new pipeline to demonstrate how **Checkpoints** work and how end users can interact with Checkpoints once a job as been built. To test this create a new pipeline job in your personal folder copying and pasting the following code into the Pipeline Script textbox:
+In this exercise we are going to add a stage to our pipeline that uses a **Shared Library** to import functionality that allows us to say 'hi'.
+
+More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
+
+>Note: The `libraries ` declaration does not currently work with the Blue Ocean Pipeline Editor. So the changes for this exercise will need to be done directly on your file in source control. See https://help.github.com/articles/editing-files-in-your-repository/ 
+
+1. Add the following line after the top level the `agent` directive:
 
 ```
-pipeline {
-   agent none
-   stages {
-      stage('One') {
-         agent any
+  libraries {
+    lib("SharedLibs")
+  }
+```
+
+2. Then add the following stage after the stage you created in **Exercise 3.1**:
+
+```
+      stage('Shared Lib') {
          steps {
-            echo 'Stage One - Step 1'
+             helloWorld("Jenkins")
          }
       }
-      stage('Checkpoint') {
-         agent none
+```
+
+>The `helloWorld` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
+
+## Conditional Execution
+
+In this exercise we are going to edit the Jenkinsfile file in the **development** branch of our project to add a branch specific stage.
+
+**Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2.6:
+
+  - Add beforeAgent option for when - if true, when conditions will be evaluated before entering the agent.
+
+1. Within your **sample-rest-server** project select the **development** branch from the **Branch** drop down menu
+2. Click on the **Jenkinsfile** in the file list
+3. Click on the **Edit this file** button (pencil)
+4. Insert the following stage after the existing **build** stage:
+
+```
+      stage('Development Tests') {
+         when {
+            beforeAgent true
+            branch 'development'
+         }
          steps {
-            checkpoint 'Checkpoint'
+            echo "Run the development tests!"
          }
       }
-      stage('Two') {
-         agent any
+```
+
+5. Fill out the commit information, select 'Commit directly to the development branch.', and click on **Commit Changes**
+
+>Notice how after you commit your changes the Github web hooks trigger a build of the development branch in Jenkins.
+
+## PRs and Merging
+
+In this exercise we are going to edit the development branch's Jenkinsfile again but make our commit against a feature branch and user a pull request to merge the edits into our development branch.
+
+1. Click on the **Edit this file** button (pencil)
+2. Insert the following stage after the existing **build** stage:
+
+```
+      stage('Masters Tests') {
+         when {
+            branch 'master'
+         }
          steps {
-            echo 'Stage Two - Step 1'
+            echo "Run the master tests!"
          }
       }
-   }
-}
 ```
 
-After saving the job click on **Build Now** to run it.
+3. Fill out the commit information, select 'Create a new branch for this commit and start a pull request.' and click on **Propose file change**
+4. Flip back to your Jenkins job and notice that the new feature branch appears in your projects
+5. Return back to the Github **Open a pull request** page
+6. Click on the **Create pull request** button
+7. Go to your Jenkins job and notice that that the PR has been added to the Pull Requests tab
+8. In Github click on **Merge pull request** and then **Confirm** to close the PR and merge the results into the development branch
+9. Optionally you can also delete the feature branch you created
 
-When the job has completed running you will see a **Resume** icon in the build's **Stage View**. Clicking on the **Resume** icon gives you the ability to:
+Finally, we should merge our work into our master branch to verify that our changes work there:
 
-* **Delete** - Delete the cached artifacts and configuration for that build;
-* **Restart** - Restart the build from the checkpoint.
+1. Return back to your repository's main page where you will be on the master branch by default
+2. Click on **New pull request**
+3. Select your base fork (not the project we forked from)
+4. Compare **master** to **development**
+5. Click **View pull request**
+6. Click **Merge pull request**
+7. Click **Confirm merge**
 
-**Note**: Deleting a checkpoint doesn't make the **Resume** icon vanish.
+>Notice how after you merge your changes into master the Github web hooks trigger a build of the master branch in Jenkins.
 
-## Exercise 4.2 - Cross Team Collaboration
-In this exercise we are going to set-up two Pipeline jobs that demonstrate CloudBee's Cross Team Collaboration feature. We will need two separate Pipelines - one that publishes an event - and two - another that is triggered by an event.
+## Advanced Jenkins Kubernetes Agents
 
-### Master Events
+In this exercise we will explore the [Jenkins Kubernetes plugin](https://github.com/jenkinsci/kubernetes-plugin) and will update a Jenkinsfile to use the `podTemplate` and `container` directives in your Declarative Pipeline. The plugin creates a [Kubernetes Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for each agent requested by a Jenkins job, with at least one Docker container running as the JNLP agent, and stops the pod and all containers after the build is complete (or after a set amount of time as is the case here).
 
-For the first part of **Cross Team Collaboration** we will create an event that is only publishe on your master.
-
-#### Publish Event
-
-First you have to publish an event from a Pipeline - any other Pipeline may set a trigger to listen for this event. Create a Pipeline job named `notify-event` with the following content:
-
-```
-pipeline {
-    agent none
-    stages {
-        stage('Publish Event') {
-            steps {
-                publishEvent(generic('beeEvent'))
-            }
-        }
-    }
-}
-```
-
-Replace `beeEvent` with your `{username}Event` so my event would be `kmadelEvent`.
-
-#### Event Trigger
-
-Next, create a Pipeline job name `notify-trigger` and set a `trigger` to listen for the event you created above with the following content:
-
-```
-pipeline {
-    agent none
-    triggers {
-        eventTrigger(event(generic('beeEvent')))
-    }
-    stages {
-        stage('Event Trigger') {
-            when {
-                expression { 
-                    return currentBuild.rawBuild.getCause(com.cloudbees.jenkins.plugins.pipeline.events.EventTriggerCause)
-                }
-            }
-            steps {
-                echo 'triggered by published event'
-            }
-        }
-    }
-}
-```
-
-After creating both of these Pipeline jobs you will need to run the **Event Trigger** job once so that the trigger is registered. Once that is complete, click on **Build Now** to run the **Publish Event** job. Once that job has completed, the **Event Trigger** job will be triggered after a few seconds. The logs will show that the job was triggered by an `Event Trigger` and the `when` expression will be true.
-
-### Cross-Master Events
-
-For the second part of **Cross Team Collaboration** we will create an event that will be published **across Team Masters** via CloudBees Operations Center. The Cross Team Collaboration feature has a configurable router for routing events and we will change the router used for this exercise. You will need to select a partner to work with - one person will be the notifier and the other person will update their **event-trigger** job to be triggered when the notifier's job is run.
-
-1. First you need to update the **Notification Router Implementation** to use the **Operations Center Messaging** router by clicking on the **Manage Jenkins** link - on the left side at the root of your Team Master (classic ui).
-2. Next, scroll down and click on **Configure Notification** link.
-3. Under **Notification Router Implementation** select the **Operations Center Messaging** option as opposed to the currently selected **Local only** option.
-4. Now, the trigger job of the second partner needs to be updated to listen for the notifier's `event` string - ask your partner what their event string is - and then run the job once to register the trigger.
-5. Next, the notifier will run their `notify-event` job and you will see the `notify-trigger` job get triggered.
-
-
-## Exercise 4.3 - Custom Marker Files
-
-In the following exercise we are going to demonstrate how you can use the Custom Marker feature of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
-
-In order to complete the following exercise you will need to fork the following repository into the Github organization you created in **Exercise 3.4**:
-
-* https://github.com/PipelineHandsOn/maven-project
-
-Once that repository is forked:
-
-1. Click on the Github organization project you created in **Exercise 3.4**.
-2. Click on **Configure**
-3. Under **Project Recognizers** select **Custom Script**
-4. In **Marker file** type ```pom.xml```
-5. Under **Pipeline** - **Definition** select **Pipeline script from SCM**
-6. Select **Git** from **SCM**
-7. In **Repository URL** enter: ```https://github.com/PipelineHandsOn/custom-marker-files```
-8. Select your credentials from the **Credentials** menu
-9. In **Script path** enter: ```Jenkins-pom```
-10. Click on **Save**
-11. Click on **Scan Organization Now**
-
-When the scan is complete your **Github Organization** project should now have both the **sample-rest-server** project and the **maven-project**.
-
-## Exercise 4.4 - Kubernetes Agents
-
-In this exercise you explore the Kubernetes Plugin and will update a Jenkinsfile to use the `podTemplate` and `container` directives. In exercise 1.3 we saw how to use the Docker directive, allowing you to run steps inside an arbitray Docker image. Behind the scenes, there had to be a Jenkins agent that was able to execute against a Docker daemon to run containers. Here we will be using the [Jenkins Kubernetes plugin](https://github.com/jenkinsci/kubernetes-plugin). The plugin creates a [Kubernetes Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for each agent requested by a Jenkins job, with at least one Docker container running as the JNLP agent, and stops the pod and all containers after the build is complete (or after a set amount of time as is the case here).
+>NOTE: The **Jenksin Kubernetes Plugin** is automatically installed and configured to provision dynamic ephemeral agents by CloudBees Jenkins Enterprise on Kubernetes. 
 
 1. Copy and paste the following code into the **Pipeline Script** text box near the bottom of the page:
 

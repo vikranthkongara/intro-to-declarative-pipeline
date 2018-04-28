@@ -1,6 +1,6 @@
 # Declarative Advanced Syntax
 
-## Exercise 2.1 - Interactive Input
+## Interactive Input
 
 For **Exercise 2.1** we are going to add a new stage after the **Say Hello** stage that will demonstrate how to ask interactively for user input. 
 
@@ -42,7 +42,7 @@ The declarative `input` directive blocks the `stage` from executing and acquirin
     }
 ```
 
-## Exercise 2.2 - Input Parameters
+## Input Parameters
 
 In this example we will update the **Deploy** stage with an input that returns data to the pipeline for use later in a subsequent step or stage.  This form of input is useful when needing to query users for additional data before continuing pipeline processing.
 
@@ -63,7 +63,7 @@ In this example we will update the **Deploy** stage with an input that returns d
     }
 ```
 
-## Exercise 2.3 - Post Actions
+## Post Actions
 
 What happens if your input step times out? **Post Actions** are designed to handle a variety of conditions (not only failures) that could occur outside the standard pipeline flow.
 
@@ -103,7 +103,7 @@ In this example we will add a Post Action to our **Deploy** stage to handle a ti
 
 4. Finally, remove the `Deploy` stage from your pipeline so that you will not have to manually approve the job each time it runs.
 
-## Exercise 2.4 - Script Block
+## Script Block
 
 In this exercise we will combine the simplicity of declarative pipeline with more advanced features of pipeline available via the `script {}` block.  
 
@@ -139,7 +139,7 @@ Scripted Pipelines may contain advanced flow control and variable assignment tha
 3. Remove the `Get Kernel` and `Say Kernel` stages from your pipeline.
 
 
-## Exercise 2.5 - Parallelization
+## Parallelization
 
 In this exercise we are going to add another stage to our pipeline that runs two steps in parallel on two different docker based agents (one running Java 7 and one running Java 8). The following code also includes `sleep` steps to demonstrate what happens when parallel steps complete execution at different times:
 
@@ -171,5 +171,8 @@ In this exercise we are going to add another stage to our pipeline that runs two
 
 2. **Save & Run** your pipeline.
 
-**Note**: If your build breaks double check your pipeline script to make sure that the agent at the top of of the pipeline was reverted back to `agent any` as described in [exercise 1.2](./Exercise-01.md#exercise-12---agent-labels).
+**Note**: If your build breaks double check your pipeline script to make sure that the agent at the top of of the pipeline was reverted back to `agent any` as described in [Agent Labels](./Exercise-01.md#agent-labels).
+
+## Next Exercises
+You should now move onto **[Distributed Pipelines with CloudBees](./Exercise-03.md)**
 

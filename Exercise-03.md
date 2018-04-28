@@ -1,54 +1,123 @@
-# Distributed Pipelines with Pipeline As Code
+# Distributed Pipelines with CloudBees
 
-## Exercise 3.1 - Shared Libraries
+## Checkpoints
 
-In **Exercise 3.1** we are going to add a stage to our pipeline that uses a **Shared Library** to import functionality that allows us to say 'hi'.
-
-More information on using Shared Libraries is available here: https://jenkins.io/doc/book/pipeline/shared-libraries/
-
->Note: The `libraries ` declaration does not currently work with the Blue Ocean Pipeline Editor. So the changes for this exercise will need to be done directly on your file in source control. See https://help.github.com/articles/editing-files-in-your-repository/ 
-
-1. Add the following line after the top level the `agent` directive:
+In this exercise we are going to quickly create a new pipeline to demonstrate how **Checkpoints** work and how end users can interact with Checkpoints once a job as been built. To test this create a new pipeline job in your personal folder copying and pasting the following code into the Pipeline Script textbox:
 
 ```
-  libraries {
-    lib("SharedLibs")
-  }
-```
-
-2. Then add the following stage after the stage you created in **Exercise 3.1**:
-
-```
-      stage('Shared Lib') {
+pipeline {
+   agent none
+   stages {
+      stage('One') {
+         agent any
          steps {
-             helloWorld("Jenkins")
+            echo 'Stage One - Step 1'
          }
       }
+      stage('Checkpoint') {
+         agent none
+         steps {
+            checkpoint 'Checkpoint'
+         }
+      }
+      stage('Two') {
+         agent any
+         steps {
+            echo 'Stage Two - Step 1'
+         }
+      }
+   }
+}
 ```
 
->The `helloWorld` function we are calling can be seen at: https://github.com/PipelineHandsOn/shared-libraries/blob/master/vars/helloWorld.groovy
+After saving the job click on **Build Now** to run it.
 
-## Exercise 3.2 - Create GitHub Org and Fork Repos
+When the job has completed running you will see a **Resume** icon in the build's **Stage View**. Clicking on the **Resume** icon gives you the ability to:
 
-In **Exercise 3.2** we are going to start by forking an existing Github project that has multiple branches and Jenkinsfiles in each branch.
+* **Delete** - Delete the cached artifacts and configuration for that build;
+* **Restart** - Restart the build from the checkpoint.
 
-But first let's create a Github organization to fork the repo into:
+**Note**: Deleting a checkpoint doesn't make the **Resume** icon vanish.
 
-1. On Github navigate to **Organizations**: https://github.com/settings/organizations (after logging in)
-2. Click on **New Organization**
-3. Fill in the **Organization Name**, **Billing Email**, and click on **Create Organization**
+## Cross Team Collaboration
+In this exercise we are going to set-up two Pipeline jobs that demonstrate CloudBee's Cross Team Collaboration feature. We will need two separate Pipelines - one that publishes an event - and two - another that is triggered by an event.
 
-Now lets fork the repo into the new organization you just created:
+### Master Events
+
+For the first part of **Cross Team Collaboration** we will create an event that is only publishe on your master.
+
+#### Publish Event
+
+First you have to publish an event from a Pipeline - any other Pipeline may set a trigger to listen for this event. Create a Pipeline job named `notify-event` with the following content:
+
+```
+pipeline {
+    agent none
+    stages {
+        stage('Publish Event') {
+            steps {
+                publishEvent(generic('beeEvent'))
+            }
+        }
+    }
+}
+```
+
+Replace `beeEvent` with your `{username}Event` so my event would be `kmadelEvent`.
+
+#### Event Trigger
+
+Next, create a Pipeline job name `notify-trigger` and set a `trigger` to listen for the event you created above with the following content:
+
+```
+pipeline {
+    agent none
+    triggers {
+        eventTrigger(event(generic('beeEvent')))
+    }
+    stages {
+        stage('Event Trigger') {
+            when {
+                expression { 
+                    return currentBuild.rawBuild.getCause(com.cloudbees.jenkins.plugins.pipeline.events.EventTriggerCause)
+                }
+            }
+            steps {
+                echo 'triggered by published event'
+            }
+        }
+    }
+}
+```
+
+After creating both of these Pipeline jobs you will need to run the **Event Trigger** job once so that the trigger is registered. Once that is complete, click on **Build Now** to run the **Publish Event** job. Once that job has completed, the **Event Trigger** job will be triggered after a few seconds. The logs will show that the job was triggered by an `Event Trigger` and the `when` expression will be true.
+
+### Cross-Master Events
+
+For the second part of **Cross Team Collaboration** we will create an event that will be published **across Team Masters** via CloudBees Operations Center. The Cross Team Collaboration feature has a configurable router for routing events and we will change the router used for this exercise. You will need to select a partner to work with - one person will be the notifier and the other person will update their **event-trigger** job to be triggered when the notifier's job is run.
+
+1. First you need to update the **Notification Router Implementation** to use the **Operations Center Messaging** router by clicking on the **Manage Jenkins** link - on the left side at the root of your Team Master (classic ui).
+2. Next, scroll down and click on **Configure Notification** link.
+3. Under **Notification Router Implementation** select the **Operations Center Messaging** option as opposed to the currently selected **Local only** option.
+4. Now, the trigger job of the second partner needs to be updated to listen for the notifier's `event` string - ask your partner what their event string is - and then run the job once to register the trigger.
+5. Next, the notifier will run their `notify-event` job and you will see the `notify-trigger` job get triggered.
+
+## Jenkins Kubernetes Agents
+
+In this exercise we will get an introduction to the [Jenkins Kubernetes plugin](https://github.com/jenkinsci/kubernetes-plugin) and use the `container` block to run a set of steps inside a Docker container set-up in a Jenkins Kubernetes Agent template.
+
+## GitHub Organization Project
+
+In this exercise we are going to create a Jenkins GitHub Organization project from a newly forked repository and the repository you created in the Setup.
+
+
+First, we will fork a repo into the GitHub Organization you created in **[Setup - Create a GitHub Organization](.Setup.md#create-a-github-organization)**:
 
 1. Navigate to the rest server application we are going to work with: https://github.com/PipelineHandsOn/sample-rest-server
 2. Click on **Fork**
-3. Select the **Organization** you want to fork into
+3. Select the **Organization** you created in the **Setup** to fork this repository into
 
-## Exercise 3.3 - GitHub Organization Project
-
-In this exercise we are going to create a GitHub Organization project from our newly forked repository.
-
-First let's add your Github credentials to the Jenkins' Credentials manager:
+Next, let's add your GitHub credentials to the Jenkins' Credentials manager:
 
 1. Navigate back to your personal folder in Jenkins
 2. Click on **Credentials**
@@ -74,74 +143,31 @@ Now let's create the Github Organization project:
 
 Once you click on save, Jenkins will search your organization for any projects with Jenkinsfiles in them, import those projects as Multibranch projects, and begin building each branch with a Jenkinsfile in it.
 
-When the project was created it also should have created a webhook in Github. Verify that the webhooks were created in Github by checking **Webhooks** within your organization's Github **Settings**.
+When the project was created it also should have created a webhook in Github. Verify that the webhooks were created in Github by checking **Webhooks** within your Organization's Github **Settings**.
 
-## Exercise 3.4 - Conditional Execution
+## Custom Marker Files
 
-In this exercise we are going to edit the Jenkinsfile file in the **development** branch of our project to add a branch specific stage.
+In the following exercise we are going to demonstrate how you can use the Custom Marker feature of CloudBees Jenkins Enterprise to assign pipeline to a job based on an arbitrary file name like pom.xml.
 
-**Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2.6:
+In order to complete the following exercise you will need to fork the following repository into the Github organization you created in **Exercise 3.4**:
 
-  - Add beforeAgent option for when - if true, when conditions will be evaluated before entering the agent.
+* https://github.com/PipelineHandsOn/maven-project
 
-1. Within your **sample-rest-server** project select the **development** branch from the **Branch** drop down menu
-2. Click on the **Jenkinsfile** in the file list
-3. Click on the **Edit this file** button (pencil)
-4. Insert the following stage after the existing **build** stage:
+Once that repository is forked:
 
-```
-      stage('Development Tests') {
-         when {
-            beforeAgent true
-            branch 'development'
-         }
-         steps {
-            echo "Run the development tests!"
-         }
-      }
-```
+1. Click on the Github organization project you created in **Exercise 3.4**.
+2. Click on **Configure**
+3. Under **Project Recognizers** select **Custom Script**
+4. In **Marker file** type ```pom.xml```
+5. Under **Pipeline** - **Definition** select **Pipeline script from SCM**
+6. Select **Git** from **SCM**
+7. In **Repository URL** enter: ```https://github.com/PipelineHandsOn/custom-marker-files```
+8. Select your credentials from the **Credentials** menu
+9. In **Script path** enter: ```Jenkins-pom```
+10. Click on **Save**
+11. Click on **Scan Organization Now**
 
-5. Fill out the commit information, select 'Commit directly to the development branch.', and click on **Commit Changes**
+When the scan is complete your **Github Organization** project should now have both the **sample-rest-server** project and the **maven-project**.
 
->Notice how after you commit your changes the Github web hooks trigger a build of the development branch in Jenkins.
-
-## Exercise 3.5 - PRs and Merging
-
-In this exercise we are going to edit the development branch's Jenkinsfile again but make our commit against a feature branch and user a pull request to merge the edits into our development branch.
-
-1. Click on the **Edit this file** button (pencil)
-2. Insert the following stage after the existing **build** stage:
-
-```
-      stage('Masters Tests') {
-         when {
-            branch 'master'
-         }
-         steps {
-            echo "Run the master tests!"
-         }
-      }
-```
-
-3. Fill out the commit information, select 'Create a new branch for this commit and start a pull request.' and click on **Propose file change**
-4. Flip back to your Jenkins job and notice that the new feature branch appears in your projects
-5. Return back to the Github **Open a pull request** page
-6. Click on the **Create pull request** button
-7. Go to your Jenkins job and notice that that the PR has been added to the Pull Requests tab
-8. In Github click on **Merge pull request** and then **Confirm** to close the PR and merge the results into the development branch
-9. Optionally you can also delete the feature branch you created
-
-Finally, we should merge our work into our master branch to verify that our changes work there:
-
-1. Return back to your repository's main page where you will be on the master branch by default
-2. Click on **New pull request**
-3. Select your base fork (not the project we forked from)
-4. Compare **master** to **development**
-5. Click **View pull request**
-6. Click **Merge pull request**
-7. Click **Confirm merge**
-
->Notice how after you merge your changes into master the Github web hooks trigger a build of the master branch in Jenkins.
-
-
-
+## Next Exercises
+You should now move onto **[Distributed Pipelines with Pipeline As Code](./Exercise-04.md)**
