@@ -72,8 +72,7 @@ In this exercise we will update the pipeline we created in the previous exercise
 ```
 
 4. Click the **Update** button
-5. Click the **Save** button 
-6. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run**. 
+5. Click the **Save** button, enter a commit message into the **Save Pipeline** pop up and click **Save & Run**. 
 
 You should see the following output for the `sh` step after your Pipeline runs:
 
@@ -85,7 +84,38 @@ OpenJDK 64-Bit Server VM (build 9.0.4+12-Debian-4, mixed mode)
 
 In addition to `any` and `label` you may also specify `none` and no global agent will be allocated for the entire Pipeline run and each `stage` section will need to contain its own `agent` section.
 
-We will continue to use the `label` **jdk9** for upcoming exercises unless otherwise specified.
+6. Now change the value of the `label` to **default**
+
+```
+   agent default
+```
+
+7. Click the **Save** button, enter a commit message into the **Save Pipeline** pop up and click **Save & Run**. 
+
+You should see the following output for the `sh` step after your updated Pipeline runs:
+
+```
+[Java 8] + java -version
+[Java 8] openjdk version "1.8.0_151"
+[Java 8] OpenJDK Runtime Environment (IcedTea 3.6.0) (Alpine 8.151.12-r0)
+[Java 8] OpenJDK 64-Bit Server VM (build 25.151-b12, mixed mode)
+```
+
+Your Pipeline should look like the following Pipeline before you move onto the next exercise:
+
+```
+pipeline {
+   agent { label 'default' }
+   stages {
+      stage('Say Hello') {
+         steps {
+            echo 'Hello World!'   
+            sh 'java -version'
+         }
+      }
+   }
+}
+```
 
 ## Environment Directive
 
