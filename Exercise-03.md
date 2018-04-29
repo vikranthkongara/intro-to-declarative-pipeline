@@ -123,16 +123,9 @@ In this exercise we will get an introduction to the [Jenkins Kubernetes plugin](
 
 ## GitHub Organization Project
 
-In this exercise we are going to create a Jenkins GitHub Organization project from a newly forked repository and the repository you created in the Setup.
+In this exercise we are going to create a Jenkins GitHub Organization project from a newly forked repository and the repository you created in **[Setup - Create a GitHub Organization](./Setup.md#create-a-github-organization)**.
 
-
-First, we will fork a repo into the GitHub Organization you created in **[Setup - Create a GitHub Organization](./Setup.md#create-a-github-organization)**:
-
-1. Navigate to the rest server application we are going to work with: https://github.com/PipelineHandsOn/sample-rest-server
-2. Click on **Fork**
-3. Select the **Organization** you created in the **Setup** to fork this repository into
-
-Next, let's add your GitHub credentials to the Jenkins' Credentials manager:
+First, let's add your GitHub credentials to the Jenkins' Credentials manager:
 
 1. Navigate back to your personal folder in Jenkins
 2. Click on **Credentials**

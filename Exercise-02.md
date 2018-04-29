@@ -141,7 +141,7 @@ Scripted Pipelines may contain advanced flow control and variable assignment tha
 
 ## Parallelization
 
-In this exercise we are going to add another stage to our pipeline that runs two steps in parallel on two different docker based agents (one running Java 7 and one running Java 8). The following code also includes `sleep` steps to demonstrate what happens when parallel steps complete execution at different times:
+In this exercise we are going to add another stage to our pipeline that runs two steps in parallel on two different docker based agents (one running Java 8 and one running Java 9). The following code also includes `sleep` steps to demonstrate what happens when parallel steps complete execution at different times:
 
 **Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2 (parallel stages) and 1.2.1 (failFast for a parallel stage).
 
@@ -151,15 +151,15 @@ In this exercise we are going to add another stage to our pipeline that runs two
       stage('Testing') {
         failFast true
         parallel {
-          stage('Java 7') {
-            agent { label 'jdk7' }
+          stage('Java 8') {
+            agent { label 'jdk8' }
             steps {
               sh 'java -version'
               sleep time: 10, unit: 'SECONDS'
             }
           }
-          stage('Java 8') {
-            agent { label 'jdk8' }
+          stage('Java 9') {
+            agent { label 'jdk9' }
             steps {
               sh 'java -version'
               sleep time: 20, unit: 'SECONDS'
