@@ -85,27 +85,7 @@ OpenJDK 64-Bit Server VM (build 9.0.4+12-Debian-4, mixed mode)
 
 In addition to `any` and `label` you may also specify `none` and no global agent will be allocated for the entire Pipeline run and each `stage` section will need to contain its own `agent` section.
 
-Before going on to the next exercise let's revert our pipeline to using:
-
-```
-   agent any
-```
-
-Your Pipeline should look like the following Pipeline before you move onto the next exercise:
-
-```
-pipeline {
-   agent any
-   stages {
-      stage('Say Hello') {
-         steps {
-            echo 'Hello World!'   
-            sh 'java -version'
-         }
-      }
-   }
-}
-```
+We will continue to use the `label` **jdk9** for upcoming exercises unless otherwise specified.
 
 ## Environment Directive
 
