@@ -95,10 +95,9 @@ In addition to `any` and `label` you may also specify `none` and no global agent
 You should see the following output for the `sh` step after your updated Pipeline runs:
 
 ```
-[Java 8] + java -version
-[Java 8] openjdk version "1.8.0_151"
-[Java 8] OpenJDK Runtime Environment (IcedTea 3.6.0) (Alpine 8.151.12-r0)
-[Java 8] OpenJDK 64-Bit Server VM (build 25.151-b12, mixed mode)
+openjdk version "1.8.0_151"
+OpenJDK Runtime Environment (IcedTea 3.6.0) (Alpine 8.151.12-r0)
+OpenJDK 64-Bit Server VM (build 25.151-b12, mixed mode)
 ```
 
 Your Pipeline should look like the following Pipeline before you move onto the next exercise:
