@@ -31,7 +31,7 @@ Using the Blue Ocean Pipeline editor we setup in the previous exercise, do the f
 6. Click on the **<-** (arrow) next to the **'Say Hello / Print Message'** text to add another step <p><img src="img/1-1-print-message-then-add-step.png" width=300/>
 7. Click on the **+ Add step** button
 8. Click on the **Shell Script** step and enter `java -version` into the text area
-9. Press the key combination `CTRL + S` to open the Blue Ocean free-form editor and you should see a Pipeline similar to the one below (click anywhere outside the editor to close it):
+9. Press the key combination `CTRL + S` to open the Blue Ocean free-form editor and you should see a Pipeline similar to the one below **(click anywhere outside the editor to close it)**:
 
 ```
 pipeline {
@@ -47,13 +47,15 @@ pipeline {
 }
 ```
 
-10. Click the **Save** button <p><img src="img/1-1-shell-step-save.png" width=300/>
-11. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/1-1-shell-step-save.png" width=300/>
+10. Click the **Save** button <p><img src="img/1-1-shell-step-save.png" width=350/>
+11. Enter a commit message into the **Save Pipeline** pop up and click **Save & Run** <p><img src="img/1-basic-syntax-save-run.png" width=350/>
 
 >Your Pipeline is actually being committed and pushed to your GitHub repository, and will run right away.
 
 12. Click on your Pipeline to see the `steps` execute. <p><img src="img/1-1-click-to-see-pipeline-run.png" width=400/>
 13. Expand the **'java -version — Shell Script' `step` and you should see the following: <p><img src="img/1-1-java-version-step-expanded.png" width=420/>
+  
+>NOTE: You may have noticed that your Pipeline GitHub repository is being cloned even though you didn't specify that in your Jenkinsfile. Declarative Pipeline checks out source code by default.
 
 ## Agent Labels
 
@@ -61,6 +63,7 @@ In this exercise we will update the pipeline we created in the previous exercise
 
 1. Click on the **pencil** icon in the top right to edit your Pipeline <p><img src="img/1-2-click-pencil.png" width=520/>
 2. Use the key combination `CTRL + S` to open up the free-form editor
+>NOTE: You could use the visual editor but it doesn't support the short syntax for adding a label and requires you to add a `node` block and then apply a `label`
 3. Replace the `agent any` declaration with the following `agent` declaration:
 
 >NOTE: Don't worry about formatting too much as the Blue Ocean editor will reformat evertying before it is committed to your repository
@@ -100,7 +103,7 @@ OpenJDK Runtime Environment (IcedTea 3.6.0) (Alpine 8.151.12-r0)
 OpenJDK 64-Bit Server VM (build 25.151-b12, mixed mode)
 ```
 
-Your Pipeline should look like the following Pipeline before you move onto the next exercise:
+Your Pipeline should look like the following before you move onto the next exercise:
 
 ```
 pipeline {
