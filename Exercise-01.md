@@ -66,7 +66,7 @@ In this exercise we will update the pipeline we created in the previous exercise
 >NOTE: You could use the visual editor but it doesn't support the short syntax for adding a label and requires you to add a `node` block and then apply a `label`
 3. Replace the `agent any` declaration with the following `agent` declaration:
 
->NOTE: Don't worry about formatting too much as the Blue Ocean editor will reformat evertying before it is committed to your repository
+>NOTE: Don't worry about formatting too much as the Blue Ocean editor will reformat your Jenkinsfile before it is committed to your repository
 
 ```
   agent {
@@ -134,9 +134,10 @@ For this exercise we are going to update our pipeline to demonstrate how to use 
 ```
 
 2. Then update the `echo 'Hello World!'` line to read `echo "Hello ${MY_NAME}!"`
-3. **Save & Run** your pipeline and check the Console Log.  
-
 >Notice the change from `''` to `""`.  Using double quotes will trigger extrapolation of environment variables.
+3. Click the **Update** button
+4. Click the **Save** button, enter a commit message into the **Save Pipeline** pop up and click **Save & Run**.  
+5. Click on your Pipeline to see the `steps` execute.
 
 ### Credentials
 
@@ -153,7 +154,9 @@ We can also use environmental variables to import credentials.
             echo "${TEST_USER_PSW}"
 ```
 
-**Note**: After executing the build look at the console output and make note of the fact that the credential user name and password are masked when output via the echo command.
+3. Click the **Update** button
+4. Click the **Save** button, enter a commit message into the **Save Pipeline** pop up and click **Save & Run**.  
+5. Click on your Pipeline to see the `steps` execute. Look at the console output and make note of the fact that the credential user name and password are masked when output via the echo command.
 
 ## Parameters
 
