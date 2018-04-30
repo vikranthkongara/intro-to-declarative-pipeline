@@ -23,8 +23,8 @@ Next, everyone will get their own Jenkins masters referred to as a Team Master a
 3. **Name this team** - enter a name for your team - perhaps your first initial with your last name (Team names must be unique) and then click **Next**;
 4. **Choose an icon for this team** - select an icon and color for your team and then click **Next**;
 5. **Add people to this team** - your user will show up as a **Team Admin** and we won't be adding any additional users, but feel free to look around and then click **Next**;
-6. **Select team master creation recipe** - click on the drop-down and but select the **Basic** recipe;
-7. Finally, click the **Create team** button. <p><img src="img/setup-create-team-with-basic.png" width=400/>
+6. **Select team master creation recipe** - click on the drop-down and select the **Workshop Recipe** recipe;
+7. Finally, click the **Create team** button. <p><img src="img/setup-create-team-recipe.png" width=450/>
 8. While your master is being  created, move onto the next section **Create a GitHub.com user account**
 
 ## Create a GitHub.com user account
@@ -52,17 +52,18 @@ Create a Github organization to use for this workshop:
 1. On Github navigate to **Organizations**: https://github.com/settings/organizations (after logging in) 
 2. Click on **New Organization** <p><img src="img/setup-github-new-org.png" width=550/>
 3. Fill in the **Organization Name**, **Billing Email**, and click on **Create Organization**<p><img src="img/setup-create-org.png" width=400/>
+4. On the **Invite organization members** - just click the **Finish** button.
 
 >NOTE: Even though you have to provide an email for billing, you will not be charged anything as long as you choose the free option.
 
 ## Create an empty GitHub repository for your first example Pipeline
 The following instructions cover how to create a Github repository under your personal account.
 
-1. Log into Github.com
-2. Click on the **+** dropdown at the top right of the screen to the left of your avatar and select **New repositroy** <p><img src="img/setup-github-new-repo.png" width=200/>
+1. If not already there, navigate to the GitHub Organization you created above.
+2. Click on the **Create a new repository** button <p><img src="img/setup-repo-create.png" width=400/>
 3. Enter a **Repository name** for your repository - such as **intro-pipeline**
 4. Check the **Initialize this repository with a README** checkbox
-5. Click the **Create repository** button <p><img src="img/setup-github-create-repo-completed-form.png" width=300/>
+5. Click the **Create repository** button <p><img src="img/setup-repo-name.png" width=500/>
 
 ## Finished Set-up
 You should see the following **Create a new Pipeline** screen for your Team:
