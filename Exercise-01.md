@@ -11,22 +11,22 @@ We will setup the [Blue Ocean Pipeline Editor](https://jenkins.io/doc/book/blueo
 3. Click on one of the options in the **Where do you store your code?** section (**GitHub** for this course) <p><img src="img/1-0-select-scm.png" width=300/>
 4. Enter your **GitHub token** (your GitHub Personal Access Token)
 5. Next, select your GitHub user account (NOTE: Be sure to select the GitHub Organization where you created the empty repository for this workshop. The repository should not have an existing Jenkinsfile.) <p><img src="img/1-0-select-github-org.png" width=300/>
-6. Under **Choose a repository** select the repository you created during setup and then click the **Create Pipeline** button <p><img src="img/1-0-choose-repo-create-pipeline.png" width=320/>
+6. Under **Choose a repository** select the repository you created during setup and then click the **Create Pipeline** button <p><img src="img/1-0-choose-repo-create-pipeline.png" width=420/>
 
 Next, the Blue Ocean editor will open - if the editor does not load after a minute or so, refresh your browser. 
 
 ## Basic Declarative Syntax Structure
 
-In this exercise we will create a simple declarative pipeline using the Blue Ocen Pipeline editor.
+In this exercise we will create a simple Declarative Pipeline using the Blue Ocen Pipeline editor.
 
 Declarative Pipelines must be enclosed within a `pipeline` block and must contain a top-level `agent` declaration, and then contains exactly one `stages` block. The `stages` block must have at least one `stage` block but can have an unlimited number of additional stages. Each `stage` block must have exactly one `steps` block. The Blue Ocean editor takes care of much of this for you but we will need to add a `stage` and `steps`.
 
 Using the Blue Ocean Pipeline editor we setup in the previous exercise, do the following:
 
 1. You should see the **You don't have any branches that contain a Jenkinsfile** dialog, click on the **Create Pipeline** button (NOTE: If you already had a `Jenkinsfile` in your repository then the editor should open straight-away) <p><img src="img/1-1-create-pipeline-no-jenkinsfile.png" width=300/>
-2. Click on the **+** icon next to the pipeline's **Start** node to add a `stage`
+2. Click on the **+** icon next to the pipeline's **Start** node to add a `stage` <p><img src="img/1-basic-syntax-add-stage.png" width=400/>
 3. Click into **Name your stage** and type in the text 'Say Hello'
-4. Click on the **+ Add step** button
+4. Click on the **+ Add step** button <p><img src="img/1-basic-syntax-add-step.png" width=400/>
 5. Click on the **Print Message** step and type in 'Hello World!' as the **Message**
 6. Click on the **<-** (arrow) next to the **'Say Hello / Print Message'** text to add another step <p><img src="img/1-1-print-message-then-add-step.png" width=300/>
 7. Click on the **+ Add step** button
