@@ -27,7 +27,7 @@ Using the Blue Ocean Pipeline editor we setup in the previous exercise, do the f
 2. Click on the **+** icon next to the pipeline's **Start** node to add a `stage` <p><img src="img/1-basic-syntax-add-stage.png" width=400/>
 3. Click into **Name your stage** and type in the text 'Say Hello'
 4. Click on the **+ Add step** button <p><img src="img/1-basic-syntax-add-step.png" width=400/>
-5. Click on the **Print Message** step and type in 'Hello World!' as the **Message**
+5. Click on the **Print Message** step and type in ***Hello World!*** as the **Message**
 6. Click on the **<-** (arrow) next to the **'Say Hello / Print Message'** text to add another step <p><img src="img/1-1-print-message-then-add-step.png" width=300/>
 7. Click on the **+ Add step** button
 8. Click on the **Shell Script** step and enter `java -version` into the text area
