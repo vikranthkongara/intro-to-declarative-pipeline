@@ -4,7 +4,7 @@
 
 In this exercise we are going to update our pipeline to demonstrate how **[Checkpoints](https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/#workflow-sect-checkpoint)** work and how end users can interact with Checkpoints once a job as been built. 
 
-1. Add the following stage after `stage('Testing')` and before `stage('Deploy)`:
+1. Add the following stage before `stage('Testing')`:
 
 ```
       stage('Checkpoint') {
@@ -16,22 +16,22 @@ In this exercise we are going to update our pipeline to demonstrate how **[Check
 ```
 
 2. **Save & Run** your pipeline.
-3. When the `input` step from the **Deploy** stage asks to **Deploy** or **Abort** - select **Abort**
+3. When the `input` step from the **Testing** stage asks to **Deploy** or **Abort** - select **Abort**
 4. The UI to interact with a `checkpoint` is not availbe in Blue Ocean so you will need to exit to the classic Jenkins UI for the next step.
 5. When the job has completed running you will see a **Resume** icon in the build's **Stage View**. Clicking on the **Resume** icon gives you the ability to:
   - * **Delete** - Delete the cached artifacts and configuration for that build;
   - * **Restart** - Restart the build from the checkpoint.
-6. Click **Restart** and your pipeline will run from your `checkpoint` forward - skipping over the **Say Hello** and **Testing** stages
-7. When the `input` step from the **Deploy** stage asks to **Deploy** or **Abort** - select **Deploy**
+6. Click **Restart** and your pipeline will run from your `checkpoint` forward - skipping over the **Say Hello** stage
+7. When the `input` step from the **Testing** stage asks to **Deploy** or **Abort** - select **Testing**
 
->**Note**: Deleting a checkpoint doesn't make the **Resume** icon vanish.
+>**NOTE**: Deleting a checkpoint doesn't make the **Resume** icon vanish.
 
 ## Cross Team Collaboration
-In this exercise we are going to set-up two Pipeline jobs that demonstrate CloudBee's Cross Team Collaboration feature. We will need two separate Pipelines - one that publishes an event - and two - another that is triggered by an event.
+In this exercise we are going to set-up two Pipeline jobs (using the Jenkins classic UI) that demonstrate CloudBee's Cross Team Collaboration feature. We will need two separate Pipelines - one that publishes an event - and another that is triggered by an event.
 
 ### Master Events
 
-For the first part of **Cross Team Collaboration** we will create an event that is only publishe on your master.
+For the first part of **Cross Team Collaboration** we will create an event that is only published on your master.
 
 #### Publish Event
 
@@ -43,14 +43,14 @@ pipeline {
     stages {
         stage('Publish Event') {
             steps {
-                publishEvent(generic('beeEvent'))
+                publishEvent simpleEvent('beeEvent')
             }
         }
     }
 }
 ```
 
-Replace `beeEvent` with your `{username}Event` so my event would be `kmadelEvent`.
+Replace `beeEvent` with your `{username}Event` so my event would be `beedemo-devEvent`.
 
 #### Event Trigger
 
@@ -60,7 +60,7 @@ Next, create a Pipeline job name `notify-trigger` and set a `trigger` to listen 
 pipeline {
     agent none
     triggers {
-        eventTrigger(event(generic('beeEvent')))
+        eventTrigger simpleMatch('beeEvent')
     }
     stages {
         stage('Event Trigger') {
@@ -77,7 +77,7 @@ pipeline {
 }
 ```
 
-After creating both of these Pipeline jobs you will need to run the **Event Trigger** job once so that the trigger is registered. Once that is complete, click on **Build Now** to run the **Publish Event** job. Once that job has completed, the **Event Trigger** job will be triggered after a few seconds. The logs will show that the job was triggered by an `Event Trigger` and the `when` expression will be true.
+After creating both of these Pipeline jobs you will need to run the **Event Trigger** job once so that the trigger is registered (similar to what was necessary for job parameters). Once that is complete, click on **Build Now** to run the **Publish Event** job. Once that job has completed, the **Event Trigger** job will be triggered after a few seconds. The logs will show that the job was triggered by an `Event Trigger` and the `when` expression will be true.
 
 ### Cross-Master Events
 

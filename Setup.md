@@ -57,7 +57,7 @@ Create a Github organization to use for this workshop:
 >NOTE: Even though you have to provide an email for billing, you will not be charged anything as long as you choose the free option.
 
 ## Create an empty GitHub repository for your first example Pipeline
-The following instructions cover how to create a Github repository under your personal account.
+The following instructions cover how to create a Github repository under the GitHub Organization you created above.
 
 1. If not already there, navigate to the GitHub Organization you created above.
 2. Click on the **Create a new repository** button <p><img src="img/setup-repo-create.png" width=400/>
