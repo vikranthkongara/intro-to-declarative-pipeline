@@ -136,8 +136,10 @@ For this exercise we are going to update our pipeline to demonstrate how to use 
 2. Then update the `echo 'Hello World!'` line to read `echo "Hello ${MY_NAME}!"`
 >Notice the change from `''` to `""`.  Using double quotes will trigger extrapolation of environment variables.
 3. Click the **Update** button
-4. Click the **Save** button, enter a commit message into the **Save Pipeline** pop up and click **Save & Run**.  
+4. Click the **Save** button, enter a commit message into the **Save Pipeline** pop up and click **Save & Run**.
 5. Click on your Pipeline to see the `steps` execute.
+
+>NOTE: The Blue Ocean Editor will move global `environment` blocks after stages. The location does not matter as long as it is outside the `stages` block.
 
 ### Credentials
 
@@ -147,7 +149,8 @@ We can also use environmental variables to import credentials.
 
 ```TEST_USER = credentials('test-user')```
 
-2. Add the following ```echo``` steps within the ```steps``` of the Say Hello ```stage```:
+>NOTE: For Credentials which are of type "Standard username and password", the environment variable specified will be set to username:password and two additional environment variables will automatically be defined: `MYVARNAME_USR` and `MYVARNAME_PSW` respectively.
+2. Add the following ```echo``` steps within the ```steps``` of the **Say Hello** ```stage```:
 
 ```
             echo "${TEST_USER_USR}"
@@ -156,13 +159,13 @@ We can also use environmental variables to import credentials.
 
 3. Click the **Update** button
 4. Click the **Save** button, enter a commit message into the **Save Pipeline** pop up and click **Save & Run**.  
-5. Click on your Pipeline to see the `steps` execute. Look at the console output and make note of the fact that the credential user name and password are masked when output via the echo command.
+5. Click on your Pipeline to see the `steps` execute. Look at the console output and make note of the fact that the credential user name and password are masked when output via the `echo` command.
 
 ## Parameters
 
-In this exercise we will alter our pipeline to accept external input in the form of a Parameter.
+In this exercise we will update our pipeline to accept external input in the form of a Jenkins parameter.
 
-1. At the top of your pipeline insert the following block of code between the ```environment``` and ```stages``` blocks:
+1. Update your pipeline by inserting the following  after the ```environment``` block:
 
 ```
    parameters {
@@ -172,9 +175,11 @@ In this exercise we will alter our pipeline to accept external input in the form
 ```
 
 2. Update the ```echo "Hello ${MY_NAME}!'``` line to read ```echo "Hello ${params.Name}!"```
-3. **Save & Run** your pipline and view the results.
-
-**Note**: Jenkins UI won't update properly when you save the pipeline to show the ```Build with parameters``` option so you need to run a build, view the results, and then return to the project to see the updated option.
+3. Click the **Save** button, enter a commit message into the **Save Pipeline** pop up and click **Save & Run**. 
+>NOTE: The option to ***Build with parameters*** will not be available until you run your job at least once as parameters are Jenkins job properties that must be set in Jenkins. Using `parameters` in your Jenkinsfile updates the Jenking job configuration after the first run. 
+4. Run the pipeline again by returning to the Blue Ocean activity view and then clicking on the **Branches** tab top right and then click the run button.<p><img src="img/1-param-run.png" width=520/>
+5. After clicking the run button an **Input required** dialog will appear with the **Name** paramter. Replace **whoever you are** with your name and click the **Run** button.<p><img src="img/1-param-input-required.png" width=480/>
+6. Now your top **Print Message** step should reflect your parameter value similar to this for a value of ***Beedemo Dev***: <p><img src="img/1-param-echo.png" width=480/>
 
 ## Next Exercises
 You may proceed onto **[Declarative Advanced Syntax](./Exercise-02.md)** once your instructor tells you to.
