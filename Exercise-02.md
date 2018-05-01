@@ -46,7 +46,7 @@ In this example we will update the **Deploy** stage with an input that returns d
 
 >NOTE: There are a number of Pipeline steps and/or parameters for steps that are not supported by the Blue Ocean Editor. The `ok` parameter of the `input` step is one such parameter. So for this exercise we will use the GitHub file editor.
 
-1. Open your `Jenkinsfile` in the GitHub repository you created in the workshop setup.<p><img src="img/2-input-parameters-github-edit.png" width=550/>
+1. Open your `Jenkinsfile` in the GitHub repository you created in the workshop setup and click on the **pencil** icon to open the editor.<p><img src="img/2-input-parameters-github-edit.png" width=550/>
 2. Replace the **Deploy** stage with the following in the GitHub editor
 
 ```
