@@ -2,16 +2,11 @@
 
 ## Interactive Input
 
-For this exercise we are going to add a new stage after the **Say Hello** stage that will demonstrate how to ask interactively for user input. 
+For this exercise we are going to add a new stage after the **Say Hello** stage that will demonstrate how to pause the job and prompt for interactive input. 
 
-**Important Note** The following code demonstrates a new set of features added to Declarative Pipeline in Version 1.2.6:
+>NOTE: The declarative `input` directive blocks the `stage` from executing and acquiring an agent - this is an important enhancement as previously a more complicated work-around was required to not tie up an agent with an input step. If the `input` is approved, the stage will then continue.
 
-  - Add `options` {} for `stage` - supports block-scoped "wrappers" like timeout and Declarative options like skipDefaultCheckout
-  - Add `input` {} directive for `stage` - runs the `input` step with the supplied configuration before entering the `when` or `agent` for a `stage`, and makes any parameters provided as part of the `input` step available as environment variables.
-
-The declarative `input` directive blocks the `stage` from executing and acquiring an agent - this is an important enhancement as previously a more complicated work-around was required to not tie up an agent with an input step. If the `input` is approved, the stage will then continue.
-
-1. Add the following `stage` block into your pipeline after `stage('Say Hello') {}` block:
+1. Add the following `stage` block to your pipeline after `stage('Say Hello') {}` block:
 
 ```
     stage('Deploy') {
