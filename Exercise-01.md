@@ -163,7 +163,7 @@ We can also use environmental variables to import credentials.
 
 ## Parameters
 
-In this exercise we will update our pipeline to accept external input in the form of a Jenkins parameter.
+In this exercise we will update our pipeline to accept external input in the form of a Jenkins job parameter.
 
 1. Update your pipeline by inserting the following  after the ```environment``` block:
 
