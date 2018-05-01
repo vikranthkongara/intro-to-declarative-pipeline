@@ -179,7 +179,7 @@ In this exercise we will update our pipeline to accept external input in the for
 >NOTE: The option to ***Build with parameters*** will not be available until you run your job at least once as parameters are Jenkins job properties that must be set in Jenkins. Using `parameters` in your Jenkinsfile updates the Jenking job configuration after the first run. 
 4. Run the pipeline again by returning to the Blue Ocean activity view and then clicking on the **Branches** tab top right and then click the run button.<p><img src="img/1-param-run.png" width=520/>
 5. After clicking the run button an **Input required** dialog will appear with the **Name** paramter. Replace **whoever you are** with your name and click the **Run** button.<p><img src="img/1-param-input-required.png" width=480/>
-6. Now your top **Print Message** step should reflect your parameter value similar to this for a value of ***Beedemo Dev***: <p><img src="img/1-param-echo.png" width=480/>
+6. Now your top **Print Message** step should reflect your parameter value similar to this for a value of ***Beedemo Dev***: <p><img src="img/1-param-echo.png" width=550/>
 
 ## Next Exercises
 You may proceed onto **[Declarative Advanced Syntax](./Exercise-02.md)** once your instructor tells you to.
