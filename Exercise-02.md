@@ -169,7 +169,7 @@ Before you proceed you may want to check that your Pipeline looks like the follo
 ```
 pipeline {
   agent {
-    label 'default'
+    label 'jdk8'
   }
   stages {
     stage('Say Hello') {

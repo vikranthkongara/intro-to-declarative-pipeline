@@ -90,7 +90,9 @@ In addition to `any` and `label` you may also specify `none` and no global agent
 6. Now change the value of the `label` to **default**
 
 ```
-   agent default
+   agent {
+     label 'jdk8'
+   }
 ```
 
 7. Click the **Save** button, enter a commit message into the **Save Pipeline** pop up and click **Save & Run**. 
@@ -107,7 +109,7 @@ Your Pipeline should look like the following before you move onto the next exerc
 
 ```
 pipeline {
-   agent { label 'default' }
+   agent { label 'jdk8' }
    stages {
       stage('Say Hello') {
          steps {
@@ -189,7 +191,7 @@ Before you proceed you may want to check that your Pipeline looks like the follo
 ```
 pipeline {
   agent {
-    label 'default'
+    label 'jdk8'
   }
   stages {
     stage('Say Hello') {
