@@ -19,9 +19,10 @@ For this exercise we are going to add a new stage after the **Say Hello** stage 
     }
 ```
 
-2. **Save & Run** your pipeline and note the input prompt during the ```Deploy``` stage.  This input prompt is also available in the Console log and classic Stage View.
+2. **Save & Run** your pipeline and note the input prompt during the ```Deploy``` stage.  This input prompt is also available in the Console log and classic Stage View.<p><img src="img/2-input-basic.png" width=550/>
 
-**Note**: To keep Jenkins from waiting indefinitely for a user response you should set a `timeout` for the `stage` as shown below:
+>NOTE: Jenkins will wait indefinitely for a user response. Let's fix that by setting a timeout.
+3. Set a `timeout` for the `stage` using `stage` `options` by replacing your **Deploy** `stage` with the following:
 
 ```
     stage('Deploy') {
@@ -37,11 +38,16 @@ For this exercise we are going to add a new stage after the **Say Hello** stage 
     }
 ```
 
+4. **Save & Run** your pipeline and wait at least 30 seconds. Your pipeline should be automatically aborted.<p><img src="img/2-input-timeout.png" width=550/>
+
 ## Input Parameters
 
 In this example we will update the **Deploy** stage with an input that returns data to the pipeline for use later in a subsequent step or stage.  This form of input is useful when needing to query users for additional data before continuing pipeline processing.
 
-1. Replace the **Deploy** stage with the following and **Save & Run** your pipeline:
+>NOTE: There are a number of Pipeline steps and/or parameters for steps that are not supported by the Blue Ocean Editor. The `ok` parameter of the `input` step is one such parameter. So for this exercise we will use the GitHub file editor.
+
+1. Open your `Jenkinsfile` in the GitHub repository you created in the workshop setup.<p><img src="img/2-input-parameters-github-edit.png" width=550/>
+2. Replace the **Deploy** stage with the following in the GitHub editor
 
 ```
     stage('Deploy') {
@@ -57,6 +63,13 @@ In this example we will update the **Deploy** stage with an input that returns d
       }
     }
 ```
+
+3. At the bottom of the GitHub editor page, enter a commit message and click the **Commit changes** button to commit your changes to the **master** branch.<p><img src="img/2-input-params-commit.png" width=550/>
+4. Run your pipeline from the **Branches** view of the Blue Ocean Activity View for your pipeline.
+>NOTE: Committing changes to GitHub will not automatically trigger your job unless a webhook has been configured. 
+5. Select an option from the **Wait for interactive input** dialog and click the **Deploy** (no longer **Proceed**) button.<p><img src="img/2-input-param-select-option.png" width=550/>
+>NOTE: If you take longer than 30 seconds to select an option then your pipeline will timeout and be aborted.
+6. View the output of the **Print Message** step for the **Deploy** stage.
 
 ## Post Actions
 
